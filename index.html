@@ -40,7 +40,8 @@
 
     /* — Nav Dropdown — */
     .nav-dropdown { position:relative; }
-    .nav-dropdown-menu { display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:220px;padding:8px 0;margin-top:10px;background:rgba(10,9,8,0.95);backdrop-filter:blur(12px);border:1px solid rgba(243,238,231,0.1);border-radius:8px;list-style:none;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,0.4); }
+    .nav-dropdown-menu { display:none;position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);min-width:220px;padding:8px 0;background:rgba(10,9,8,0.95);backdrop-filter:blur(12px);border:1px solid rgba(243,238,231,0.1);border-radius:8px;list-style:none;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,0.4); }
+    .nav-dropdown-menu::before { content:'';position:absolute;top:-10px;left:0;right:0;height:10px; }
     .nav-dropdown:hover .nav-dropdown-menu { display:block; }
     .nav-dropdown-menu li a { display:block;padding:8px 16px;font-family:var(--font-sans);font-size:11px;font-weight:var(--weight-medium);letter-spacing:0.06em;text-transform:uppercase;color:var(--muted-text);white-space:nowrap;transition:color 150ms,background 150ms; }
     .nav-dropdown-menu li a:hover { color:var(--24sa-off-white);background:rgba(243,238,231,0.06); }
@@ -337,9 +338,9 @@
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <div class="container">
       <div class="nav-logos">
-        <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:52px;">
+        <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:72px;margin-top:-6px;">
+        <img src="logos/futureman-logo.png" alt="Futureman" style="height:32px;">
         <img src="logos/sage.webp" alt="The Sage Group" style="height:38px;">
-        <img src="logos/simplicity-logo.webp" alt="Futureman" style="height:32px;">
       </div>
       <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <ul class="nav-links">
@@ -368,7 +369,7 @@
       <canvas id="hero-grid-canvas" style="position:absolute;top:0;left:0;z-index:0;width:100%;height:100%;max-width:none;"></canvas>
       <div style="position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at center,transparent 0%,rgba(0,0,0,0.3) 55%,rgba(0,0,0,0.75) 100%);pointer-events:none;"></div>
       <div class="hero-content reveal" style="position:relative;z-index:3;">
-        <p class="hero-eyebrow">Amazon Web Services &middot; Proposal &middot; February 2026</p>
+        <p class="hero-eyebrow">AWS &middot; Proposal &middot; 2026 &middot; Confidential</p>
         <h1 class="hero-title">Welcome to an<br>Invite-Only AWS<br><em>Security Experience</em></h1>
         <p class="hero-subtitle">A Security Ops Simulation with Networking and World-Class Keynotes, for Security Execs.<br>Produced by 24 Seven Agencies</p>
         <a href="#overview" class="hero-cta">View Proposal &#8595;</a>
@@ -471,7 +472,7 @@
         </table>
         <p class="reveal" style="margin-top:var(--space-6);">The tone is intentionally restrained. The experience is serious, focused, and credible. Participation is required, but no individual is singled out or put on stage.</p>
         <div style="width:100%;height:400px;margin-top:var(--space-8);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
-          <img src="images/Audience and Format.png" alt="Audience and Format" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          <img src="images/Audience and Format.png" alt="Audience and Format" style="width:100%;height:100%;object-fit:cover;object-position:center top;" loading="lazy">
         </div>
       </div>
     </section>
@@ -1003,19 +1004,15 @@
           </div>
         </div>
 
-        <div class="client-logos reveal" style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:var(--space-8);margin:var(--space-6) 0;">
-          <img src="images/clients/Amazon_logo.svg.png" alt="Amazon" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
-          <img src="images/clients/google-logo-transparent.png" alt="Google" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
-          <img src="images/clients/spotify-1-logo-png-transparent.png" alt="Spotify" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
-          <img src="images/clients/ADP-logo.png" alt="ADP" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
-          <img src="images/clients/Salesforce.com_logo.svg.png" alt="Salesforce" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
+        <div class="client-logos reveal" style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:var(--space-10);margin:var(--space-6) 0;">
+          <img src="images/clients/Amazon_logo.svg.png" alt="Amazon" style="height:26px;width:auto;filter:brightness(0);opacity:0.7;">
+          <img src="images/clients/google-logo-transparent.png" alt="Google" style="height:22px;width:auto;filter:brightness(0);opacity:0.7;">
+          <img src="images/clients/spotify-1-logo-png-transparent.png" alt="Spotify" style="height:30px;width:auto;filter:brightness(0);opacity:0.7;">
+          <img src="images/clients/ADP-logo.png" alt="ADP" style="height:24px;width:auto;filter:brightness(0);opacity:0.7;">
+          <img src="images/clients/Salesforce.com_logo.svg.png" alt="Salesforce" style="height:32px;width:auto;filter:brightness(0);opacity:0.7;">
           <img src="images/clients/Microsoft_logo_(2012).svg.png" alt="Microsoft" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
         </div>
 
-        <div class="hero-partners reveal" style="text-align:center;margin-top:var(--space-8);">
-          <div class="partner-line">The Sage Group &middot; SketchDeck &middot; Futureman</div>
-          <div class="parent-line">A 24 Seven Company</div>
-        </div>
       </div>
     </section>
 
@@ -1025,9 +1022,14 @@
   <footer class="site-footer">
     <div class="container" style="max-width:var(--proposal-max);padding:0 24px;">
       <div class="footer-logos" style="display:flex;align-items:center;gap:var(--space-4);">
-        <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:40px;width:auto;opacity:0.85;">
-        <img src="logos/sage.webp" alt="The Sage Group" style="height:40px;width:auto;opacity:0.85;">
-        <img src="logos/simplicity-logo.webp" alt="Futureman" style="height:40px;width:auto;opacity:0.85;">
+        <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:72px;width:auto;opacity:0.85;filter:grayscale(1) brightness(0);margin-top:-6px;">
+        <img src="logos/futureman-logo.png" alt="Futureman" style="height:32px;width:auto;opacity:0.85;filter:grayscale(1) brightness(0);">
+        <img src="logos/sage.webp" alt="The Sage Group" style="height:38px;width:auto;opacity:0.85;filter:grayscale(1) brightness(0);">
+      </div>
+      <div style="margin-top:var(--space-4);font-family:var(--font-sans);font-size:var(--text-sm);color:var(--muted);line-height:1.8;">
+        <div style="font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-2);">Contacts</div>
+        <div>Eric Craig, VP Client Management, The Sage Group, <a href="mailto:ecraig@thesagegroup.com" style="color:inherit;text-decoration:underline;">ecraig@thesagegroup.com</a></div>
+        <div>Elliot Miller, Sr Director of Amazon Partnerships, 24 Seven Agencies, <a href="mailto:elliot.miller@sketchdeck.com" style="color:inherit;text-decoration:underline;">elliot.miller@sketchdeck.com</a></div>
       </div>
       <span>&copy; 2026 24 Seven Agencies. All rights reserved.</span>
       <span>Prepared for Amazon Web Services &middot; February 2026</span>
@@ -1253,6 +1255,7 @@
       const allData = REGIONS.map(r => { const c = calc(r); const t = total(c); return { ...r, costs: c, total: t }; });
       allData.sort((a,b) => a.total.low - b.total.low);
       const maxHigh = Math.max(...allData.map(d => d.total.high));
+      const maxLow = Math.max(...allData.map(d => d.total.low));
 
       const contextCache = {};
       let selectedId = 'lv-general';
@@ -1326,7 +1329,7 @@
               <div class="chart-row" data-id="${r.id}">
                 <span class="chart-label">${r.label}</span>
                 <div class="chart-bar-wrap">
-                  <div class="chart-bar" style="width:${(r.total.high/maxHigh*100).toFixed(1)}%;background:${r.color};"></div>
+                  <div class="chart-bar" style="width:${(r.total.low/maxLow*100).toFixed(1)}%;background:${r.color};"></div>
                 </div>
                 <span class="chart-value">${fmt(r.total.low)}</span>
               </div>
