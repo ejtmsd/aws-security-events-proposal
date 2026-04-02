@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS Security Experience — Proposal by 24 Seven Agencies</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Rethink+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="24sa-brand.css">
+
+  <style>
+    /* ═══ AWS SECURITY PROPOSAL — Page overrides ═══ */
+    :root {
+      --proposal-max: 1080px;
+      --mono: 'DM Mono', monospace;
+      --accent: var(--24sa-black);
+      --border: rgba(0,0,0,0.1);
+      --muted: #6B665E;
+    }
+
+    /* — Nav — */
+    .site-nav { position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--warm-border); }
+    .site-nav .container { max-width:var(--container-xl);display:flex;align-items:center;justify-content:flex-start;gap:var(--space-8);padding:var(--space-4) var(--space-6); }
+    .site-nav .nav-links { margin-left:auto; }
+    .nav-links { display:flex;gap:var(--space-6);list-style:none; }
+    .nav-logos { display:flex;align-items:center;gap:var(--space-8); }
+    .nav-logos img { width:auto;filter:brightness(0) invert(1);object-fit:contain;opacity:0.85; }
+    .site-nav.nav-light .nav-logos img { filter:brightness(0);opacity:0.85; }
+    .nav-links a { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-medium);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--muted-text);transition:color var(--duration-fast) var(--ease-smooth); }
+    .nav-links a:hover,.nav-links a.active { color:var(--24sa-off-white); }
+    .nav-hamburger { display:none;background:none;border:none;color:var(--24sa-off-white);font-size:1.5rem;cursor:pointer; }
+    .site-nav.nav-light { background:rgba(243,238,231,0.92);border-bottom-color:var(--border); }
+    .site-nav.nav-light .nav-brand { color:var(--24sa-black); }
+    .site-nav.nav-light .nav-links a { color:var(--muted); }
+    .site-nav.nav-light .nav-links a:hover,.site-nav.nav-light .nav-links a.active { color:var(--24sa-black); }
+    .site-nav.nav-light .nav-hamburger { color:var(--24sa-black); }
+
+    /* — Nav Dropdown — */
+    .nav-dropdown { position:relative; }
+    .nav-dropdown-menu { display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:220px;padding:8px 0;margin-top:10px;background:rgba(10,9,8,0.95);backdrop-filter:blur(12px);border:1px solid rgba(243,238,231,0.1);border-radius:8px;list-style:none;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,0.4); }
+    .nav-dropdown:hover .nav-dropdown-menu { display:block; }
+    .nav-dropdown-menu li a { display:block;padding:8px 16px;font-family:var(--font-sans);font-size:11px;font-weight:var(--weight-medium);letter-spacing:0.06em;text-transform:uppercase;color:var(--muted-text);white-space:nowrap;transition:color 150ms,background 150ms; }
+    .nav-dropdown-menu li a:hover { color:var(--24sa-off-white);background:rgba(243,238,231,0.06); }
+    .site-nav.nav-light .nav-dropdown-menu { background:rgba(243,238,231,0.96);border-color:rgba(0,0,0,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.1); }
+    .site-nav.nav-light .nav-dropdown-menu li a { color:var(--muted); }
+    .site-nav.nav-light .nav-dropdown-menu li a:hover { color:var(--24sa-black);background:rgba(0,0,0,0.04); }
+
+    /* — Layout — */
+    .proposal-container { max-width:var(--proposal-max);margin:0 auto;padding:0 24px; }
+    .proposal-section { padding:72px 0; }
+    .section-divider { border:none;border-top:1px solid var(--border);margin:0; }
+
+    /* — Light body (everything after hero) — */
+    .bg-light, .bg-light {
+      background: var(--24sa-off-white);
+      color: var(--24sa-black);
+    }
+
+    /* — Eyebrow — */
+    .section-eyebrow { font-family:var(--mono);font-size:13px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--space-6); }
+
+    /* — Section Heading — */
+    .section-heading { font-family:var(--font-serif);font-weight:400;font-size:var(--text-5xl);line-height:var(--leading-tight);letter-spacing:var(--tracking-tight);margin-bottom:var(--space-6); }
+
+    /* — Sub-heading — */
+    .sub-heading { font-family:var(--font-sans);font-size:var(--text-base);font-weight:var(--weight-semibold);margin-top:var(--space-8);margin-bottom:var(--space-3); }
+
+    /* — Body text in light sections — */
+    .bg-light p, .bg-light p { color:var(--24sa-black);max-width:65ch; }
+
+    /* — Muted note — */
+    .muted-note { font-size:12px;color:var(--muted);font-style:italic;margin-top:var(--space-4); }
+
+    /* — Image Placeholder (light) — */
+    .img-placeholder { background:#e5e0d8;border:1.5px dashed #c9c3b8;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);overflow:hidden; }
+    .img-placeholder span { font-family:var(--mono);font-size:12px;color:#8a857d; }
+    .img-placeholder img { width:100%;height:100%;object-fit:cover; }
+
+    /* ═══ HERO (dark, stays special) ═══ */
+    .hero-section { min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:var(--space-20) 24px;background:var(--24sa-black); }
+    .hero-bg { position:absolute;inset:0;z-index:0; }
+    .hero-bg .img-placeholder { width:100%;height:100%;border:none;border-radius:0;background:#0d1128; }
+    .hero-bg .img-placeholder span { color:#3a4a7a; }
+    .hero-gradient { position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(0,0,0,0.92) 0%,rgba(10,9,8,0.8) 50%,rgba(26,24,22,0.7) 100%); }
+    .hero-content { position:relative;z-index:2;max-width:800px; }
+    .hero-eyebrow { font-family:var(--mono);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted-text);margin-bottom:var(--space-8); }
+    .hero-title { font-family:var(--font-serif);font-weight:400;font-size:clamp(2.75rem,2rem + 4vw,4.5rem);line-height:1.05;letter-spacing:var(--tracking-tight);color:var(--24sa-off-white);margin-bottom:var(--space-8); }
+    .hero-subtitle { font-family:var(--font-sans);font-weight:300;font-size:clamp(1rem,0.9rem + 0.5vw,1.35rem);line-height:1.6;color:var(--muted-text);max-width:580px;margin:0 auto var(--space-10); }
+    .hero-cta { display:inline-flex;align-items:center;gap:var(--space-2);font-family:var(--font-sans);font-size:var(--text-sm);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--24sa-black);background:var(--24sa-off-white);border:1.5px solid var(--24sa-off-white);border-radius:var(--radius-pill);padding:var(--space-3) var(--space-8);cursor:pointer;transition:all var(--duration-normal) var(--ease-smooth);text-decoration:none;margin-bottom:var(--space-12); }
+    .hero-cta:hover { background:transparent;color:var(--24sa-off-white); }
+    .hero-partners { font-family:var(--mono);font-size:12px;color:var(--muted-text);letter-spacing:0.06em; }
+    .hero-partners .partner-line { margin-bottom:4px; }
+    .hero-partners .parent-line { opacity:0.6;font-size:12px; }
+
+    /* ═══ DOCUMENT STYLES — clean, typographic ═══ */
+
+    /* Two-col */
+    .two-col { display:grid;grid-template-columns:200px 1fr;gap:var(--space-8); }
+
+    /* Lists */
+    .arrow-list { list-style:none;display:flex;flex-direction:column;gap:var(--space-2); }
+    .arrow-list li { display:flex;gap:var(--space-3);align-items:baseline;line-height:var(--leading-relaxed); }
+    .arrow-list li::before { content:"\2192";color:var(--muted);flex-shrink:0; }
+    .numbered-list { list-style:none;counter-reset:item;display:flex;flex-direction:column;gap:var(--space-4); }
+    .numbered-list li { counter-increment:item;display:flex;gap:var(--space-3);line-height:var(--leading-relaxed); }
+    .numbered-list li::before { content:counter(item) ".";font-family:var(--mono);font-size:var(--text-sm);color:var(--muted);flex-shrink:0;min-width:1.5em; }
+    .function-list { list-style:none;display:flex;flex-direction:column;gap:var(--space-2);margin:var(--space-4) 0; }
+    .function-list li { color:var(--24sa-black);line-height:var(--leading-relaxed); }
+    .function-list li::before { content:"\2013  ";color:var(--muted); }
+
+    /* Pull quote — one of the "nice moments" */
+    .pull-quote { border-left:2px solid var(--24sa-black);padding-left:var(--space-6);margin:var(--space-8) 0; }
+    .pull-quote blockquote { font-family:var(--font-serif);font-style:italic;font-size:var(--text-xl);line-height:var(--leading-snug);color:var(--24sa-black);margin-bottom:var(--space-3); }
+    .pull-quote cite { font-family:var(--font-sans);font-size:var(--text-sm);color:var(--muted);font-style:normal; }
+
+    /* Comparison — side by side, no cards, just columns */
+    .comparison-panels { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);margin:var(--space-8) 0; }
+    .comp-panel { padding:0; border:none; border-radius:0; background:none; }
+    .comp-panel--muted { opacity:0.55; }
+    .comp-panel--accent { opacity:1; }
+    .comp-panel h4 { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-medium);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--muted);margin-bottom:var(--space-3);padding-bottom:var(--space-2);border-bottom:1px solid var(--border); }
+    .comp-panel--accent h4 { color:var(--24sa-black); }
+    .comp-panel ul { list-style:none;display:flex;flex-direction:column;gap:var(--space-2); }
+    .comp-panel ul li { color:var(--24sa-black);line-height:var(--leading-relaxed); }
+    .comp-panel ul li::before { content:"\00B7  ";color:var(--muted); }
+
+    /* Stat facts — just a simple inline list, no cards */
+    .stat-cards { display:flex;gap:var(--space-6);margin:var(--space-6) 0;flex-wrap:wrap; }
+    .stat-card { background:none;border:none;border-radius:0;padding:0;font-size:var(--text-sm);color:var(--muted);line-height:var(--leading-relaxed);flex:1;min-width:180px;padding-left:var(--space-4);border-left:1px solid var(--border); }
+
+    /* Closing line */
+    .closing-line { font-family:var(--font-serif);font-size:var(--text-xl);margin-top:var(--space-6);line-height:var(--leading-snug);font-style:italic; }
+
+    /* Principle cards — no cards, numbered list style */
+    .principle-cards { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8);margin:var(--space-6) 0; }
+    .principle-card { background:none;border:none;border-radius:0;padding:0; }
+    .principle-card .num { font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:var(--space-2); }
+    .principle-card h4 { font-family:var(--font-serif);font-size:var(--text-lg);font-weight:400;margin-bottom:var(--space-2);line-height:var(--leading-snug); }
+    .principle-card p { color:var(--muted);font-size:var(--text-sm);line-height:var(--leading-relaxed); }
+
+    /* Spec table */
+    .spec-table { width:100%;border-collapse:collapse; }
+    .spec-table tr { border-bottom:1px solid var(--border); }
+    .spec-table td { padding:var(--space-3) 0;vertical-align:top; }
+    .spec-table td:first-child { font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0.06em;white-space:nowrap;padding-right:var(--space-8);width:180px; }
+
+    /* Layer badge — just mono text, no pill */
+    .layer-badge { display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--muted);margin-bottom:var(--space-2);border:none;padding:0; }
+
+    /* Layer intro cards — keep as a layout moment but lighter */
+    .layer-cards { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);margin:var(--space-6) 0;padding-top:var(--space-6);border-top:1px solid var(--border); }
+    .layer-card { background:none;border:none;border-radius:0;padding:0;transition:none; }
+    .layer-card:hover { border-color:transparent; }
+    .layer-card .layer-num { font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0.1em;margin-bottom:var(--space-2); }
+    .layer-card h4 { font-family:var(--font-serif);font-size:var(--text-xl);font-weight:400;margin-bottom:var(--space-2); }
+    .layer-card p { font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-3); }
+    .layer-card .layer-link { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-medium);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--24sa-black); }
+
+    /* Tag list */
+    .tag-list { display:flex;flex-wrap:wrap;gap:var(--space-3);margin:var(--space-4) 0; }
+    .tag-list span { font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:var(--muted); }
+    .tag-list span::after { content:" \00B7";margin-left:var(--space-3); }
+    .tag-list span:last-child::after { content:none; }
+
+    /* Steps / timeline */
+    .steps { display:flex;flex-direction:column;gap:0;position:relative;padding-left:var(--space-8); }
+    .steps::before { content:'';position:absolute;left:3px;top:10px;bottom:10px;width:1px;background:var(--border); }
+    .step { position:relative;padding:var(--space-5) 0;border-bottom:1px solid var(--border); }
+    .step:last-child { border-bottom:none; }
+    .step::before { content:'';position:absolute;left:calc(-1 * var(--space-8) + 0px);top:calc(var(--space-5) + 5px);width:7px;height:7px;border-radius:50%;background:var(--24sa-black); }
+    .step-label { font-family:var(--mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--space-1); }
+    .step p { color:var(--24sa-black); }
+
+    /* Scenario grid — simple list, no cards */
+    .scenario-grid { display:flex;flex-direction:column;gap:var(--space-2);margin:var(--space-4) 0; }
+    .scenario-item { display:flex;align-items:center;gap:var(--space-3);font-size:var(--text-sm);padding:0;background:none;border:none;border-radius:0;color:var(--24sa-black);line-height:var(--leading-relaxed); }
+    .scenario-item .hex { color:var(--muted);font-size:0.8rem;flex-shrink:0; }
+
+    /* How-it-works 3col */
+    .how-it-works { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8);margin:var(--space-6) 0; }
+    .how-it-works h4 { font-family:var(--font-serif);font-size:var(--text-lg);font-weight:400;margin-bottom:var(--space-2); }
+    .how-it-works p { font-size:var(--text-sm);color:var(--muted);line-height:var(--leading-relaxed); }
+
+    /* Lead management columns */
+    .lead-cols { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);margin-top:var(--space-6); }
+    .lead-col h4 { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-semibold);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--24sa-black);margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--border); }
+    .lead-col h5 { font-family:var(--font-sans);font-size:var(--text-sm);font-weight:var(--weight-medium);color:var(--24sa-black);margin-top:var(--space-5);margin-bottom:var(--space-2); }
+    .lead-col ul { list-style:none;display:flex;flex-direction:column;gap:var(--space-1); }
+    .lead-col ul li { font-size:var(--text-sm);color:var(--muted);line-height:var(--leading-relaxed);padding-left:var(--space-4);position:relative; }
+    .lead-col ul li::before { content:"\00B7";position:absolute;left:0;color:var(--muted); }
+
+    /* Production accordion */
+    .production-category { border-bottom:1px solid var(--border); }
+    .production-category:first-child { border-top:1px solid var(--border); }
+    .prod-header { display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4) 0;cursor:pointer;user-select:none; }
+    .prod-header .prod-num { font-family:var(--mono);font-size:12px;color:var(--muted);min-width:2em; }
+    .prod-header h4 { font-family:var(--font-sans);font-size:var(--text-base);font-weight:var(--weight-medium);flex:1;color:var(--24sa-black); }
+    .prod-header .prod-toggle { font-size:1.1rem;color:var(--muted);transition:transform var(--duration-fast) var(--ease-smooth); }
+    .production-category.open .prod-toggle { transform:rotate(45deg); }
+    .prod-body { max-height:0;overflow:hidden;transition:max-height var(--duration-normal) var(--ease-smooth); }
+    .production-category.open .prod-body { max-height:800px; }
+    .prod-body ul { list-style:none;padding:0 0 var(--space-5) var(--space-10);display:flex;flex-direction:column;gap:var(--space-1); }
+    .prod-body ul li { font-size:var(--text-sm);color:var(--muted);line-height:var(--leading-relaxed);position:relative;padding-left:var(--space-4); }
+    .prod-body ul li::before { content:"\00B7";position:absolute;left:0;color:var(--muted); }
+
+    /* Success indicators — simple list */
+    .success-cards { display:flex;flex-direction:column;gap:var(--space-2);margin:var(--space-4) 0; }
+    .success-card { background:none;border:none;border-radius:0;padding:var(--space-2) 0 var(--space-2) var(--space-4);font-size:var(--text-base);color:var(--24sa-black);line-height:var(--leading-relaxed);border-left:1px solid var(--border); }
+
+    /* Callout panel — keep as a layout moment */
+    .callout-panel { background:none;border:none;border-radius:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:var(--space-8) 0;margin:var(--space-8) 0; }
+    .callout-panel h3 { font-size:var(--text-2xl);margin-bottom:var(--space-4);color:var(--24sa-black); }
+    .callout-panel p { color:var(--muted);max-width:65ch; }
+
+    /* Budget table */
+    .budget-table { width:100%;border-collapse:collapse;margin:var(--space-6) 0; }
+    .budget-table th { font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--border); }
+    .budget-table th:not(:first-child) { text-align:right; }
+    .budget-table td { padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--text-sm);vertical-align:top;color:var(--24sa-black); }
+    .budget-table td:not(:first-child) { text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap; }
+    .budget-table .sub-row td { padding-left:var(--space-8);color:var(--muted);font-size:12px;border-bottom-color:rgba(0,0,0,0.04); }
+    .budget-table .total-row td { font-weight:var(--weight-semibold);border-top:2px solid var(--24sa-black);padding-top:var(--space-4); }
+    .budget-table .note-row td { color:var(--muted);font-style:italic;font-size:12px;border-bottom:none; }
+
+    /* Data table */
+    .data-table { width:100%;border-collapse:collapse;margin:var(--space-4) 0; }
+    .data-table td { padding:var(--space-2) 0;border-bottom:1px solid var(--border);font-size:var(--text-sm); }
+    .data-table td:first-child { color:var(--muted);padding-right:var(--space-8); }
+    .data-table td:last-child { font-family:var(--mono);font-size:13px;text-align:right; }
+
+    /* Big stat — just large centered text, no card */
+    .big-stat { background:none;border:none;border-radius:0;padding:var(--space-6) 0;text-align:center;margin:var(--space-6) 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border); }
+    .big-stat .number { font-family:var(--mono);font-size:var(--text-3xl);color:var(--24sa-black);margin-bottom:var(--space-2); }
+    .big-stat .label { font-size:var(--text-sm);color:var(--muted); }
+
+    /* Venue ref table */
+    .venue-ref-table { width:100%;border-collapse:collapse;margin:var(--space-6) 0;overflow-x:auto;display:block; }
+    .venue-ref-table th,.venue-ref-table td { padding:var(--space-3) var(--space-4);font-size:var(--text-sm);text-align:right;border-bottom:1px solid var(--border); }
+    .venue-ref-table th { font-family:var(--mono);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted); }
+    .venue-ref-table td:first-child,.venue-ref-table th:first-child { text-align:left; }
+    .venue-ref-table .total-row td { font-weight:var(--weight-semibold);border-top:2px solid var(--24sa-black); }
+
+    /* Regional estimator */
+    #venue-estimator { margin-top:var(--space-6); }
+    .estimator-heading { font-family:var(--font-serif);font-size:var(--text-2xl);font-weight:400;margin-bottom:var(--space-2); }
+    .estimator-sub { font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-6); }
+    .region-pills { margin-bottom:var(--space-6); }
+    .region-group-label { font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--space-2);margin-top:var(--space-4); }
+    .region-group-label:first-child { margin-top:0; }
+    .region-group { display:flex;flex-wrap:wrap;gap:var(--space-2); }
+    .region-pill { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-medium);padding:var(--space-1) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-pill);background:transparent;color:var(--muted);cursor:pointer;transition:all var(--duration-fast) var(--ease-smooth); }
+    .region-pill:hover { color:var(--24sa-black);border-color:rgba(0,0,0,0.25); }
+    .region-pill.active { background:var(--24sa-black);color:var(--24sa-off-white);border-color:var(--24sa-black); }
+    .region-detail { background:none;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-6);margin-bottom:var(--space-6); }
+    .region-detail-header { display:flex;align-items:baseline;gap:var(--space-3);margin-bottom:var(--space-2); }
+    .region-detail-header h4 { font-family:var(--font-serif);font-size:var(--text-xl);font-weight:400; }
+    .region-detail-header .sublabel { font-size:var(--text-sm);color:var(--muted); }
+    .region-total { font-family:var(--mono);font-size:var(--text-2xl);margin:var(--space-3) 0 var(--space-5); }
+    .region-breakdown { width:100%;border-collapse:collapse;margin-bottom:var(--space-4); }
+    .region-breakdown td { padding:var(--space-2) 0;font-size:var(--text-sm);border-bottom:1px solid var(--border);color:var(--24sa-black); }
+    .region-breakdown td:first-child { color:var(--muted);width:120px; }
+    .region-breakdown td:nth-child(2) { width:40%;padding:var(--space-2) var(--space-4); }
+    .region-breakdown td:last-child { font-family:var(--mono);font-size:13px;text-align:right; }
+    .region-breakdown .total-row td { font-weight:var(--weight-semibold);border-top:2px solid var(--24sa-black); }
+    .bar-cell { position:relative;height:4px;background:rgba(0,0,0,0.06);border-radius:2px;overflow:hidden; }
+    .bar-fill { position:absolute;left:0;top:0;height:100%;border-radius:2px;transition:width var(--duration-normal) var(--ease-out); }
+    .delta-badge { display:inline-block;font-family:var(--mono);font-size:12px;padding:var(--space-1) var(--space-3);border-radius:var(--radius-pill);margin-bottom:var(--space-4); }
+    .delta-badge.cheaper { background:rgba(16,185,129,0.1);color:#059669; }
+    .delta-badge.similar { background:rgba(180,160,100,0.12);color:#92780a; }
+    .delta-badge.pricier { background:rgba(200,50,50,0.08);color:#c53030; }
+    .market-context-btn { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-medium);padding:var(--space-2) var(--space-5);border:1px solid var(--border);border-radius:var(--radius-pill);background:transparent;color:var(--muted);cursor:pointer;transition:all var(--duration-fast) var(--ease-smooth); }
+    .market-context-btn:hover { color:var(--24sa-black);border-color:rgba(0,0,0,0.25); }
+    .market-context-btn:disabled { opacity:0.5;cursor:default; }
+    .market-context-text { font-size:var(--text-sm);color:var(--muted);line-height:var(--leading-relaxed);margin-top:var(--space-3); }
+    .all-regions-chart { margin-top:var(--space-6); }
+    .all-regions-chart h4 { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-medium);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--muted);margin-bottom:var(--space-4); }
+    .chart-row { display:grid;grid-template-columns:160px 1fr 80px;align-items:center;gap:var(--space-4);padding:var(--space-1) 0;cursor:pointer;transition:opacity var(--duration-fast) var(--ease-smooth); }
+    .chart-row:hover { opacity:0.7; }
+    .chart-row .chart-label { font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+    .chart-row .chart-bar-wrap { height:6px;background:rgba(0,0,0,0.06);border-radius:3px;overflow:hidden; }
+    .chart-row .chart-bar { height:100%;border-radius:3px;transition:width var(--duration-normal) var(--ease-out); }
+    .chart-row .chart-value { font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right; }
+
+    /* Case study */
+    .case-gallery { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin:var(--space-6) 0; }
+    .case-gallery .img-placeholder { height:220px; }
+    .client-badge { display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--muted);margin-bottom:var(--space-4); }
+    .relevance-callout { border-top:1px solid var(--border);padding-top:var(--space-6);margin-top:var(--space-8);font-size:var(--text-sm);color:var(--muted);line-height:var(--leading-relaxed);font-style:italic; }
+
+    /* About stats */
+    .about-stats { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);margin:var(--space-6) 0;text-align:center;padding:var(--space-6) 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border); }
+    .about-stat .num { font-family:var(--mono);font-size:var(--text-2xl);color:var(--24sa-black);margin-bottom:var(--space-1); }
+    .about-stat .desc { font-size:var(--text-sm);color:var(--muted);line-height:var(--leading-relaxed); }
+    .client-logos { font-family:var(--mono);font-size:12px;letter-spacing:0.08em;color:var(--muted);text-align:center;margin:var(--space-6) 0; }
+    .bg-light .hero-partners,.bg-light .hero-partners { color:var(--muted); }
+
+    /* White pricing section */
+    .bg-white { background:#ffffff;color:var(--24sa-black); }
+    .bg-white p { color:var(--24sa-black); }
+
+    /* Yellow footer */
+    .site-footer { background:var(--futureman-yellow);border-top:none;padding:var(--space-12) 0; }
+    .site-footer .container { max-width:var(--proposal-max);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-4);padding:0 24px; }
+    .site-footer span { font-size:12px;color:var(--24sa-black); }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 768px) {
+      .proposal-section { padding:48px 0; }
+      .two-col { grid-template-columns:1fr; }
+      .comparison-panels { grid-template-columns:1fr; }
+      .principle-cards { grid-template-columns:1fr; }
+      .layer-cards { grid-template-columns:1fr; }
+      .how-it-works { grid-template-columns:1fr; }
+      .lead-cols { grid-template-columns:1fr; }
+      .case-gallery { grid-template-columns:1fr; }
+      .about-stats { grid-template-columns:1fr;text-align:left; }
+      .nav-links { display:none; }
+      .nav-links.open { display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(0,0,0,0.95);padding:var(--space-6);gap:var(--space-4); }
+      .site-nav.nav-light .nav-links.open { background:rgba(243,238,231,0.97); }
+      .nav-hamburger { display:block; }
+      .chart-row { grid-template-columns:100px 1fr 70px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { animation-duration:0.01ms !important;transition-duration:0.01ms !important; }
+      .reveal { opacity:1;transform:none; }
+      .reveal-stagger > * { opacity:1;transform:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-logos">
+        <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:52px;">
+        <img src="logos/sage.webp" alt="The Sage Group" style="height:38px;">
+        <img src="logos/simplicity-logo.webp" alt="Futureman" style="height:32px;">
+      </div>
+      <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li class="nav-dropdown">
+          <a href="#command-center" class="nav-dropdown-toggle">Layers <span style="font-size:8px;margin-left:2px;">&#9660;</span></a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="#command-center">01 &mdash; Command Center</a></li>
+            <li><a href="#security-clearance">02 &mdash; Security Clearance</a></li>
+            <li><a href="#field-training">03 &mdash; Field Training</a></li>
+          </ul>
+        </li>
+        <li><a href="#production">Production</a></li>
+        <li><a href="#budget">Budget</a></li>
+        <li><a href="#case-study">Case Study</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ═══ SECTION 1: HERO ═══ -->
+    <section id="hero" class="hero-section bg-dark" style="background:transparent;">
+      <canvas id="hero-grid-canvas" style="position:absolute;top:0;left:0;z-index:0;width:100%;height:100%;max-width:none;"></canvas>
+      <div style="position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at center,transparent 0%,rgba(0,0,0,0.3) 55%,rgba(0,0,0,0.75) 100%);pointer-events:none;"></div>
+      <div class="hero-content reveal" style="position:relative;z-index:3;">
+        <p class="hero-eyebrow">Amazon Web Services &middot; Proposal &middot; February 2026</p>
+        <h1 class="hero-title">Welcome to an<br>Invite-Only AWS<br><em>Security Experience</em></h1>
+        <p class="hero-subtitle">A Security Ops Simulation with Networking and World-Class Keynotes, for Security Execs.<br>Produced by 24 Seven Agencies</p>
+        <a href="#overview" class="hero-cta">View Proposal &#8595;</a>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 2: DOCUMENT OVERVIEW ═══ -->
+    <section id="overview" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Document Overview</h2>
+        <p class="reveal">The AWS Security team is evaluating agency partners to help with turnkey event production. As part of this process, you've asked us how we might have produced the recent Gen-AI Security Symposium that took place in New York.</p>
+
+        <h3 class="sub-heading reveal">Event Objectives</h3>
+        <ol class="numbered-list reveal">
+          <li>Deliver a differentiated boutique-style event for Data, IT, and Cybersecurity executives that positions AWS, alongside curated Partners, as the thought leader in Generative AI Security and Governance.</li>
+          <li>Ability to reproduce the event in other locations.</li>
+          <li>Produce a remarkable experience that leads to executives talking about AWS with their teams, and elevates their affinity to AWS Security Solutions.</li>
+        </ol>
+
+        <h3 class="sub-heading reveal">In This Proposal</h3>
+        <ul class="arrow-list reveal">
+          <li>Full experience walkthrough and attendee touchpoints</li>
+          <li>Event production logistics</li>
+          <li>Budget summary</li>
+          <li>Case study</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 3: EXECUTIVE SUMMARY ═══ -->
+    <section id="executive-summary" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <div style="width:100%;height:400px;margin-bottom:var(--space-8);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
+          <img src="images/Executive Summary.png" alt="Executive Summary — Event Photography" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        </div>
+        <h2 class="section-heading reveal">Executive Summary</h2>
+        <p class="reveal">This proposal reimagines the AWS Security Symposium as an immersive, invite-only security ops experience that combines a VR activity, audience participation moments leveraging our "command center" concept, conventional keynote sessions, and networking.</p>
+
+        <div class="pull-quote reveal">
+          <blockquote>"People forget up to 70% of new information within 48 hours when learning is passive."</blockquote>
+          <cite>— Ebbinghaus Forgetting Curve, reinforced by modern learning science</cite>
+        </div>
+
+        <p class="reveal">The experience we propose replaces passive consumption with applied participation. Executives practice judgment under pressure using realistic scenarios, shared constraints, and AWS-native services. The result is stronger recall, shared mental models, and greater remarkability for AWS Security events.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 4: STRATEGIC RATIONALE ═══ -->
+    <section id="strategic-rationale" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Strategic Rationale</h2>
+        <p class="reveal">Senior security leaders lack safe environments to test their judgment with their peers across other organizations.</p>
+
+        <p class="reveal">Most executive events optimize for awareness, thought leadership, and brand exposure. Our experience optimizes for decision-making under uncertainty, prioritization when tradeoffs are unavoidable, and coordination across incomplete information.</p>
+
+        <p class="reveal">The format mirrors real-world security incidents: no one has full visibility, time pressure forces imperfect choices, and outcomes depend on collaboration.</p>
+
+        <p class="closing-line reveal">Executives leave with <em>muscle memory.</em> And with a good story to tell.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 5: WHY THIS APPROACH WORKS ═══ -->
+    <section id="why-it-works" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Why This Approach Works</h2>
+        <p class="reveal" style="margin-bottom:var(--space-4);">Traditional symposium formats rely on listening, note-taking, and post-event recall. These methods are poorly suited to complex, high-stakes domains like AI security. This experience applies three evidence-backed principles:</p>
+
+        <div class="principle-cards reveal-stagger">
+          <div class="principle-card">
+            <div class="num">01</div>
+            <h4>Active Recall Beats Passive Exposure</h4>
+            <p>Making decisions — even imperfect ones — dramatically improves retention versus listening alone.</p>
+          </div>
+          <div class="principle-card">
+            <div class="num">02</div>
+            <h4>Emotional Stakes Anchor Memory</h4>
+            <p>Time pressure, team dependency, and visible outcomes create recall anchors that slides do not.</p>
+          </div>
+          <div class="principle-card">
+            <div class="num">03</div>
+            <h4>Social Accountability Reinforces Learning</h4>
+            <p>Group progression and shared success or failure increase focus and commitment.</p>
+          </div>
+        </div>
+
+        <p class="closing-line reveal">The sum of these principles makes for a <em>more remarkable experience.</em></p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 6: AUDIENCE & FORMAT ═══ -->
+    <section id="audience" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Audience &amp; Format</h2>
+        <table class="spec-table reveal">
+          <tr><td>Audience Size</td><td>20–30 senior executives</td></tr>
+          <tr><td>Target Roles</td><td>CIO, CISO, Chief Data Officer, Chief AI Officer, senior IT and security leaders</td></tr>
+          <tr><td>Format</td><td>Invite-only, closed-door, no press, no recording</td></tr>
+          <tr><td>Duration</td><td>One full day</td></tr>
+          <tr><td>Optional</td><td>Evening reception or private dinner</td></tr>
+        </table>
+        <p class="reveal" style="margin-top:var(--space-6);">The tone is intentionally restrained. The experience is serious, focused, and credible. Participation is required, but no individual is singled out or put on stage.</p>
+        <div style="width:100%;height:400px;margin-top:var(--space-8);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
+          <img src="images/Audience and Format.png" alt="Audience and Format" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 7: EXPERIENCE ARCHITECTURE ═══ -->
+    <section id="experience" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Experience Architecture</h2>
+        <p class="reveal" style="margin-bottom:var(--space-4);">Core symposium elements remain intact — keynote speakers, expert presentations, technical deep dives, partner perspectives, and executive networking. On top of this foundation, we introduce a 3-layer experience system that fundamentally changes how attendees engage with AI security concepts.</p>
+
+        <div class="layer-cards reveal-stagger">
+          <a href="#command-center" class="layer-card" style="text-decoration:none;">
+            <div class="layer-num">Layer 01</div>
+            <h4>Command Center</h4>
+            <p>A private, invite-only web platform. The operational backbone of the event.</p>
+            <span class="layer-link">View details &rarr;</span>
+          </a>
+          <a href="#security-clearance" class="layer-card" style="text-decoration:none;">
+            <div class="layer-num">Layer 02</div>
+            <h4>Security Clearance</h4>
+            <p>DEFCON-style NFC badges. Clearance levels unlock as the room participates.</p>
+            <span class="layer-link">View details &rarr;</span>
+          </a>
+          <a href="#field-training" class="layer-card" style="text-decoration:none;">
+            <div class="layer-num">Layer 03</div>
+            <h4>Field Training</h4>
+            <p>Immersive VR security games tied directly to keynote content.</p>
+            <span class="layer-link">View details &rarr;</span>
+          </a>
+        </div>
+
+        <p class="reveal" style="color:var(--muted-text);margin-top:var(--space-6);">Each layer is triggered directly by agenda content and speaker sessions. No layer exists in isolation.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 8: LAYER 01 — COMMAND CENTER ═══ -->
+    <section id="command-center" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <div style="width:100%;height:440px;margin-bottom:var(--space-10);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
+          <img src="images/Command Center.png" alt="Command Center" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        </div>
+        <span class="layer-badge reveal">Layer 01</span>
+        <h2 class="section-heading reveal">Command Center</h2>
+        <p class="sub-heading reveal" style="margin-top:0;">Private Interactive Platform</p>
+
+        <p class="reveal">The Command Center is a private, invite-only web platform that acts as the operational backbone of the event. All attendees are onboarded before the symposium. Access is restricted to registered participants and approved AWS stakeholders.</p>
+
+        <p class="reveal" style="margin-top:var(--space-4);margin-bottom:var(--space-2);color:var(--muted-text);font-size:var(--text-sm);">The platform functions as:</p>
+        <ul class="function-list reveal">
+          <li>A secure group chat for moderated discussion</li>
+          <li>A live polling and voting system during sessions</li>
+          <li>A mechanism for pushing prompts tied to speaker content</li>
+          <li>A real-time visualization layer for aggregate responses shown in the room</li>
+        </ul>
+
+        <p class="reveal" style="margin-top:var(--space-6);">Speakers use the platform to activate the audience during their sessions. Prompts are designed to force prioritization and judgment calls — not trivia or opinion polling. Moderators surface patterns, disagreements, and edge cases from responses and feed them back into the discussion.</p>
+        <p class="reveal">This creates a continuous feedback loop between content and audience, and demonstrates secure, AI-mediated communication in practice.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 9: LAYER 02 — SECURITY CLEARANCE ═══ -->
+    <section id="security-clearance" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <span class="layer-badge reveal">Layer 02</span>
+        <h2 class="section-heading reveal">Security Clearance</h2>
+
+        <p class="reveal">Each attendee receives a DEFCON-style badge at check-in. The badge is locked by default. It represents the attendee's security clearance level throughout the symposium.</p>
+
+        <div class="tag-list reveal">
+          <span>Physical Buttons</span>
+          <span>NFC</span>
+          <span>LEDs</span>
+          <span>Sensors</span>
+          <span>Haptic Feedback</span>
+        </div>
+
+        <p class="reveal">Progression is driven by engagement. When the room reaches predefined thresholds — a percentage of attendees voting in a poll or completing a discussion prompt — clearance levels unlock for everyone.</p>
+        <p class="reveal">Badges notify individual attendees when new challenges or Field Training modules become available. This directs flow without relying on stage announcements or manual coordination.</p>
+        <p class="reveal">The badge serves as a physical representation of security by design. It turns abstract security principles into a tangible artifact that evolves throughout the event.</p>
+
+        <div style="width:100%;height:400px;margin-top:var(--space-6);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
+          <img src="images/Security Clearance.png" alt="Security Clearance Badge" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 10: LAYER 03 — FIELD TRAINING ═══ -->
+    <section id="field-training" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <div style="width:100%;height:440px;margin-bottom:var(--space-10);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
+          <img src="images/Field Training.png" alt="Field Training — VR" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        </div>
+        <span class="layer-badge reveal">Layer 03</span>
+        <h2 class="section-heading reveal">Field Training</h2>
+        <p class="sub-heading reveal" style="margin-top:0;">Interactive VR Security Game</p>
+
+        <p class="reveal">Field Training is the most immersive component of the symposium. We evolve the VR game Keep Talking and Nobody Explodes into an AI security-themed experience customized for AWS. Teams of four to five rotate through during the day, or participate in a full group breakout.</p>
+
+        <div class="how-it-works reveal-stagger" style="margin-top:var(--space-8);">
+          <div>
+            <h4>The Challenge</h4>
+            <p>One team member wears a VR headset and faces a virtual device composed of AI security modules that must be defused under time pressure. That participant cannot solve the challenge alone.</p>
+          </div>
+          <div>
+            <h4>The Collaboration</h4>
+            <p>Other team members hold physical instruction manuals customized with AWS services, security concepts, and decision logic. They cannot see what the VR participant sees. Success depends entirely on communication, prioritization, and trust under pressure.</p>
+          </div>
+          <div>
+            <h4>The Outcome</h4>
+            <p>When a team completes or fails a scenario, results feed back to the Command Center leaderboard — sparking discussion around which strategies worked, which failed, and why.</p>
+          </div>
+        </div>
+
+        <div class="scenario-grid reveal" style="margin-top:var(--space-6);">
+          <div class="scenario-item"><span class="hex">&#x2B21;</span> AI model vulnerabilities and failure modes</div>
+          <div class="scenario-item"><span class="hex">&#x2B21;</span> Cloud infrastructure breach containment</div>
+          <div class="scenario-item"><span class="hex">&#x2B21;</span> Identity and access management threats</div>
+          <div class="scenario-item"><span class="hex">&#x2B21;</span> Data exfiltration prevention</div>
+          <div class="scenario-item"><span class="hex">&#x2B21;</span> Adversarial attack mitigation</div>
+        </div>
+
+        <div style="width:100%;height:440px;margin-top:var(--space-8);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
+          <img src="images/How it Works.png" alt="How it Works" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 11: THE LAYERS IN ACTION ═══ -->
+    <section id="layers-in-action" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">The Layers in Action</h2>
+
+        <div class="steps reveal">
+          <div class="step">
+            <div class="step-label">Step 1 — Keynote Trigger</div>
+            <p>A speaker introduces the concept of "AI model poisoning" during a keynote.</p>
+          </div>
+          <div class="step">
+            <div class="step-label">Step 2 — Command Center Activates</div>
+            <p>The platform immediately pushes a live poll: "Which AWS service would you deploy first to detect this threat?" Attendees vote and discuss in the secure chat.</p>
+          </div>
+          <div class="step">
+            <div class="step-label">Step 3 — Security Clearance Unlocks</div>
+            <p>Collective participation reaches the threshold. Badge LEDs shift from red to yellow across the room, signaling a clearance level upgrade.</p>
+          </div>
+          <div class="step">
+            <div class="step-label">Step 4 — Field Training Triggered</div>
+            <p>Individual badges vibrate: "You have unlocked VR Module 3: Model Integrity Breach."</p>
+          </div>
+          <div class="step">
+            <div class="step-label">Step 5 — Debrief Feeds Back</div>
+            <p>Teams complete or fail the scenario. Results push to the Command Center leaderboard. Discussion resumes — grounded in live data from the room.</p>
+          </div>
+        </div>
+
+        <p class="closing-line reveal" style="margin-top:var(--space-8);">The result is keynote content that is immediately <em>tested, applied, gamified, and socially reinforced</em> — through three complementary channels working in concert.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 12: SPEAKER SESSIONS ═══ -->
+    <section id="speaker-sessions" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Speaker Sessions</h2>
+        <p class="reveal" >The venue will be set up for speaker sessions alongside the VR activity. Speaker sessions serve as a critical draw for invited executives and strategic partners — invitees will look for top-tier names and logos on the event invite. All speaker content is designed to integrate directly with the three experience layers.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 13: LEAD MANAGEMENT ═══ -->
+    <section id="lead-management" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Lead Management &amp; Executive Journey</h2>
+        <p class="reveal" >We manage the executive journey from invitation through post-event handoff — ensuring disciplined communication, accurate attendance tracking, and structured transfer to AWS sales stakeholders.</p>
+
+        <div class="lead-cols reveal">
+          <div class="lead-col">
+            <h4>Base Services</h4>
+
+            <h5>Invitation &amp; Registration</h5>
+            <ul>
+              <li>Secure, agency-managed registration landing page</li>
+              <li>Automated RSVP confirmation with calendar invite (.ics)</li>
+              <li>Automated reminder cadence (7-day and 24-hour)</li>
+              <li>Real-time RSVP tracking dashboard</li>
+              <li>Data capture aligned to AWS-required fields</li>
+              <li>Secure data storage and deletion policy</li>
+            </ul>
+
+            <h5>AWS Stakeholder Coordination</h5>
+            <ul>
+              <li>Kickoff alignment email to AWS sales stakeholders</li>
+              <li>Final confirmed attendee list shared 72 hours prior</li>
+            </ul>
+
+            <h5>Onsite Attendance Capture</h5>
+            <ul>
+              <li>Digital check-in with attendance tracking</li>
+              <li>Reconciliation of RSVP vs actual attendance</li>
+            </ul>
+
+            <h5>Post-Event Communication</h5>
+            <ul>
+              <li>Thank-you email within 24 hours</li>
+              <li>Secure CSV handoff for Salesforce upload</li>
+            </ul>
+          </div>
+
+          <div class="lead-col">
+            <h4>Optional: Upgraded Lead Management</h4>
+
+            <h5>Targeted Executive Sourcing</h5>
+            <ul>
+              <li>Curated target account list (1,000–1,200 executive contacts)</li>
+              <li>Contact enrichment and quality control</li>
+              <li>Coordination with AWS sales for priority account alignment</li>
+              <li>Speaker and partner co-invite amplification</li>
+            </ul>
+
+            <h5>Multi-Touch Outreach Cadence</h5>
+            <ul>
+              <li>Initial invite + two additional reminder emails</li>
+              <li>48-hour logistics confirmation</li>
+              <li>Segmented messaging for priority accounts</li>
+              <li>LinkedIn InMail for high-value contacts (up to 100)</li>
+            </ul>
+
+            <h5>Post-Event Meeting Conversion Enablement</h5>
+            <ul>
+              <li>Attendee preview list to AWS sellers (48 hours prior)</li>
+              <li>"Sorry we missed you" no-show outreach</li>
+              <li>Two-touch follow-up for unbooked attendees</li>
+              <li>7-day post-event conversion summary</li>
+            </ul>
+
+            <h5>Data Governance</h5>
+            <ul>
+              <li>Role-based access controls</li>
+              <li>Secure CSV delivery in AWS-approved format</li>
+              <li>Data deletion policy on request</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 14: TURNKEY PRODUCTION ═══ -->
+    <section id="production" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Turnkey Event Production Deliverables</h2>
+
+        <div class="reveal" id="production-list">
+          <div class="production-category open">
+            <div class="prod-header"><span class="prod-num">01</span><h4>Experience &amp; Content Strategy</h4><span class="prod-toggle">+</span></div>
+            <div class="prod-body"><ul>
+              <li>Event narrative and thematic framing aligned to AWS Security priorities</li>
+              <li>Agenda architecture and session sequencing</li>
+              <li>Integration of speaker content with experiential systems</li>
+              <li>Scenario design tied to real AWS security use cases</li>
+              <li>Run-of-show development mapped to system triggers</li>
+              <li>Speaker briefing documents</li>
+              <li>Moderator runbooks and facilitation guides</li>
+              <li>Presentation template for AWS speakers</li>
+              <li>Event landing page designed and copywritten</li>
+            </ul></div>
+          </div>
+          <div class="production-category open">
+            <div class="prod-header"><span class="prod-num">02</span><h4>Experience Systems</h4><span class="prod-toggle">+</span></div>
+            <div class="prod-body"><ul>
+              <li>Command Center live chat and polling platform</li>
+              <li>Security Clearance badge system (30 units)</li>
+              <li>Field Training VR simulation modules</li>
+              <li>System configuration and pre-event testing</li>
+              <li>On-site technical setup and support</li>
+              <li>Post-event system debrief and insights capture</li>
+            </ul></div>
+          </div>
+          <div class="production-category open">
+            <div class="prod-header"><span class="prod-num">03</span><h4>Base Lead Management Services</h4><span class="prod-toggle">+</span></div>
+            <div class="prod-body"><ul>
+              <li>Secure RSVP registration environment setup</li>
+              <li>Invitation drafting and email copy</li>
+              <li>Initial invite deployment + one reminder</li>
+              <li>RSVP tracking and approval workflow</li>
+              <li>Automated calendar invite upon confirmation</li>
+              <li>Kickoff alignment email to AWS sales stakeholders</li>
+              <li>Final attendee list 72 hours prior</li>
+              <li>Digital onsite check-in and reconciliation</li>
+              <li>Thank-you email within 24 hours</li>
+              <li>Secure attendee data export for Salesforce</li>
+            </ul></div>
+          </div>
+          <div class="production-category open">
+            <div class="prod-header"><span class="prod-num">04</span><h4>Optional: Upgraded Lead Management Services</h4><span class="prod-toggle">+</span></div>
+            <div class="prod-body"><ul>
+              <li>Two additional reminder emails</li>
+              <li>48-hour pre-event logistics confirmation</li>
+              <li>Attendee preview list 48 hours prior</li>
+              <li>Seller outreach prompt email</li>
+              <li>Pre-event stakeholder briefing summary</li>
+              <li>"Sorry we missed you" to no-shows</li>
+              <li>Meeting conversion tracking (7-day readout)</li>
+              <li>High-touch meeting scheduling assistance</li>
+            </ul></div>
+          </div>
+          <div class="production-category open">
+            <div class="prod-header"><span class="prod-num">05</span><h4>Production &amp; Operations</h4><span class="prod-toggle">+</span></div>
+            <div class="prod-body"><ul>
+              <li>Venue sourcing and negotiation</li>
+              <li>Space planning and layout design</li>
+              <li>AV coordination and technical production management</li>
+              <li>Dedicated Wi-Fi coordination</li>
+              <li>Catering and hospitality planning</li>
+              <li>Vendor management (AV, fabrication, print)</li>
+              <li>Budget tracking and cost reconciliation</li>
+              <li>Night-before load-in planning</li>
+              <li>On-site staffing: Executive producer, 3 event staff, 1 additional facilitator</li>
+            </ul></div>
+          </div>
+          <div class="production-category open">
+            <div class="prod-header"><span class="prod-num">06</span><h4>Data Governance &amp; Reporting</h4><span class="prod-toggle">+</span></div>
+            <div class="prod-body"><ul>
+              <li>Role-based access controls</li>
+              <li>Secure attendee list transfer</li>
+              <li>Data deletion policy execution if needed</li>
+              <li>No AWS internal systems access if required</li>
+              <li>Internal AWS post-event readout: Attendance metrics, Participation patterns, Qualitative executive insights</li>
+            </ul></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 15: OUTCOMES & REPEATABILITY ═══ -->
+    <section id="outcomes" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Outcomes &amp; Repeatability</h2>
+
+        <div class="success-cards reveal-stagger">
+          <div class="success-card">Executive recall and post-event feedback</div>
+          <div class="success-card">Depth and consistency of participation throughout the day</div>
+          <div class="success-card">Post-event engagement with AWS Security resources</div>
+          <div class="success-card">Internal AWS assessment of format effectiveness</div>
+        </div>
+
+        <div class="callout-panel reveal">
+          <h3><em>Built to Scale</em></h3>
+          <p>This format is intentionally built as a reusable executive enablement system. Core experience components are designed once and redeployed with minimal modification — allowing future events to focus on logistics rather than reinvention.</p>
+          <p>The initial event carries the highest development investment. Subsequent deployments benefit from lower marginal cost, faster setup, and increased operational confidence.</p>
+          <p>Over time, this positions the AWS Security Symposium not as a one-off activation, but as a scalable tactic within AWS Security's engagement playbook.</p>
+        </div>
+
+        <h3 class="sub-heading reveal">Attendee Sourcing Assumptions</h3>
+        <table class="data-table reveal">
+          <tr><td>Registration target</td><td>90 event registrants</td></tr>
+          <tr><td>In-room target</td><td>30 attendees</td></tr>
+          <tr><td>Executive contact list size</td><td>1,000–1,200 targeted contacts</td></tr>
+          <tr><td>Expected registration rate</td><td>8–10% from curated outreach</td></tr>
+          <tr><td>Invite amplification</td><td>AWS partners co-leveraged</td></tr>
+        </table>
+
+        <div class="big-stat reveal">
+          <div class="number">40%</div>
+          <div class="label">follow-up meeting conversion within 30 days — &#8776; 12 post-event sales meetings from a 30-person audience</div>
+        </div>
+
+        <p class="muted-note reveal">Assumes AWS participation onsite, pre-aligned target account prioritization, and timely post-event outreach ownership by AWS sales teams.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 16: BUDGET ═══ -->
+    <section id="budget" class="proposal-section bg-white">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Services Budget Summary</h2>
+
+        <h3 class="sub-heading reveal">First Event</h3>
+        <table class="budget-table reveal">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Experience Systems</td>
+              <td>$40,000</td>
+            </tr>
+            <tr class="sub-row">
+              <td>Command Center platform</td>
+              <td>$12,000</td>
+            </tr>
+            <tr class="sub-row">
+              <td>Security Clearance badges (30 units)</td>
+              <td>$20,000</td>
+            </tr>
+            <tr class="sub-row">
+              <td>Field Training VR simulation + custom scenarios</td>
+              <td>$8,000</td>
+            </tr>
+            <tr>
+              <td>Content &amp; Production Services</td>
+              <td>$39,000</td>
+            </tr>
+            <tr>
+              <td>Optional: Executive Sourcing &amp; Upgraded Lead Management</td>
+              <td>$32,000</td>
+            </tr>
+            <tr class="total-row">
+              <td>All-In Total (with upgraded lead mgmt)</td>
+              <td>$111,000</td>
+            </tr>
+            <tr class="total-row">
+              <td>All-In Total (without upgraded lead mgmt)</td>
+              <td>$79,000</td>
+            </tr>
+            <tr class="note-row">
+              <td colspan="2">Excludes venue and F&amp;B costs.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-heading reveal" style="margin-top:var(--space-10);">Repeat Events</h3>
+        <table class="budget-table reveal">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Experience Systems</td>
+              <td>$10,000</td>
+            </tr>
+            <tr>
+              <td>Content &amp; Production Services</td>
+              <td>$39,000–$71,000</td>
+            </tr>
+            <tr>
+              <td>Optional: Executive Sourcing &amp; Upgraded Lead Management</td>
+              <td>$32,000</td>
+            </tr>
+            <tr class="total-row">
+              <td>Repeat events (range)</td>
+              <td>$49,000–$81,000</td>
+            </tr>
+            <tr class="note-row">
+              <td colspan="2">Excludes venue and F&amp;B costs.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="muted-note reveal">A conventional symposium without experience systems, with base lead management, is available for ~$40,000 excluding venue and food costs.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 17: VENUE & HOSPITALITY COSTS ═══ -->
+    <section id="venue-costs" class="proposal-section bg-white">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Estimated Venue &amp; Hospitality Costs</h2>
+
+        <div class="reveal">
+          <p>The following ranges reflect directional planning estimates for venue, food and beverage, and technical requirements for a 30-person executive symposium. Pricing varies meaningfully depending on timing and location — particularly during Black Hat week in Las Vegas, where venue demand, service minimums, and labor costs increase.</p>
+          <p>These estimates are based on current Las Vegas market benchmarks and comparable executive-level events. Final costs will be validated through a formal venue RFP process once date, footprint, and experience requirements are confirmed.</p>
+          <p>The goal of this model is to provide transparent planning guardrails while maintaining flexibility as venue selection is finalized.</p>
+        </div>
+
+        <!-- Interactive Regional Estimator -->
+        <div id="venue-estimator" class="reveal"></div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 18: CASE STUDY ═══ -->
+    <section id="case-study" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <div style="width:100%;height:420px;margin-bottom:var(--space-10);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
+          <img src="images/case study/largeexperienceimage.jpeg" alt="LifeWave Experience Center" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        </div>
+
+        <h2 class="section-heading reveal">Case Study</h2>
+        <h2 class="section-heading reveal">Transforming a Welcome Center into an Immersive Spaceship for <em>LifeWave</em></h2>
+        <span class="client-badge reveal">Futureman &middot; A 24 Seven Company</span>
+
+        <div class="reveal">
+          <p>Futureman, a 24 Seven Agency, partnered with LifeWave, a global health company, to design a flagship Experience Center for high-value customers. The objective was to replace one-way presentations with an immersive, self-directed environment that allowed visitors to control their depth of learning while reinforcing LifeWave's innovation narrative.</p>
+          <p>The experience unfolded as a structured, multi-room journey — combining shared moments such as a founder welcome delivered via a life-size, language-localized hologram and an immersive brand storytelling environment, with hands-on product exploration through interactive kiosks and a forward-looking roadmap space.</p>
+          <p>The program required close integration across physical design, digital platforms, content, and live operations — with an emphasis on reliability and clarity rather than spectacle alone.</p>
+        </div>
+
+        <div class="case-gallery reveal-stagger">
+          <div style="border-radius:var(--radius-md);overflow:hidden;height:220px;"><img src="images/case study/kioskphoto.jpeg" alt="LifeWave — Interactive Kiosks" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+          <div style="border-radius:var(--radius-md);overflow:hidden;height:220px;"><img src="images/case study/lifewaveeventspace.jpeg" alt="LifeWave — Immersive Environment" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+          <div style="border-radius:var(--radius-md);overflow:hidden;height:220px;"><img src="images/case study/experiencelarge2.jpeg" alt="LifeWave — Product Display" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+        </div>
+
+        <div class="relevance-callout reveal">
+          This experience was designed as a reusable system, with modular content and interaction models that scale across audiences, regions, and future deployments — the same architectural principle underlying our proposal for AWS Security.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 19: ABOUT ═══ -->
+    <section id="about" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">About 24 Seven Agencies</h2>
+        <h2 class="section-heading reveal"><em>One Partner.</em> Every Discipline.</h2>
+
+        <div style="width:100%;margin-top:var(--space-10);margin-bottom:var(--space-10);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
+          <img src="images/about 24 seven agencies.gif" alt="24 Seven Work Portfolio" style="width:100%;height:auto;display:block;" loading="lazy">
+        </div>
+
+        <div class="reveal">
+          <p>24 Seven Agencies is an integrated group of three specialized agencies — Futureman, SketchDeck, and Markacy — designed to support complex work that requires tight coordination across strategy, creative, technology, and execution.</p>
+          <p>We regularly operate as an extension of internal teams, owning programs end to end while reducing vendor sprawl and operational overhead. Our model combines senior-led strategy, on-demand creative and production capacity, and dedicated technical and operational teams — allowing us to scale up or down without sacrificing quality or control.</p>
+          <p>For AWS, this means a single accountable partner that can design the experience, build the systems, produce the assets, and run the event with the rigor and reliability expected in high-stakes environments.</p>
+        </div>
+
+        <div class="about-stats reveal-stagger">
+          <div class="about-stat">
+            <div class="num">200+</div>
+            <div class="desc">creatives<br>&amp; marketers</div>
+          </div>
+          <div class="about-stat">
+            <div class="num">In-house</div>
+            <div class="desc">dev &amp; AI<br>innovation</div>
+          </div>
+          <div class="about-stat">
+            <div class="num">Direct</div>
+            <div class="desc">access to talent<br>via 24 Seven</div>
+          </div>
+        </div>
+
+        <div class="client-logos reveal" style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:var(--space-8);margin:var(--space-6) 0;">
+          <img src="images/clients/Amazon_logo.svg.png" alt="Amazon" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
+          <img src="images/clients/google-logo-transparent.png" alt="Google" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
+          <img src="images/clients/spotify-1-logo-png-transparent.png" alt="Spotify" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
+          <img src="images/clients/ADP-logo.png" alt="ADP" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
+          <img src="images/clients/Salesforce.com_logo.svg.png" alt="Salesforce" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
+          <img src="images/clients/Microsoft_logo_(2012).svg.png" alt="Microsoft" style="height:28px;width:auto;filter:brightness(0);opacity:0.7;">
+        </div>
+
+        <div class="hero-partners reveal" style="text-align:center;margin-top:var(--space-8);">
+          <div class="partner-line">The Sage Group &middot; SketchDeck &middot; Futureman</div>
+          <div class="parent-line">A 24 Seven Company</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="container" style="max-width:var(--proposal-max);padding:0 24px;">
+      <div class="footer-logos" style="display:flex;align-items:center;gap:var(--space-4);">
+        <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:40px;width:auto;opacity:0.85;">
+        <img src="logos/sage.webp" alt="The Sage Group" style="height:40px;width:auto;opacity:0.85;">
+        <img src="logos/simplicity-logo.webp" alt="Futureman" style="height:40px;width:auto;opacity:0.85;">
+      </div>
+      <span>&copy; 2026 24 Seven Agencies. All rights reserved.</span>
+      <span>Prepared for Amazon Web Services &middot; February 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    // ═══ HERO 3D GRID CANVAS ═══
+    (function() {
+      var canvas = document.getElementById('hero-grid-canvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var w = 0, h = 0;
+      var mouseX = 0.5, mouseY = 0.5, targetMX = 0.5, targetMY = 0.5;
+      var time = 0;
+
+      function resize() {
+        var hero = document.getElementById('hero');
+        var rect = hero.getBoundingClientRect();
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = rect.width;
+        h = rect.height;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      document.getElementById('hero').addEventListener('mousemove', function(e) {
+        var rect = e.currentTarget.getBoundingClientRect();
+        targetMX = (e.clientX - rect.left) / rect.width;
+        targetMY = (e.clientY - rect.top) / rect.height;
+      });
+
+      function draw() {
+        time += 0.004;
+        mouseX += (targetMX - mouseX) * 0.04;
+        mouseY += (targetMY - mouseY) * 0.04;
+
+        ctx.clearRect(0, 0, w, h);
+        // Dark background
+        ctx.fillStyle = '#060612';
+        ctx.fillRect(0, 0, w, h);
+
+        var cx = w * 0.5 + (mouseX - 0.5) * 80;
+        var cy = h * 0.42 + (mouseY - 0.5) * 50;
+        var horizon = cy;
+        var spread = w * 1.8;
+        var gridLines = 30;
+        var vertLines = 24;
+
+        // Horizontal lines receding into distance
+        for (var i = 0; i < gridLines; i++) {
+          var t = i / gridLines;
+          var curve = t * t * t;
+          var y = horizon + curve * (h - horizon + 300);
+          var pulse = Math.sin(time * 2.5 + t * 6) * 0.25 + 0.75;
+          var alpha = (0.15 + t * 0.35) * pulse;
+          ctx.strokeStyle = 'rgba(90,150,210,' + alpha + ')';
+          ctx.lineWidth = 0.6 + t * 1.2;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+        }
+
+        // Vertical lines converging to vanishing point
+        for (var i = -vertLines; i <= vertLines; i++) {
+          var baseX = cx + (i / vertLines) * spread;
+          var pulse = Math.sin(time * 1.8 + Math.abs(i) * 0.4) * 0.2 + 0.8;
+          var dist = Math.abs(i) / vertLines;
+          var alpha = (0.25 - dist * 0.15) * pulse;
+          if (alpha <= 0) continue;
+          ctx.strokeStyle = 'rgba(90,150,210,' + alpha + ')';
+          ctx.lineWidth = 0.6;
+          ctx.beginPath();
+          ctx.moveTo(cx, horizon);
+          ctx.lineTo(baseX, h + 80);
+          ctx.stroke();
+        }
+
+        // Data particles streaming toward viewer
+        for (var i = 0; i < 60; i++) {
+          var seed = i * 137.508;
+          var px = ((seed * 0.618 + time * 40 * (0.3 + (i % 5) * 0.15)) % (w + 40)) - 20;
+          var rawY = ((seed * 1.3 + time * 60 * (0.2 + (i % 3) * 0.12)) % (h * 0.7));
+          var py = horizon + rawY * rawY / (h * 0.7);
+          var depth = rawY / (h * 0.7);
+          var size = 1.5 + depth * 3;
+          var a = 0.2 + depth * 0.5;
+          ctx.fillStyle = 'rgba(120,180,240,' + a + ')';
+          ctx.fillRect(px, py, size, size * 0.4);
+        }
+
+        // Glow at vanishing point
+        var grd = ctx.createRadialGradient(cx, horizon, 0, cx, horizon, w * 0.4);
+        grd.addColorStop(0, 'rgba(90,150,210,0.15)');
+        grd.addColorStop(0.4, 'rgba(60,100,180,0.05)');
+        grd.addColorStop(1, 'transparent');
+        ctx.fillStyle = grd;
+        ctx.fillRect(0, 0, w, h);
+
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+    })();
+
+    // ═══ NAVIGATION ═══
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+    });
+    // Close mobile nav on link click
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ═══ NAV THEME SWITCH (dark on hero, light after) ═══
+    const siteNav = document.querySelector('.site-nav');
+    const heroSection = document.getElementById('hero');
+    const navThemeObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          siteNav.classList.remove('nav-light');
+        } else {
+          siteNav.classList.add('nav-light');
+        }
+      });
+    }, { threshold: 0.1 });
+    navThemeObs.observe(heroSection);
+
+    // ═══ ACTIVE NAV TRACKING ═══
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navAnchors.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(s => observer.observe(s));
+
+    // ═══ SCROLL REVEALS ═══
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
+
+    // ═══ HERO PARALLAX ═══
+    (function() {
+      var heroContent = document.querySelector('.hero-content');
+      var heroCanvas = document.getElementById('hero-grid-canvas');
+      var heroSection = document.getElementById('hero');
+      var ticking = false;
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(function() {
+            var rect = heroSection.getBoundingClientRect();
+            if (rect.bottom > 0) {
+              var scrolled = -rect.top;
+              heroContent.style.transform = 'translateY(' + (scrolled * 0.35) + 'px)';
+              heroContent.style.opacity = Math.max(0, 1 - scrolled / (rect.height * 0.6));
+              heroCanvas.style.transform = 'translateY(' + (scrolled * -0.3) + 'px) scale(' + (1 + scrolled * 0.0003) + ')';
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    })();
+
+    // ═══ PRODUCTION ACCORDION ═══
+    document.querySelectorAll('.prod-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.parentElement.classList.toggle('open');
+      });
+    });
+
+    // ═══ VENUE ESTIMATOR ═══
+    (function() {
+      const BASE = { venue: { low: 3000, high: 20000 }, fb: { low: 11180, high: 19500 }, extra: { low: 6300, high: 13600 } };
+      const REGIONS = [
+        { id:"lv-blackhat", label:"Las Vegas", sublabel:"Black Hat Week", group:"us", multipliers:{venue:[3.33,1.25],fb:[1.14,1.23],extra:[1.33,1.45]}, note:"Premium demand / conference week pricing", color:"#FF5E2E" },
+        { id:"lv-general", label:"Las Vegas", sublabel:"General Event (Baseline)", group:"us", multipliers:{venue:[1.0,1.0],fb:[1.0,1.0],extra:[1.0,1.0]}, note:"Baseline reference", color:"#8A857D", isBaseline:true },
+        { id:"tier1-us", label:"Tier-1 US City", sublabel:"NYC / SF / DC / Chicago / Boston", group:"us", multipliers:{venue:[2.0,2.5],fb:[1.25,1.45],extra:[1.3,1.5]}, note:"Premium urban market", color:"#000000" },
+        { id:"tier2-us", label:"Tier-2 US City", sublabel:"Austin / Denver / Nashville / Atlanta", group:"us", multipliers:{venue:[0.9,1.3],fb:[0.95,1.15],extra:[0.9,1.1]}, note:"Growing event markets", color:"#6B665E" },
+        { id:"london", label:"London", sublabel:"United Kingdom", group:"intl", multipliers:{venue:[2.0,2.8],fb:[1.3,1.6],extra:[1.4,1.7]}, note:"High labor costs and premium venue demand", color:"#000000" },
+        { id:"western-europe", label:"Western Europe", sublabel:"Paris / Amsterdam / Frankfurt / Zurich", group:"intl", multipliers:{venue:[1.4,2.0],fb:[1.2,1.5],extra:[1.2,1.5]}, note:"Strong service standards", color:"#8A857D" },
+        { id:"southern-europe", label:"Southern Europe", sublabel:"Barcelona / Madrid / Lisbon / Milan", group:"intl", multipliers:{venue:[0.8,1.4],fb:[0.9,1.2],extra:[0.85,1.15]}, note:"High-quality venues at competitive rates", color:"#FF5E2E" },
+        { id:"latam", label:"Latin America", sublabel:"Mexico City / Sao Paulo / Bogota", group:"intl", multipliers:{venue:[0.5,0.85],fb:[0.65,0.9],extra:[0.6,0.85]}, note:"Significant cost reduction vs US", color:"#FFD400" },
+        { id:"apac1", label:"APAC Tier-1", sublabel:"Singapore / Tokyo / Sydney / Hong Kong", group:"intl", multipliers:{venue:[1.3,2.0],fb:[1.1,1.5],extra:[1.15,1.4]}, note:"World-class executive venues", color:"#6B665E" },
+        { id:"apac2", label:"APAC Tier-2", sublabel:"Bangkok / Kuala Lumpur / Manila", group:"intl", multipliers:{venue:[0.4,0.75],fb:[0.55,0.8],extra:[0.55,0.75]}, note:"Substantial savings", color:"#C0D8FF" },
+        { id:"middle-east", label:"Middle East", sublabel:"Dubai / Riyadh / Abu Dhabi", group:"intl", multipliers:{venue:[1.1,1.8],fb:[1.05,1.4],extra:[1.1,1.5]}, note:"World-class facilities", color:"#FF5E2E" }
+      ];
+
+      function calc(r) {
+        const m = r.multipliers;
+        return {
+          venue: { low: Math.round(BASE.venue.low * m.venue[0]), high: Math.round(BASE.venue.high * m.venue[1]) },
+          fb: { low: Math.round(BASE.fb.low * m.fb[0]), high: Math.round(BASE.fb.high * m.fb[1]) },
+          extra: { low: Math.round(BASE.extra.low * m.extra[0]), high: Math.round(BASE.extra.high * m.extra[1]) }
+        };
+      }
+      function total(c) { return { low: c.venue.low + c.fb.low + c.extra.low, high: c.venue.high + c.fb.high + c.extra.high }; }
+      function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+
+      const baseCosts = calc(REGIONS[1]);
+      const baseTotal = total(baseCosts);
+
+      // Pre-calc all totals for chart
+      const allData = REGIONS.map(r => { const c = calc(r); const t = total(c); return { ...r, costs: c, total: t }; });
+      allData.sort((a,b) => a.total.low - b.total.low);
+      const maxHigh = Math.max(...allData.map(d => d.total.high));
+
+      const contextCache = {};
+      let selectedId = 'lv-general';
+
+      const container = document.getElementById('venue-estimator');
+
+      function render() {
+        const sel = allData.find(d => d.id === selectedId);
+        const c = sel.costs;
+        const t = sel.total;
+        const deltaLow = ((t.low - baseTotal.low) / baseTotal.low * 100).toFixed(0);
+        const deltaHigh = ((t.high - baseTotal.high) / baseTotal.high * 100).toFixed(0);
+        const avgDelta = (parseFloat(deltaLow) + parseFloat(deltaHigh)) / 2;
+        let deltaClass = 'similar', deltaText = 'Similar to LV General';
+        if (avgDelta < -10) { deltaClass = 'cheaper'; deltaText = Math.round(avgDelta) + '% vs LV General'; }
+        else if (avgDelta > 10) { deltaClass = 'pricier'; deltaText = '+' + Math.round(avgDelta) + '% vs LV General'; }
+
+        const barMax = maxHigh;
+
+        container.innerHTML = `
+          <p class="estimator-sub">Select a region to see directional venue and hospitality estimates relative to the Las Vegas baseline.</p>
+          <div class="region-pills">
+            <div class="region-group-label">United States</div>
+            <div class="region-group">
+              ${allData.filter(r=>r.group==='us').sort((a,b)=>b.total.low-a.total.low).map(r => `<button class="region-pill${r.id===selectedId?' active':''}" data-id="${r.id}">${r.label}${r.sublabel?' — '+r.sublabel.split('/')[0].trim():''}</button>`).join('')}
+            </div>
+            <div class="region-group-label">International</div>
+            <div class="region-group">
+              ${allData.filter(r=>r.group==='intl').sort((a,b)=>b.total.low-a.total.low).map(r => `<button class="region-pill${r.id===selectedId?' active':''}" data-id="${r.id}">${r.label}${r.sublabel?' — '+r.sublabel.split('/')[0].trim():''}</button>`).join('')}
+            </div>
+          </div>
+          <div class="region-detail">
+            <div class="region-detail-header">
+              <h4>${sel.label}</h4>
+              <span class="sublabel">${sel.sublabel}</span>
+            </div>
+            <div class="region-total" style="color:${sel.color}">${fmt(t.low)} – ${fmt(t.high)}</div>
+            <table class="region-breakdown">
+              <tr>
+                <td>Venue</td>
+                <td><div class="bar-cell"><div class="bar-fill" style="width:${(c.venue.high/barMax*100).toFixed(1)}%;background:${sel.color};"></div></div></td>
+                <td>${fmt(c.venue.low)} – ${fmt(c.venue.high)}</td>
+              </tr>
+              <tr>
+                <td>F&amp;B</td>
+                <td><div class="bar-cell"><div class="bar-fill" style="width:${(c.fb.high/barMax*100).toFixed(1)}%;background:${sel.color};opacity:0.7;"></div></div></td>
+                <td>${fmt(c.fb.low)} – ${fmt(c.fb.high)}</td>
+              </tr>
+              <tr>
+                <td>Extra Fees</td>
+                <td><div class="bar-cell"><div class="bar-fill" style="width:${(c.extra.high/barMax*100).toFixed(1)}%;background:${sel.color};opacity:0.5;"></div></div></td>
+                <td>${fmt(c.extra.low)} – ${fmt(c.extra.high)}</td>
+              </tr>
+              <tr class="total-row">
+                <td>Total</td>
+                <td></td>
+                <td>${fmt(t.low)} – ${fmt(t.high)}</td>
+              </tr>
+            </table>
+            ${!sel.isBaseline ? `<span class="delta-badge ${deltaClass}">${deltaText}</span>` : '<span class="delta-badge similar">Baseline</span>'}
+            <div>
+              <button class="market-context-btn" id="ctx-btn"${contextCache[sel.id]?' disabled':''}>
+                ${contextCache[sel.id] ? 'Context loaded' : 'Generate Market Context'}
+              </button>
+              <div class="market-context-text" id="ctx-text">${contextCache[sel.id]||''}</div>
+            </div>
+          </div>
+          <div class="all-regions-chart">
+            <h4>All Regions — Ranked by Low Estimate</h4>
+            ${allData.map(r => `
+              <div class="chart-row" data-id="${r.id}">
+                <span class="chart-label">${r.label}</span>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" style="width:${(r.total.high/maxHigh*100).toFixed(1)}%;background:${r.color};"></div>
+                </div>
+                <span class="chart-value">${fmt(r.total.low)}</span>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        // Bind pills
+        container.querySelectorAll('.region-pill').forEach(btn => {
+          btn.addEventListener('click', () => { selectedId = btn.dataset.id; render(); });
+        });
+        // Bind chart rows
+        container.querySelectorAll('.chart-row').forEach(row => {
+          row.addEventListener('click', () => { selectedId = row.dataset.id; render(); });
+        });
+        // Bind context button
+        const ctxBtn = document.getElementById('ctx-btn');
+        const ctxText = document.getElementById('ctx-text');
+        if (ctxBtn && !contextCache[sel.id]) {
+          ctxBtn.addEventListener('click', async () => {
+            ctxBtn.disabled = true;
+            ctxBtn.textContent = 'Loading...';
+            try {
+              const resp = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  model: 'claude-sonnet-4-20250514',
+                  max_tokens: 1000,
+                  messages: [{ role: 'user', content: `You are helping build a venue and hospitality cost estimator for a 30-person executive security symposium being pitched to AWS. Write a concise 3-sentence market context note for hosting this event in: ${sel.label} (${sel.sublabel}). Cover: (1) what drives venue and hospitality pricing in this market, (2) one logistical or operational consideration for an executive audience, (3) one strategic advantage or tradeoff compared to a US event. Be specific and direct. No filler.` }]
+                })
+              });
+              const data = await resp.json();
+              const text = data.content?.find(b => b.type === 'text')?.text || 'Unable to generate context.';
+              contextCache[sel.id] = text;
+              ctxText.textContent = text;
+              ctxBtn.textContent = 'Context loaded';
+            } catch(e) {
+              ctxText.textContent = 'Error loading market context. The API key may need to be configured.';
+              ctxBtn.textContent = 'Retry';
+              ctxBtn.disabled = false;
+            }
+          });
+        }
+      }
+
+      render();
+    })();
+  </script>
+
+</body>
+</html>
