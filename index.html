@@ -272,10 +272,6 @@
     .delta-badge.cheaper { background:rgba(16,185,129,0.1);color:#059669; }
     .delta-badge.similar { background:rgba(180,160,100,0.12);color:#92780a; }
     .delta-badge.pricier { background:rgba(200,50,50,0.08);color:#c53030; }
-    .market-context-btn { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-medium);padding:var(--space-2) var(--space-5);border:1px solid var(--border);border-radius:var(--radius-pill);background:transparent;color:var(--muted);cursor:pointer;transition:all var(--duration-fast) var(--ease-smooth); }
-    .market-context-btn:hover { color:var(--24sa-black);border-color:rgba(0,0,0,0.25); }
-    .market-context-btn:disabled { opacity:0.5;cursor:default; }
-    .market-context-text { font-size:var(--text-sm);color:var(--muted);line-height:var(--leading-relaxed);margin-top:var(--space-3); }
     .all-regions-chart { margin-top:var(--space-6); }
     .all-regions-chart h4 { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-medium);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--muted);margin-bottom:var(--space-4); }
     .chart-row { display:grid;grid-template-columns:160px 1fr 80px;align-items:center;gap:var(--space-4);padding:var(--space-1) 0;cursor:pointer;transition:opacity var(--duration-fast) var(--ease-smooth); }
@@ -388,14 +384,6 @@
           <li>Ability to reproduce the event in other locations.</li>
           <li>Produce a remarkable experience that leads to executives talking about AWS with their teams, and elevates their affinity to AWS Security Solutions.</li>
         </ol>
-
-        <h3 class="sub-heading reveal">In This Proposal</h3>
-        <ul class="arrow-list reveal">
-          <li>Full experience walkthrough and attendee touchpoints</li>
-          <li>Event production logistics</li>
-          <li>Budget summary</li>
-          <li>Case study</li>
-        </ul>
       </div>
     </section>
 
@@ -1257,7 +1245,6 @@
       const maxHigh = Math.max(...allData.map(d => d.total.high));
       const maxLow = Math.max(...allData.map(d => d.total.low));
 
-      const contextCache = {};
       let selectedId = 'lv-general';
 
       const container = document.getElementById('venue-estimator');
@@ -1292,7 +1279,7 @@
               <h4>${sel.label}</h4>
               <span class="sublabel">${sel.sublabel}</span>
             </div>
-            <div class="region-total" style="color:${sel.color}">${fmt(t.low)} – ${fmt(t.high)}</div>
+            <div class="region-total" style="color:var(--24sa-black)">${fmt(t.low)} – ${fmt(t.high)}</div>
             <table class="region-breakdown">
               <tr>
                 <td>Venue</td>
@@ -1316,12 +1303,6 @@
               </tr>
             </table>
             ${!sel.isBaseline ? `<span class="delta-badge ${deltaClass}">${deltaText}</span>` : '<span class="delta-badge similar">Baseline</span>'}
-            <div>
-              <button class="market-context-btn" id="ctx-btn"${contextCache[sel.id]?' disabled':''}>
-                ${contextCache[sel.id] ? 'Context loaded' : 'Generate Market Context'}
-              </button>
-              <div class="market-context-text" id="ctx-text">${contextCache[sel.id]||''}</div>
-            </div>
           </div>
           <div class="all-regions-chart">
             <h4>All Regions — Ranked by Low Estimate</h4>
@@ -1345,35 +1326,6 @@
         container.querySelectorAll('.chart-row').forEach(row => {
           row.addEventListener('click', () => { selectedId = row.dataset.id; render(); });
         });
-        // Bind context button
-        const ctxBtn = document.getElementById('ctx-btn');
-        const ctxText = document.getElementById('ctx-text');
-        if (ctxBtn && !contextCache[sel.id]) {
-          ctxBtn.addEventListener('click', async () => {
-            ctxBtn.disabled = true;
-            ctxBtn.textContent = 'Loading...';
-            try {
-              const resp = await fetch('https://api.anthropic.com/v1/messages', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  model: 'claude-sonnet-4-20250514',
-                  max_tokens: 1000,
-                  messages: [{ role: 'user', content: `You are helping build a venue and hospitality cost estimator for a 30-person executive security symposium being pitched to AWS. Write a concise 3-sentence market context note for hosting this event in: ${sel.label} (${sel.sublabel}). Cover: (1) what drives venue and hospitality pricing in this market, (2) one logistical or operational consideration for an executive audience, (3) one strategic advantage or tradeoff compared to a US event. Be specific and direct. No filler.` }]
-                })
-              });
-              const data = await resp.json();
-              const text = data.content?.find(b => b.type === 'text')?.text || 'Unable to generate context.';
-              contextCache[sel.id] = text;
-              ctxText.textContent = text;
-              ctxBtn.textContent = 'Context loaded';
-            } catch(e) {
-              ctxText.textContent = 'Error loading market context. The API key may need to be configured.';
-              ctxBtn.textContent = 'Retry';
-              ctxBtn.disabled = false;
-            }
-          });
-        }
       }
 
       render();
