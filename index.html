@@ -352,6 +352,41 @@
 </head>
 <body>
 
+  <!-- ═══ PASSWORD GATE ═══ -->
+  <div id="password-gate" style="position:fixed;inset:0;z-index:99999;background:#060612;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;">
+    <div style="text-align:center;max-width:360px;padding:0 24px;">
+      <div style="margin-bottom:32px;">
+        <img src="logos/24sa-logo.png" alt="24 Seven Agencies" style="height:40px;filter:brightness(0) invert(1);opacity:0.85;">
+      </div>
+      <p style="font-family:var(--font-sans);font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(243,238,231,0.5);margin-bottom:24px;">Enter access code</p>
+      <input id="password-input" type="password" placeholder="Password" autocomplete="off" style="width:100%;padding:12px 16px;border:1px solid rgba(243,238,231,0.15);border-radius:8px;background:rgba(243,238,231,0.06);color:var(--24sa-off-white);font-family:var(--font-sans);font-size:16px;text-align:center;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(243,238,231,0.3)'" onblur="this.style.borderColor='rgba(243,238,231,0.15)'">
+      <p id="password-error" style="font-family:var(--font-sans);font-size:13px;color:#FF4D2A;margin-top:12px;opacity:0;transition:opacity 0.2s;">Incorrect password</p>
+    </div>
+  </div>
+  <script>
+    (function(){
+      var gate=document.getElementById('password-gate');
+      var input=document.getElementById('password-input');
+      var err=document.getElementById('password-error');
+      if(sessionStorage.getItem('proposal-auth')==='1'){gate.style.display='none';}
+      else{document.body.style.overflow='hidden';}
+      input.addEventListener('keydown',function(e){
+        if(e.key==='Enter'){
+          if(input.value==='Day1'){
+            sessionStorage.setItem('proposal-auth','1');
+            gate.style.opacity='0';gate.style.transition='opacity 0.4s';
+            document.body.style.overflow='';
+            setTimeout(function(){gate.style.display='none';},400);
+          }else{
+            err.style.opacity='1';
+            input.style.borderColor='#FF4D2A';
+            setTimeout(function(){err.style.opacity='0';input.style.borderColor='rgba(243,238,231,0.15)';},2000);
+          }
+        }
+      });
+    })();
+  </script>
+
   <!-- Scroll Progress Bar -->
   <div id="scroll-progress" style="position:fixed;top:0;left:0;height:4px;width:0%;background:#FFD400;opacity:0.85;z-index:9999;pointer-events:none;"></div>
 
