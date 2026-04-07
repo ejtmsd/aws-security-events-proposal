@@ -353,14 +353,15 @@
 <body>
 
   <!-- ═══ PASSWORD GATE ═══ -->
-  <div id="password-gate" style="position:fixed;inset:0;z-index:99999;background:#060612;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;">
-    <div style="text-align:center;max-width:360px;padding:0 24px;">
-      <div style="margin-bottom:32px;">
-        <img src="logos/24sa-logo.png" alt="24 Seven Agencies" style="height:40px;filter:brightness(0) invert(1);opacity:0.85;">
+  <div id="password-gate" style="position:fixed;inset:0;z-index:99999;background:#0a0a14;display:flex;align-items:center;justify-content:center;">
+    <div style="text-align:center;width:100%;max-width:400px;padding:0 32px;">
+      <img src="logos/24sa-logo.png" alt="24 Seven Agencies" style="height:48px;filter:brightness(10);opacity:0.9;margin-bottom:48px;display:block;margin-left:auto;margin-right:auto;">
+      <p style="font-family:var(--font-sans);font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:20px;">Enter access code</p>
+      <div style="position:relative;">
+        <input id="password-input" type="password" placeholder="" autocomplete="off" spellcheck="false" style="width:100%;padding:16px 20px;border:1.5px solid #FFD400;border-radius:12px;background:rgba(255,255,255,0.04);color:#f3eee7;font-family:var(--mono);font-size:18px;letter-spacing:0.15em;text-align:center;outline:none;transition:border-color 0.3s,background 0.3s,box-shadow 0.3s;" onfocus="this.style.borderColor='#FFD400';this.style.background='rgba(255,255,255,0.06)';this.style.boxShadow='0 0 0 4px rgba(255,212,0,0.12)'" onblur="this.style.borderColor='#FFD400';this.style.background='rgba(255,255,255,0.04)';this.style.boxShadow='none'">
       </div>
-      <p style="font-family:var(--font-sans);font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(243,238,231,0.5);margin-bottom:24px;">Enter access code</p>
-      <input id="password-input" type="password" placeholder="Password" autocomplete="off" style="width:100%;padding:12px 16px;border:1px solid rgba(243,238,231,0.15);border-radius:8px;background:rgba(243,238,231,0.06);color:var(--24sa-off-white);font-family:var(--font-sans);font-size:16px;text-align:center;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(243,238,231,0.3)'" onblur="this.style.borderColor='rgba(243,238,231,0.15)'">
-      <p id="password-error" style="font-family:var(--font-sans);font-size:13px;color:#FF4D2A;margin-top:12px;opacity:0;transition:opacity 0.2s;">Incorrect password</p>
+      <p id="password-error" style="font-family:var(--font-sans);font-size:12px;font-weight:500;color:#e05a40;margin-top:16px;opacity:0;transition:opacity 0.25s;">Incorrect access code</p>
+      <p style="font-family:var(--font-sans);font-size:14px;color:rgba(255,255,255,0.3);margin-top:40px;">Confidential proposal. Access restricted to authorized recipients.</p>
     </div>
   </div>
   <script>
