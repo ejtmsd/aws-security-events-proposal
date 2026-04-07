@@ -74,7 +74,7 @@
     .sub-heading { font-family:var(--font-sans);font-size:var(--text-base);font-weight:var(--weight-semibold);margin-top:var(--space-8);margin-bottom:var(--space-3); }
 
     /* — Body text in light sections — */
-    .bg-light p, .bg-light p { color:var(--24sa-black);max-width:65ch; }
+    .bg-light p, .bg-light p { color:var(--24sa-black); }
 
     /* — Muted note — */
     .muted-note { font-size:12px;color:var(--muted);font-style:italic;margin-top:var(--space-4); }
@@ -146,12 +146,16 @@
     /* Closing line */
     .closing-line { font-family:var(--font-serif);font-size:var(--text-xl);margin-top:var(--space-6);line-height:var(--leading-snug);font-style:italic; }
 
-    /* Principle cards — no cards, numbered list style */
-    .principle-cards { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8);margin:var(--space-6) 0; }
-    .principle-card { background:none;border:none;border-radius:0;padding:0; }
-    .principle-card .num { font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:var(--space-2); }
-    .principle-card h4 { font-family:var(--font-serif);font-size:var(--text-lg);font-weight:400;margin-bottom:var(--space-2);line-height:var(--leading-snug); }
-    .principle-card p { color:var(--muted);font-size:var(--text-sm);line-height:var(--leading-relaxed); }
+    /* Principle cards — bold color block style */
+    .principle-cards { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin:var(--space-6) 0; }
+    .principle-card { border:none;border-radius:20px;padding:var(--space-8);display:flex;flex-direction:column;justify-content:center;min-height:220px; }
+    .principle-card:nth-child(1) { background:#C5D5F0;color:#1a1917; }
+    .principle-card:nth-child(2) { background:#FFD400;color:#1a1917; }
+    .principle-card:nth-child(3) { background:#F0E8DC;color:#1a1917; }
+    .principle-card:nth-child(3) p { color:rgba(0,0,0,0.5); }
+    .principle-card .num { font-family:var(--mono);font-size:13px;color:rgba(0,0,0,0.45);margin-bottom:var(--space-3); }
+    .principle-card h4 { font-family:var(--font-serif);font-size:var(--text-2xl);font-weight:400;margin-bottom:var(--space-3);line-height:var(--leading-snug); }
+    .principle-card p { color:rgba(0,0,0,0.6);font-size:var(--text-sm);line-height:var(--leading-relaxed); }
 
     /* Spec table */
     .spec-table { width:100%;border-collapse:collapse; }
@@ -162,13 +166,16 @@
     /* Layer badge — just mono text, no pill */
     .layer-badge { display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--muted);margin-bottom:var(--space-2);border:none;padding:0; }
 
-    /* Layer intro cards — keep as a layout moment but lighter */
-    .layer-cards { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);margin:var(--space-6) 0;padding-top:var(--space-6);border-top:1px solid var(--border); }
-    .layer-card { background:none;border:none;border-radius:0;padding:0;transition:none; }
-    .layer-card:hover { border-color:transparent; }
-    .layer-card .layer-num { font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0.1em;margin-bottom:var(--space-2); }
-    .layer-card h4 { font-family:var(--font-serif);font-size:var(--text-xl);font-weight:400;margin-bottom:var(--space-2); }
-    .layer-card p { font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-3); }
+    /* Layer intro cards — bold color block style */
+    .layer-cards { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin:var(--space-6) 0;padding-top:var(--space-6);border-top:1px solid var(--border); }
+    .layer-card { border:none;border-radius:20px;padding:var(--space-8);transition:transform var(--duration-fast) var(--ease-smooth);display:flex;flex-direction:column;justify-content:center;min-height:220px;text-decoration:none; }
+    .layer-card:hover { transform:scale(0.98); }
+    .layer-card:nth-child(1) { background:#FFD400;color:#1a1917; }
+    .layer-card:nth-child(2) { background:#F0E8DC;color:#1a1917; }
+    .layer-card:nth-child(3) { background:#C5D5F0;color:#1a1917; }
+    .layer-card .layer-num { font-family:var(--mono);font-size:13px;color:rgba(0,0,0,0.4);letter-spacing:0.1em;margin-bottom:var(--space-3); }
+    .layer-card h4 { font-family:var(--font-serif);font-size:var(--text-2xl);font-weight:400;margin-bottom:var(--space-3); }
+    .layer-card p { font-size:var(--text-sm);color:rgba(0,0,0,0.6);margin-bottom:var(--space-3); }
     .layer-card .layer-link { font-family:var(--font-sans);font-size:12px;font-weight:var(--weight-medium);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--24sa-black); }
 
     /* Tag list */
@@ -191,10 +198,14 @@
     .scenario-item { display:flex;align-items:center;gap:var(--space-3);font-size:var(--text-sm);padding:0;background:none;border:none;border-radius:0;color:var(--24sa-black);line-height:var(--leading-relaxed); }
     .scenario-item .hex { color:var(--muted);font-size:0.8rem;flex-shrink:0; }
 
-    /* How-it-works 3col */
-    .how-it-works { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8);margin:var(--space-6) 0; }
-    .how-it-works h4 { font-family:var(--font-serif);font-size:var(--text-lg);font-weight:400;margin-bottom:var(--space-2); }
-    .how-it-works p { font-size:var(--text-sm);color:var(--muted);line-height:var(--leading-relaxed); }
+    /* How-it-works 3col — bold color block style */
+    .how-it-works { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin:var(--space-6) 0; }
+    .how-it-works > div { border-radius:20px;padding:var(--space-8);display:flex;flex-direction:column;justify-content:center;min-height:220px; }
+    .how-it-works > div:nth-child(1) { background:#FFD400;color:#1a1917; }
+    .how-it-works > div:nth-child(2) { background:#C5D5F0;color:#1a1917; }
+    .how-it-works > div:nth-child(3) { background:#F0E8DC;color:#1a1917; }
+    .how-it-works h4 { font-family:var(--font-serif);font-size:var(--text-2xl);font-weight:400;margin-bottom:var(--space-3); }
+    .how-it-works p { font-size:var(--text-sm);color:rgba(0,0,0,0.6);line-height:var(--leading-relaxed); }
 
     /* Lead management columns */
     .lead-cols { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);margin-top:var(--space-6); }
@@ -368,7 +379,6 @@
         <li><a href="#budget">Budget & ROI</a></li>
         <li><a href="#case-study">Case Study</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#" id="nav-export-md" class="nav-cta-btn">Export to your AI</a></li>
       </ul>
     </div>
   </nav>
@@ -395,58 +405,58 @@
       <div></div>
     </section>
 
-    <!-- ═══ SECTION 2: DOCUMENT OVERVIEW ═══ -->
+    <!-- ═══ SECTION 2: EXECUTIVE SUMMARY ═══ -->
     <section id="overview" class="proposal-section bg-light">
       <div class="proposal-container">
-        <h2 class="section-heading reveal">Document Overview</h2>
-        <p class="reveal">The AWS Security team is evaluating agency partners to help with turnkey event production. As part of this process, you've asked us how we might have produced the recent Gen-AI Security Symposium that took place in New York.</p>
+        <h2 class="section-heading reveal">Executive Summary</h2>
+        <p class="reveal">The AWS Security team is evaluating agency partners for turnkey event production. As part of this process, you asked us how we might have produced the recent Gen-AI Security Symposium that took place in New York. This proposal is our answer.</p>
 
         <h3 class="sub-heading reveal">Event Objectives</h3>
         <ol class="numbered-list reveal">
-          <li>Deliver a differentiated boutique-style event for Data, IT, and Cybersecurity executives that positions AWS, alongside curated Partners, as the thought leader in Generative AI Security and Governance.</li>
-          <li>Ability to reproduce the event in other locations.</li>
-          <li>Produce a remarkable experience that leads to executives talking about AWS with their teams, and elevates their affinity to AWS Security Solutions.</li>
+          <li>Deliver a differentiated boutique-style event for Data, IT, and Cybersecurity executives that positions AWS, alongside curated partners, as the thought leader in Generative AI Security and Governance</li>
+          <li>Reproduce the event in other locations</li>
+          <li>Produce a remarkable experience that leads to executives talking about AWS with their teams and elevates their affinity to AWS Security Solutions</li>
         </ol>
+
+        <h3 class="sub-heading reveal">The Format</h3>
+        <p class="reveal">Conventional keynote sessions and a closing networking reception form the foundation. Layered on top are three integrated experiential systems:</p>
+        <ul class="function-list reveal">
+          <li><strong>Command Center:</strong> Private platform driving live polls and judgment-call prompts during speaker sessions</li>
+          <li><strong>Security Clearance:</strong> DEFCON-style NFC badges that evolve as the room participates</li>
+          <li><strong>Field Training:</strong> VR simulation customized with AWS security scenarios; results feed back into the room</li>
+        </ul>
+
+        <h3 class="sub-heading reveal">Why It Works</h3>
+        <p class="reveal">Executives make decisions under pressure alongside peers, not as passive attendees. The result is stronger recall, peer-to-peer credibility, and a story worth sharing.</p>
+
+        <h3 class="sub-heading reveal">Budget</h3>
+        <p class="reveal">First event runs $79,000&ndash;$111,000 depending on lead management scope. Repeat events run $49,000&ndash;$81,000. Budget estimates for larger event formats are included. All exclude venue and F&amp;B.</p>
+
+        <h3 class="sub-heading reveal">Partner</h3>
+        <p class="reveal">24 Seven Agencies (SketchDeck, Futureman, The Sage Group) serves as a single accountable partner across design, technology, production, and lead management.</p>
+
+        <h3 class="sub-heading reveal">Expected Outcome</h3>
+        <p class="reveal">Approximately 40% attendee-to-meeting conversion within 30 days, roughly 12 post-event sales meetings from a 30-person audience.</p>
       </div>
     </section>
 
-    <!-- ═══ SECTION 3: EXECUTIVE SUMMARY ═══ -->
-    <section id="executive-summary" class="proposal-section bg-light">
+    <!-- ═══ SECTION 3: THE CASE FOR THIS FORMAT ═══ -->
+    <section id="the-case" class="proposal-section bg-light">
       <div class="proposal-container">
         <div style="width:100%;height:400px;margin-bottom:var(--space-8);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
           <img src="images/Executive Summary.png" alt="Executive Summary, Event Photography" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
         </div>
-        <h2 class="section-heading reveal">Executive Summary</h2>
-        <p class="reveal">This proposal reimagines the AWS Security Symposium as an immersive, invite-only security ops experience that combines a VR activity, audience participation moments leveraging our "command center" concept, conventional keynote sessions, and networking.</p>
+        <h2 class="section-heading reveal">The Case for This Format</h2>
+        <p class="reveal">Most executive events optimize for awareness and brand exposure. This experience optimizes for something harder to achieve: decision-making under uncertainty, prioritization when tradeoffs are unavoidable, and coordination across incomplete information.</p>
+
+        <p class="reveal">Senior security leaders rarely have safe environments to test their judgment alongside peers from other organizations. The format we propose creates exactly that, mirroring real-world security incidents where no one has full visibility, time pressure forces imperfect choices, and outcomes depend on collaboration.</p>
 
         <div class="pull-quote reveal">
           <blockquote>"People forget up to 70% of new information within 48 hours when learning is passive."</blockquote>
           <cite>Ebbinghaus Forgetting Curve, reinforced by modern learning science</cite>
         </div>
 
-        <p class="reveal">The experience we propose replaces passive consumption with applied participation. Executives practice judgment under pressure using realistic scenarios, shared constraints, and AWS-native services. The result is stronger recall, shared mental models, and greater remarkability for AWS Security events.</p>
-      </div>
-    </section>
-
-    <!-- ═══ SECTION 4: STRATEGIC RATIONALE ═══ -->
-    <section id="strategic-rationale" class="proposal-section bg-light">
-      <div class="proposal-container">
-        <h2 class="section-heading reveal">Strategic Rationale</h2>
-        <p class="reveal">Senior security leaders lack safe environments to test their judgment with their peers across other organizations.</p>
-
-        <p class="reveal">Most executive events optimize for awareness, thought leadership, and brand exposure. Our experience optimizes for decision-making under uncertainty, prioritization when tradeoffs are unavoidable, and coordination across incomplete information.</p>
-
-        <p class="reveal">The format mirrors real-world security incidents: no one has full visibility, time pressure forces imperfect choices, and outcomes depend on collaboration.</p>
-
-        <p class="closing-line reveal">Executives leave with <em>muscle memory.</em> And with a good story to tell.</p>
-      </div>
-    </section>
-
-    <!-- ═══ SECTION 5: WHY THIS APPROACH WORKS ═══ -->
-    <section id="why-it-works" class="proposal-section bg-light">
-      <div class="proposal-container">
-        <h2 class="section-heading reveal">Why This Approach Works</h2>
-        <p class="reveal" style="margin-bottom:var(--space-4);">Traditional symposium formats rely on listening, note-taking, and post-event recall. These methods are poorly suited to complex, high-stakes domains like AI security. This experience applies three evidence-backed principles:</p>
+        <p class="reveal" style="margin-bottom:var(--space-4);">This experience replaces passive consumption with applied participation, grounded in three evidence-backed principles:</p>
 
         <div class="principle-cards reveal-stagger">
           <div class="principle-card">
@@ -466,7 +476,7 @@
           </div>
         </div>
 
-        <p class="closing-line reveal">The sum of these principles makes for a <em>more remarkable experience.</em></p>
+        <p class="closing-line reveal">Executives leave with <em>muscle memory.</em> And a good story to tell.</p>
       </div>
     </section>
 
@@ -537,7 +547,7 @@
           <li>A real-time visualization layer for aggregate responses shown in the room</li>
         </ul>
 
-        <p class="reveal" style="margin-top:var(--space-6);">Speakers use the platform to activate the audience during their sessions. Prompts are designed to force prioritization and judgment calls, not trivia or opinion polling. Moderators surface patterns, disagreements, and edge cases from responses and feed them back into the discussion.</p>
+        <p class="reveal" style="margin-top:var(--space-6);">Speakers use the platform to activate the audience during their sessions. Prompts are designed to force prioritization and judgment calls. Moderators surface patterns, disagreements, and edge cases from responses and feed them back into the discussion.</p>
         <p class="reveal">This creates a continuous feedback loop between content and audience, and demonstrates secure, AI-mediated communication in practice.</p>
       </div>
     </section>
@@ -638,6 +648,22 @@
         </div>
 
         <p class="closing-line reveal" style="margin-top:var(--space-8);">The result is keynote content that is immediately <em>tested, applied, gamified, and socially reinforced</em>, through three complementary channels working in concert.</p>
+
+        <h3 class="sub-heading reveal" style="margin-top:var(--space-10);">Sample Agenda</h3>
+        <table class="spec-table reveal" style="margin-top:var(--space-4);">
+          <tr><td>8:30 AM</td><td>Arrival, badge activation, Command Center onboarding</td></tr>
+          <tr><td>9:00 AM</td><td>Keynote 1: The Generative AI Threat Landscape</td></tr>
+          <tr><td>9:45 AM</td><td>Command Center: Live prioritization prompt + group debrief</td></tr>
+          <tr><td>10:15 AM</td><td>Field Training: VR Module 1 — Model Integrity Breach (rotating teams)</td></tr>
+          <tr><td>11:00 AM</td><td>Keynote 2: Identity and Access in AI-Native Environments</td></tr>
+          <tr><td>11:45 AM</td><td>Command Center: Judgment call prompt + Security Clearance unlock</td></tr>
+          <tr><td>12:15 PM</td><td>Lunch and informal networking</td></tr>
+          <tr><td>1:15 PM</td><td>Keynote 3: Cloud Infrastructure Breach Containment</td></tr>
+          <tr><td>2:00 PM</td><td>Field Training: VR Module 2 — Data Exfiltration Prevention (rotating teams)</td></tr>
+          <tr><td>2:45 PM</td><td>Command Center: Full-room scenario + leaderboard reveal</td></tr>
+          <tr><td>3:15 PM</td><td>Closing remarks</td></tr>
+          <tr><td>3:30 PM</td><td>Networking reception</td></tr>
+        </table>
       </div>
     </section>
 
@@ -646,7 +672,7 @@
       <div class="proposal-container">
         <h2 class="section-heading reveal">Speaker Sessions</h2>
         <p class="reveal">Speaker sessions serve as a critical draw for invited executives and strategic partners. Invitees will look for top-tier names and logos on the event invite, and 24 Seven manages speaker sourcing and briefing as part of the content strategy deliverable, identifying voices with credibility across AI security, cloud governance, and enterprise risk.</p>
-        <p class="reveal">The day is structured around three to four keynote or featured sessions, each designed to directly trigger one or more of the three experience layers. Speakers are briefed on the Command Center polling format and their sessions include pre-designed activation prompts that push to the platform in real time. Speaker presentation templates are provided and all content is reviewed for alignment with AWS Security priorities prior to the event.</p>
+        <p class="reveal">The day is structured around three to four keynote or featured sessions, each designed to directly trigger one or more of the three experience layers. Speakers are briefed on the Command Center polling format and their sessions include pre-designed activation prompts that push to the platform in real time. Speaker presentation templates are provided and all content is reviewed for alignment with AWS Security priorities prior to the event. The symposium accommodates up to three speaker sessions, each 30 to 45 minutes in length including integrated Q&amp;A.</p>
       </div>
     </section>
 
@@ -798,6 +824,8 @@
               <li>Budget tracking and cost reconciliation</li>
               <li>Night-before load-in planning</li>
               <li>On-site staffing: Executive producer, 3 event staff, 1 additional facilitator</li>
+              <li>Event run-through meetings with speakers and stakeholders (group video call format) — included</li>
+              <li>In-person event rehearsal — excluded; available upon request as additional scope</li>
             </ul></div>
           </div>
           <div class="production-category open">
@@ -885,6 +913,44 @@
 
           <p class="muted-note" style="margin-top:var(--space-4);">Venue and F&amp;B costs are directional estimates. Final figures will be validated through a formal venue RFP once city, date, and experience footprint are confirmed. Black Hat Las Vegas week carries a significant venue premium versus standard metro bookings.</p>
           <p class="muted-note">Repeat deployments benefit from significantly reduced experience system costs. The Command Center, badge system, and VR content are built once and redeployed. Repeat event agency fees range from $49,000 to $81,000 excluding venue and F&amp;B.</p>
+
+          <p class="reveal" style="margin-top:var(--space-8);font-size:var(--text-sm);color:var(--muted);">The following items are excluded from all pricing above and are not managed as part of this engagement unless separately scoped:</p>
+          <ul class="function-list reveal" style="margin-top:var(--space-2);">
+            <li>Speaker sourcing, travel, and logistics management</li>
+            <li>Agency team travel and expenses (T&amp;E)</li>
+            <li>Full slide deck development for speakers</li>
+            <li>Shipping, transport, and drayage</li>
+            <li>Photography and videography (archival)</li>
+            <li>Event signage and wayfinding</li>
+            <li>Swag and VIP gifts</li>
+          </ul>
+
+          <h3 class="sub-heading reveal" style="margin-top:var(--space-10);">Estimated Venue &amp; Hospitality Costs</h3>
+          <p class="reveal" style="font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-6);">The venue and hospitality estimates shown above are based on directional research across comparable event formats. Final figures will be validated through a formal venue RFP once city, date, and experience footprint are confirmed. The following categories are included in estimates:</p>
+
+          <p class="sub-heading reveal" style="margin-top:var(--space-4);">Venue</p>
+          <ul class="function-list reveal" style="margin-top:var(--space-2);">
+            <li>Venue rental fee</li>
+          </ul>
+
+          <p class="sub-heading reveal" style="margin-top:var(--space-4);">Food &amp; Beverage (based on 30 attendees)</p>
+          <ul class="function-list reveal" style="margin-top:var(--space-2);">
+            <li>Breakfast</li>
+            <li>Lunch (plated or premium buffet)</li>
+            <li>Afternoon snacks</li>
+            <li>Happy hour</li>
+            <li>Additional service charges and taxes</li>
+          </ul>
+
+          <p class="sub-heading reveal" style="margin-top:var(--space-4);">Extra Fees (common additions, not included in base estimates)</p>
+          <ul class="function-list reveal" style="margin-top:var(--space-2);">
+            <li>AV packages</li>
+            <li>AV labor</li>
+            <li>Dedicated WiFi</li>
+            <li>Extra materials (e.g. name tags, printed agendas)</li>
+          </ul>
+
+          <p class="muted-note reveal" style="margin-top:var(--space-6);">All venue and F&amp;B costs are passed through at cost with no agency markup.</p>
         </div>
 
         <!-- ROI Calculator -->
@@ -1015,11 +1081,11 @@
   <footer class="site-footer">
     <div class="container" style="max-width:var(--proposal-max);padding:0 24px;display:flex;flex-direction:column;align-items:center;text-align:center;">
       <div class="footer-logos" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-6);">
-        <img src="logos/24sa-logo.png" alt="24 Seven Agencies" style="height:48px;width:auto;opacity:0.85;filter:grayscale(1) brightness(0);">
-        <div style="display:flex;align-items:center;gap:var(--space-8);">
-          <img src="logos/futureman-logo.png" alt="Futureman" style="height:18px;width:auto;opacity:0.7;filter:grayscale(1) brightness(0);">
-          <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:40px;width:auto;opacity:0.7;filter:grayscale(1) brightness(0);margin-top:-2px;">
-          <img src="logos/markacy-logo.webp" alt="Markacy" style="height:28px;width:auto;opacity:0.7;filter:grayscale(1) brightness(0);">
+        <img src="logos/24sa-logo.png" alt="24 Seven Agencies" style="height:64px;width:auto;opacity:0.85;filter:grayscale(1) brightness(0);">
+        <div style="display:flex;align-items:center;gap:var(--space-10);">
+          <img src="logos/futureman-logo.png" alt="Futureman" style="height:28px;width:auto;opacity:0.7;filter:grayscale(1) brightness(0);">
+          <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:58px;width:auto;opacity:0.7;filter:grayscale(1) brightness(0);margin-top:-3px;">
+          <img src="logos/markacy-logo.webp" alt="Markacy" style="height:40px;width:auto;opacity:0.7;filter:grayscale(1) brightness(0);">
         </div>
       </div>
       <div style="margin-top:var(--space-4);font-family:var(--font-sans);font-size:var(--text-sm);color:var(--muted);line-height:1.8;">
@@ -1658,47 +1724,6 @@
         doc.text('Eric Craig: ecraig@thesagegroup.com   Elliot Miller: elliot.miller@sketchdeck.com',pw-18,265,{align:'right'});
 
         doc.save('AWS-Security-Symposium-Budget-'+tierFile+'-'+dateISO()+'.pdf');
-      });
-    })();
-
-    // ═══ MARKDOWN EXPORT ═══
-    (function(){
-      document.getElementById('nav-export-md').addEventListener('click',function(e){
-        e.preventDefault();
-        var tierBtn=document.querySelector('#budget-calculator .region-pill[data-tier].active');
-        var tier=parseInt(tierBtn.dataset.tier);
-        var dealLow=parseInt(document.getElementById('roi-deal-low').value)||500000;
-        var dealHigh=parseInt(document.getElementById('roi-deal-high').value)||1500000;
-        var closeRate=parseInt(document.getElementById('roi-close-rate').value);
-        function fmt(n){return '$'+n.toLocaleString('en-US');}
-        var EXP={30:40000,75:68000,150:111000},CON={30:39000,75:50000,150:68000},LEAD={30:32000,75:47500,150:65000},SVC={30:111000,75:165500,150:244000},REP={30:100000,75:107500,150:115000};
-        var bte=document.getElementById('budget-total');
-        var allIn=parseInt(bte.querySelector('div:first-child').textContent.replace(/[^0-9]/g,''));
-        var venueMed=allIn-SVC[tier];
-        var rt=bte.querySelector('div:last-child').textContent;
-        var rm2=rt.match(/\$([\d,]+)\s*to\s*\$([\d,]+)/);
-        var rangeLow=rm2?parseInt(rm2[1].replace(/,/g,'')):allIn;
-        var rangeHigh=rm2?parseInt(rm2[2].replace(/,/g,'')):allIn;
-        var att=tier,mtg=Math.round(att*0.4),dls=mtg*(closeRate/100);
-        var rLo=dls*dealLow,rHi=dls*dealHigh,rAv=(rLo+rHi)/2;
-        var firstROI=allIn>0?(rAv/allIn).toFixed(1):'0.0';
-        var repeatROI=REP[tier]>0?(rAv/REP[tier]).toFixed(1):'0.0';
-        var d=new Date();
-        var dateISO=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-        var ms=['January','February','March','April','May','June','July','August','September','October','November','December'];
-        var datePretty=ms[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
-
-        var md='---\ndocument: AWS Security Event Production Proposal\nprepared_by: 24 Seven Agencies\nprepared_for: Amazon Web Services\ndate: '+datePretty+'\nversion: 1.1\nnote: This document is exported for AI-assisted review. All budget figures reflect the audience tier and ROI inputs selected at time of export.\n---\n\n# Welcome to an Invite-Only AWS Security Experience\n\n**Security Ops Simulation. World-class keynotes. Executive networking. Produced by 24 Seven Agencies.**\n\n## Document Overview\n\nThe AWS Security team is evaluating agency partners to help with turnkey event production. As part of this process, you\'ve asked us how we might have produced the recent Gen-AI Security Symposium that took place in New York.\n\n### Event Objectives\n\n1. Deliver a differentiated boutique-style event for Data, IT, and Cybersecurity executives that positions AWS, alongside curated Partners, as the thought leader in Generative AI Security and Governance.\n2. Ability to reproduce the event in other locations.\n3. Produce a remarkable experience that leads to executives talking about AWS with their teams, and elevates their affinity to AWS Security Solutions.\n\n## Executive Summary\n\nThis proposal reimagines the AWS Security Symposium as an immersive, invite-only security ops experience that combines a VR activity, audience participation moments leveraging our "command center" concept, conventional keynote sessions, and networking.\n\n> "People forget up to 70% of new information within 48 hours when learning is passive." -- Ebbinghaus Forgetting Curve, reinforced by modern learning science\n\nThe experience we propose replaces passive consumption with applied participation. Executives practice judgment under pressure using realistic scenarios, shared constraints, and AWS-native services. The result is stronger recall, shared mental models, and greater remarkability for AWS Security events.\n\n## Strategic Rationale\n\nSenior security leaders lack safe environments to test their judgment with their peers across other organizations.\n\nMost executive events optimize for awareness, thought leadership, and brand exposure. Our experience optimizes for decision-making under uncertainty, prioritization when tradeoffs are unavoidable, and coordination across incomplete information.\n\nThe format mirrors real-world security incidents: no one has full visibility, time pressure forces imperfect choices, and outcomes depend on collaboration.\n\nExecutives leave with muscle memory. And with a good story to tell.\n\n## Why This Approach Works\n\nTraditional symposium formats rely on listening, note-taking, and post-event recall. These methods are poorly suited to complex, high-stakes domains like AI security. This experience applies three evidence-backed principles:\n\n### 01. Active Recall Beats Passive Exposure\n\nMaking decisions, even imperfect ones, dramatically improves retention versus listening alone.\n\n### 02. Emotional Stakes Anchor Memory\n\nTime pressure, team dependency, and visible outcomes create recall anchors that slides do not.\n\n### 03. Social Accountability Reinforces Learning\n\nGroup progression and shared success or failure increase focus and commitment.\n\nThe sum of these principles makes for a more remarkable experience.\n\n## Audience and Format\n\n| Parameter | Detail |\n|---|---|\n| Audience Size | 20-30 senior executives |\n| Target Roles | CIO, CISO, Chief Data Officer, Chief AI Officer, senior IT and security leaders |\n| Format | Invite-only, closed-door, no press, no recording |\n| Duration | One full day |\n| Evening | Reception or private dinner |\n\nThe tone is intentionally restrained. The experience is serious, focused, and credible. Participation is required, but no individual is singled out or put on stage.\n\n## Experience Architecture\n\nCore symposium elements remain intact: keynote speakers, expert presentations, technical deep dives, partner perspectives, and executive networking. On top of this foundation, we introduce a 3-layer experience system that fundamentally changes how attendees engage with AI security concepts.\n\n- **Layer 01: Command Center** -- A private, invite-only web platform. The operational backbone of the event.\n- **Layer 02: Security Clearance** -- DEFCON-style NFC badges. Clearance levels unlock as the room participates.\n- **Layer 03: Field Training** -- Immersive VR security games tied directly to keynote content.\n\nEach layer is triggered directly by agenda content and speaker sessions. No layer exists in isolation.\n\n### Layer 01: Command Center\n\nThe Command Center is a private, invite-only web platform that acts as the operational backbone of the event. All attendees are onboarded before the symposium. Access is restricted to registered participants and approved AWS stakeholders.\n\nThe platform functions as:\n- A secure group chat for moderated discussion\n- A live polling and voting system during sessions\n- A mechanism for pushing prompts tied to speaker content\n- A real-time visualization layer for aggregate responses shown in the room\n\nSpeakers use the platform to activate the audience during their sessions. Prompts are designed to force prioritization and judgment calls, not trivia or opinion polling. Moderators surface patterns, disagreements, and edge cases from responses and feed them back into the discussion.\n\nThis creates a continuous feedback loop between content and audience, and demonstrates secure, AI-mediated communication in practice.\n\n### Layer 02: Security Clearance\n\nEach attendee receives a DEFCON-style badge at check-in. The badge is locked by default. It represents the attendee\'s security clearance level throughout the symposium.\n\nFeatures: Physical Buttons, NFC, LEDs, Sensors, Haptic Feedback\n\nProgression is driven by engagement. When the room reaches predefined thresholds (a percentage of attendees voting in a poll or completing a discussion prompt) clearance levels unlock for everyone.\n\nBadges notify individual attendees when new challenges or Field Training modules become available. This directs flow without relying on stage announcements or manual coordination.\n\nThe badge serves as a physical representation of security by design. It turns abstract security principles into a tangible artifact that evolves throughout the event.\n\n### Layer 03: Field Training\n\nField Training is the most immersive component of the symposium. We have designed a custom VR security simulation inspired by cooperative defusal game formats, built from the ground up with AWS-specific scenarios, service names, and decision logic. No third-party IP is used. Teams of four to five rotate through during the day, or participate in a full group breakout.\n\n- **The Challenge:** One team member wears a VR headset and faces a virtual device composed of AI security modules that must be defused under time pressure. That participant cannot solve the challenge alone.\n- **The Collaboration:** Other team members hold physical instruction manuals customized with AWS services, security concepts, and decision logic. They cannot see what the VR participant sees. Success depends entirely on communication, prioritization, and trust under pressure.\n- **The Outcome:** When a team completes or fails a scenario, results feed back to the Command Center leaderboard, sparking discussion around which strategies worked, which failed, and why.\n\nScenario topics:\n- AI model vulnerabilities and failure modes\n- Cloud infrastructure breach containment\n- Identity and access management threats\n- Data exfiltration prevention\n- Adversarial attack mitigation\n\n## The Layers in Action\n\n1. **Keynote Trigger:** A speaker introduces the concept of "AI model poisoning" during a keynote.\n2. **Command Center Activates:** The platform immediately pushes a live poll: "Which AWS service would you deploy first to detect this threat?" Attendees vote and discuss in the secure chat.\n3. **Security Clearance Unlocks:** Collective participation reaches the threshold. Badge LEDs shift from red to yellow across the room, signaling a clearance level upgrade.\n4. **Field Training Triggered:** Individual badges vibrate: "You have unlocked VR Module 3: Model Integrity Breach."\n5. **Debrief Feeds Back:** Teams complete or fail the scenario. Results push to the Command Center leaderboard. Discussion resumes, grounded in live data from the room.\n\nThe result is keynote content that is immediately tested, applied, gamified, and socially reinforced, through three complementary channels working in concert.\n\n## Speaker Sessions\n\nSpeaker sessions serve as a critical draw for invited executives and strategic partners. Invitees will look for top-tier names and logos on the event invite, and 24 Seven manages speaker sourcing and briefing as part of the content strategy deliverable, identifying voices with credibility across AI security, cloud governance, and enterprise risk.\n\nThe day is structured around three to four keynote or featured sessions, each designed to directly trigger one or more of the three experience layers. Speakers are briefed on the Command Center polling format and their sessions include pre-designed activation prompts that push to the platform in real time. Speaker presentation templates are provided and all content is reviewed for alignment with AWS Security priorities prior to the event.\n\n## Lead Management and Executive Journey\n\nWe manage the executive journey from invitation through post-event handoff, ensuring disciplined communication, accurate attendance tracking, and structured transfer to AWS sales stakeholders.\n\n### Base Services\n\n**Invitation and Registration**\n- Secure, agency-managed registration landing page\n- Automated RSVP confirmation with calendar invite (.ics)\n- Automated reminder cadence (7-day and 24-hour)\n- Real-time RSVP tracking dashboard\n- Data capture aligned to AWS-required fields\n- Secure data storage and deletion policy\n\n**AWS Stakeholder Coordination**\n- Kickoff alignment email to AWS sales stakeholders\n- Final confirmed attendee list shared 72 hours prior\n\n**Onsite Attendance Capture**\n- Digital check-in with attendance tracking\n- Reconciliation of RSVP vs actual attendance\n\n**Post-Event Communication**\n- Thank-you email within 24 hours\n- Secure CSV handoff for Salesforce upload\n\n### Upgraded Lead Management\n\n**Targeted Executive Sourcing**\n- Curated target account list (1,000-1,200 executive contacts)\n- Contact enrichment and quality control\n- Coordination with AWS sales for priority account alignment\n- Speaker and partner co-invite amplification\n\n**Multi-Touch Outreach Cadence**\n- Initial invite + two additional reminder emails\n- 48-hour logistics confirmation\n- Segmented messaging for priority accounts\n- LinkedIn InMail for high-value contacts (up to 100)\n\n**Post-Event Meeting Conversion Enablement**\n- Attendee preview list to AWS sellers (48 hours prior)\n- "Sorry we missed you" no-show outreach\n- Two-touch follow-up for unbooked attendees\n- 7-day post-event conversion summary\n\n**Data Governance**\n- Role-based access controls\n- Secure CSV delivery in AWS-approved format\n- Data deletion policy on request\n\n## Turnkey Event Production Deliverables\n\n**01. Experience and Content Strategy**\n- Event narrative and thematic framing aligned to AWS Security priorities\n- Agenda architecture and session sequencing\n- Integration of speaker content with experiential systems\n- Scenario design tied to real AWS security use cases\n- Run-of-show development mapped to system triggers\n- Speaker briefing documents\n- Moderator runbooks and facilitation guides\n- Presentation template for AWS speakers\n- Event landing page designed and copywritten\n\n**02. Experience Systems**\n- Command Center live chat and polling platform\n- Security Clearance badge system (30 units)\n- Field Training VR simulation modules\n- System configuration and pre-event testing\n- On-site technical setup and support\n- Post-event system debrief and insights capture\n\n**03. Base Lead Management Services**\n- Secure RSVP registration environment setup\n- Invitation drafting and email copy\n- Initial invite deployment + one reminder\n- RSVP tracking and approval workflow\n- Automated calendar invite upon confirmation\n- Kickoff alignment email to AWS sales stakeholders\n- Final attendee list 72 hours prior\n- Digital onsite check-in and reconciliation\n- Thank-you email within 24 hours\n- Secure attendee data export for Salesforce\n\n**04. Upgraded Lead Management Services**\n- Two additional reminder emails\n- 48-hour pre-event logistics confirmation\n- Attendee preview list 48 hours prior\n- Seller outreach prompt email\n- Pre-event stakeholder briefing summary\n- "Sorry we missed you" to no-shows\n- Meeting conversion tracking (7-day readout)\n- High-touch meeting scheduling assistance\n\n**05. Production and Operations**\n- Venue sourcing and negotiation\n- Space planning and layout design\n- AV coordination and technical production management\n- Dedicated Wi-Fi coordination\n- Catering and hospitality planning\n- Vendor management (AV, fabrication, print)\n- Budget tracking and cost reconciliation\n- Night-before load-in planning\n- On-site staffing: Executive producer, 3 event staff, 1 additional facilitator\n\n**06. Data Governance and Reporting**\n- Role-based access controls\n- Secure attendee list transfer\n- Data deletion policy execution if needed\n- No AWS internal systems access if required\n- Internal AWS post-event readout: Attendance metrics, Participation patterns, Qualitative executive insights\n\n## Outcomes and Repeatability\n\nSuccess indicators:\n- Executive recall and post-event feedback\n- Depth and consistency of participation throughout the day\n- Post-event engagement with AWS Security resources\n- Internal AWS assessment of format effectiveness\n\n### Built to Scale\n\nThis format is intentionally built as a reusable executive enablement system. Core experience components are designed once and redeployed with minimal modification, allowing future events to focus on logistics rather than reinvention.\n\nThe initial event carries the highest development investment. Subsequent deployments benefit from lower marginal cost, faster setup, and increased operational confidence.\n\nOver time, this positions the AWS Security Symposium not as a one-off activation, but as a scalable tactic within AWS Security\'s engagement playbook.\n\n### Attendee Sourcing Assumptions\n\n| Metric | Value |\n|---|---|\n| Registration target | 90 event registrants |\n| In-room target | 30 attendees |\n| Executive contact list size | 1,000-1,200 targeted contacts |\n| Expected registration rate | 8-10% from curated outreach |\n| Invite amplification | AWS partners co-leveraged |\n\n40% follow-up meeting conversion within 30 days, approximately 12 post-event sales meetings from a 30-person audience.\n\n## Budget Summary\n\nSelected audience tier: **'+tier+' people**\n\n| Category | Amount |\n|---|---|\n| Experience Systems | '+fmt(EXP[tier])+' |\n| Content and Production | '+fmt(CON[tier])+' |\n| Lead Management | '+fmt(LEAD[tier])+' |\n| Venue and Hospitality | '+fmt(venueMed)+' (est.) |\n| **All-in estimate** | **'+fmt(allIn)+'** |\n| Range | '+fmt(rangeLow)+' - '+fmt(rangeHigh)+' |\n\n### ROI Output\n\n| Metric | First Event | Repeat Events |\n|---|---|---|\n| Median ROI | '+firstROI+'x | '+repeatROI+'x |\n| Projected meetings | '+mtg+' | '+mtg+' |\n| Projected deals | '+dls.toFixed(1)+' | '+dls.toFixed(1)+' |\n| Projected revenue (median) | '+fmt(Math.round(rAv))+' | '+fmt(Math.round(rAv))+' |\n\n> ROI inputs at time of export: Deal size '+fmt(dealLow)+' to '+fmt(dealHigh)+', close rate '+closeRate+'%, audience tier '+tier+' people.\n\n## Case Study: Transforming a Welcome Center into an Immersive Spaceship for LifeWave\n\nFutureman, a 24 Seven Agency, partnered with LifeWave, a global health company, to design a flagship Experience Center for high-value customers. The objective was to replace one-way presentations with an immersive, self-directed environment that allowed visitors to control their depth of learning while reinforcing LifeWave\'s innovation narrative.\n\nThe experience unfolded as a structured, multi-room journey, combining shared moments such as a founder welcome delivered via a life-size, language-localized hologram and an immersive brand storytelling environment, with hands-on product exploration through interactive kiosks and a forward-looking roadmap space.\n\nThe program required close integration across physical design, digital platforms, content, and live operations, with an emphasis on reliability and clarity rather than spectacle alone.\n\nThis experience was designed as a reusable system, with modular content and interaction models that scale across audiences, regions, and future deployments, the same architectural principle underlying our proposal for AWS Security.\n\n## Next Steps\n\n1. **Execute the SOW** -- Upon verbal agreement, we will issue a Statement of Work within 48 hours covering scope, deliverables, milestones, and data governance terms. Estimated turnaround from issue to countersignature: 5 to 7 business days.\n2. **Complete AppSec Review** -- 24 Seven has previously completed AWS Tier 3 AppSec Review and holds all required documentation on file, enabling a fast re-verification path rather than a first-time submission. We can submit materials immediately upon request.\n3. **Project Kickoff** -- Within one week of SOW execution, we will meet with the core AWS and 24 Seven teams to align on event objectives, audience tier, experience system requirements, and Salesforce handoff format. A kickoff brief will be distributed in advance and decisions documented within 24 hours.\n\nReady to move when you are. Reach out to either contact below to schedule a 30-minute alignment call.\n\n## About 24 Seven Agencies\n\nOne Partner. Every Discipline.\n\n24 Seven Agencies is an integrated group of three specialized agencies: Futureman, SketchDeck, and Markacy, designed to support complex work that requires tight coordination across strategy, creative, technology, and execution.\n\nWe regularly operate as an extension of internal teams, owning programs end to end while reducing vendor sprawl and operational overhead. Our model combines senior-led strategy, on-demand creative and production capacity, and dedicated technical and operational teams, allowing us to scale up or down without sacrificing quality or control.\n\nFor AWS, this means a single accountable partner that can design the experience, build the systems, produce the assets, and run the event with the rigor and reliability expected in high-stakes environments.\n\n## Contact\n\n- **Eric Craig**, VP Client Management, The Sage Group, ecraig@thesagegroup.com\n- **Elliot Miller**, Sr Director of Amazon Partnerships, 24 Seven Agencies, elliot.miller@sketchdeck.com\n';
-
-        var blob=new Blob([md],{type:'text/markdown'});
-        var a=document.createElement('a');
-        a.href=URL.createObjectURL(blob);
-        a.download='AWS-Security-Symposium-Proposal-'+dateISO+'.md';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(a.href);
-        document.querySelector('.nav-links').classList.remove('open');
       });
     })();
   </script>
