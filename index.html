@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AWS Security Experience — Proposal by 24 Seven Agencies</title>
+  <title>AWS Security Experience: Proposal by 24 Seven Agencies</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +36,10 @@
     .site-nav.nav-light .nav-brand { color:var(--24sa-black); }
     .site-nav.nav-light .nav-links a { color:var(--muted); }
     .site-nav.nav-light .nav-links a:hover,.site-nav.nav-light .nav-links a.active { color:var(--24sa-black); }
+    .nav-cta-btn { background:var(--24sa-off-white);color:var(--24sa-black) !important;padding:6px 16px;border-radius:6px;font-weight:var(--weight-semibold) !important;transition:background var(--duration-fast) var(--ease-smooth),color var(--duration-fast) var(--ease-smooth),transform var(--duration-fast) var(--ease-smooth) !important; }
+    .nav-cta-btn:hover { background:#fff;color:var(--24sa-black) !important;transform:scale(0.97); }
+    .site-nav.nav-light .nav-cta-btn { background:var(--24sa-black);color:var(--24sa-off-white) !important; }
+    .site-nav.nav-light .nav-cta-btn:hover { background:#1a1917;color:var(--24sa-off-white) !important; }
     .site-nav.nav-light .nav-hamburger { color:var(--24sa-black); }
 
     /* — Nav Dropdown — */
@@ -80,21 +84,28 @@
     .img-placeholder span { font-family:var(--mono);font-size:12px;color:#8a857d; }
     .img-placeholder img { width:100%;height:100%;object-fit:cover; }
 
-    /* ═══ HERO (dark, stays special) ═══ */
-    .hero-section { min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:var(--space-20) 24px;background:var(--24sa-black); }
-    .hero-bg { position:absolute;inset:0;z-index:0; }
-    .hero-bg .img-placeholder { width:100%;height:100%;border:none;border-radius:0;background:#0d1128; }
-    .hero-bg .img-placeholder span { color:#3a4a7a; }
-    .hero-gradient { position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(0,0,0,0.92) 0%,rgba(10,9,8,0.8) 50%,rgba(26,24,22,0.7) 100%); }
-    .hero-content { position:relative;z-index:2;max-width:800px; }
+    /* ═══ HERO (dark, asymmetric split) ═══ */
+    .hero-section { min-height:100dvh;display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative;overflow:hidden;background:#060612; }
+    .hero-canvas-wrap { position:absolute;inset:0;z-index:0; }
+    .hero-data-streams { position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden; }
+    .hero-data-streams .stream-line { position:absolute;width:1px;height:120px;opacity:0;animation:streamFlow linear infinite; }
+    @keyframes streamFlow { 0%{transform:translateY(-120px);opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{transform:translateY(calc(100dvh + 120px));opacity:0} }
+    .hero-content { position:relative;z-index:3;padding:0 24px 0 max(24px, 8vw);max-width:620px; }
     .hero-eyebrow { font-family:var(--mono);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted-text);margin-bottom:var(--space-8); }
-    .hero-title { font-family:var(--font-serif);font-weight:400;font-size:clamp(2.75rem,2rem + 4vw,4.5rem);line-height:1.05;letter-spacing:var(--tracking-tight);color:var(--24sa-off-white);margin-bottom:var(--space-8); }
-    .hero-subtitle { font-family:var(--font-sans);font-weight:300;font-size:clamp(1rem,0.9rem + 0.5vw,1.35rem);line-height:1.6;color:var(--muted-text);max-width:580px;margin:0 auto var(--space-10); }
+    .hero-eyebrow .scramble-char { display:inline-block;transition:opacity 0.1s; }
+    .hero-title { font-family:var(--font-serif);font-weight:400;font-size:clamp(2.5rem,1.8rem + 3.5vw,4.25rem);line-height:1.08;letter-spacing:var(--tracking-tight);color:var(--24sa-off-white);margin-bottom:var(--space-8); }
+    .hero-title .title-accent { font-style:italic;color:var(--muted-text); }
+    .hero-subtitle { font-family:var(--font-sans);font-weight:300;font-size:clamp(0.95rem,0.85rem + 0.5vw,1.2rem);line-height:1.65;color:var(--muted-text);max-width:480px;margin-bottom:var(--space-10); }
     .hero-cta { display:inline-flex;align-items:center;gap:var(--space-2);font-family:var(--font-sans);font-size:var(--text-sm);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--24sa-black);background:var(--24sa-off-white);border:1.5px solid var(--24sa-off-white);border-radius:var(--radius-pill);padding:var(--space-3) var(--space-8);cursor:pointer;transition:all var(--duration-normal) var(--ease-smooth);text-decoration:none;margin-bottom:var(--space-12); }
     .hero-cta:hover { background:transparent;color:var(--24sa-off-white); }
+    .hero-cta:active { transform:scale(0.98) translateY(1px); }
     .hero-partners { font-family:var(--mono);font-size:12px;color:var(--muted-text);letter-spacing:0.06em; }
     .hero-partners .partner-line { margin-bottom:4px; }
     .hero-partners .parent-line { opacity:0.6;font-size:12px; }
+    @media (max-width: 768px) {
+      .hero-section { grid-template-columns:1fr;align-content:center;padding:120px 0 60px; }
+      .hero-content { padding:0 24px;max-width:100%; }
+    }
 
     /* ═══ DOCUMENT STYLES — clean, typographic ═══ */
 
@@ -330,30 +341,34 @@
 </head>
 <body>
 
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress" style="position:fixed;top:0;left:0;height:4px;width:0%;background:#FFD400;opacity:0.85;z-index:9999;pointer-events:none;"></div>
+
   <!-- ═══ NAVIGATION ═══ -->
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <div class="container">
       <div class="nav-logos">
-        <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:72px;margin-top:-6px;">
-        <img src="logos/futureman-logo.png" alt="Futureman" style="height:26px;">
-        <img src="logos/sage.webp" alt="The Sage Group" style="height:42px;">
+        <img src="logos/24sa-logo.png" alt="24 Seven Agencies" style="height:34px;">
+        <img src="logos/sage.webp" alt="The Sage Group" style="height:31px;">
+        <img src="logos/AWS-logo.svg.png" alt="AWS" style="height:26px;">
       </div>
       <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <ul class="nav-links">
         <li><a href="#overview">Overview</a></li>
-        <li><a href="#experience">Experience</a></li>
         <li class="nav-dropdown">
-          <a href="#command-center" class="nav-dropdown-toggle">Layers <span style="font-size:8px;margin-left:2px;">&#9660;</span></a>
+          <a href="#experience" class="nav-dropdown-toggle">Experience <span style="font-size:8px;margin-left:2px;">&#9660;</span></a>
           <ul class="nav-dropdown-menu">
-            <li><a href="#command-center">01 &mdash; Command Center</a></li>
-            <li><a href="#security-clearance">02 &mdash; Security Clearance</a></li>
-            <li><a href="#field-training">03 &mdash; Field Training</a></li>
+            <li><a href="#experience">Experience Overview</a></li>
+            <li><a href="#command-center">01. Command Center</a></li>
+            <li><a href="#security-clearance">02. Security Clearance</a></li>
+            <li><a href="#field-training">03. Field Training</a></li>
           </ul>
         </li>
         <li><a href="#production">Production</a></li>
-        <li><a href="#budget">Budget</a></li>
+        <li><a href="#budget">Budget & ROI</a></li>
         <li><a href="#case-study">Case Study</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#" id="nav-export-md" class="nav-cta-btn">Export to your AI</a></li>
       </ul>
     </div>
   </nav>
@@ -361,15 +376,23 @@
   <main>
 
     <!-- ═══ SECTION 1: HERO ═══ -->
-    <section id="hero" class="hero-section bg-dark" style="background:transparent;">
-      <canvas id="hero-grid-canvas" style="position:absolute;top:0;left:0;z-index:0;width:100%;height:100%;max-width:none;"></canvas>
-      <div style="position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at center,transparent 0%,rgba(0,0,0,0.3) 55%,rgba(0,0,0,0.75) 100%);pointer-events:none;"></div>
-      <div class="hero-content reveal" style="position:relative;z-index:3;">
-        <p class="hero-eyebrow">AWS &middot; Proposal &middot; 2026 &middot; Confidential</p>
-        <h1 class="hero-title">Welcome to an<br>Invite-Only AWS<br><em>Security Experience</em></h1>
-        <p class="hero-subtitle">A Security Ops Simulation with Networking and World-Class Keynotes, for Security Execs.<br>Produced by 24 Seven Agencies</p>
+    <section id="hero" class="hero-section bg-dark">
+      <!-- Ambient diagonal data streams -->
+      <div class="hero-data-streams" id="hero-streams"></div>
+      <!-- Network topology canvas -->
+      <div class="hero-canvas-wrap">
+        <canvas id="hero-grid-canvas" style="width:100%;height:100%;max-width:none;"></canvas>
+      </div>
+      <!-- Left-edge vignette fade -->
+      <div style="position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(6,6,18,0.92) 0%,rgba(6,6,18,0.6) 35%,transparent 60%);pointer-events:none;"></div>
+      <div class="hero-content reveal">
+        <p class="hero-eyebrow" id="hero-eyebrow" data-text="AWS  /  Proposal  /  2026  /  Confidential">AWS  /  Proposal  /  2026  /  Confidential</p>
+        <h1 class="hero-title">Welcome to an<br>Invite-Only AWS<br><span class="title-accent">Security Experience</span></h1>
+        <p class="hero-subtitle">Security Ops Simulation. World-class keynotes. Executive networking. Produced by 24 Seven Agencies.</p>
         <a href="#overview" class="hero-cta">View Proposal &#8595;</a>
       </div>
+      <!-- Right side is empty — canvas shows through -->
+      <div></div>
     </section>
 
     <!-- ═══ SECTION 2: DOCUMENT OVERVIEW ═══ -->
@@ -391,14 +414,14 @@
     <section id="executive-summary" class="proposal-section bg-light">
       <div class="proposal-container">
         <div style="width:100%;height:400px;margin-bottom:var(--space-8);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
-          <img src="images/Executive Summary.png" alt="Executive Summary — Event Photography" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          <img src="images/Executive Summary.png" alt="Executive Summary, Event Photography" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
         </div>
         <h2 class="section-heading reveal">Executive Summary</h2>
         <p class="reveal">This proposal reimagines the AWS Security Symposium as an immersive, invite-only security ops experience that combines a VR activity, audience participation moments leveraging our "command center" concept, conventional keynote sessions, and networking.</p>
 
         <div class="pull-quote reveal">
           <blockquote>"People forget up to 70% of new information within 48 hours when learning is passive."</blockquote>
-          <cite>— Ebbinghaus Forgetting Curve, reinforced by modern learning science</cite>
+          <cite>Ebbinghaus Forgetting Curve, reinforced by modern learning science</cite>
         </div>
 
         <p class="reveal">The experience we propose replaces passive consumption with applied participation. Executives practice judgment under pressure using realistic scenarios, shared constraints, and AWS-native services. The result is stronger recall, shared mental models, and greater remarkability for AWS Security events.</p>
@@ -429,7 +452,7 @@
           <div class="principle-card">
             <div class="num">01</div>
             <h4>Active Recall Beats Passive Exposure</h4>
-            <p>Making decisions — even imperfect ones — dramatically improves retention versus listening alone.</p>
+            <p>Making decisions, even imperfect ones, dramatically improves retention versus listening alone.</p>
           </div>
           <div class="principle-card">
             <div class="num">02</div>
@@ -452,11 +475,9 @@
       <div class="proposal-container">
         <h2 class="section-heading reveal">Audience &amp; Format</h2>
         <table class="spec-table reveal">
-          <tr><td>Audience Size</td><td>20–30 senior executives</td></tr>
           <tr><td>Target Roles</td><td>CIO, CISO, Chief Data Officer, Chief AI Officer, senior IT and security leaders</td></tr>
           <tr><td>Format</td><td>Invite-only, closed-door, no press, no recording</td></tr>
           <tr><td>Duration</td><td>One full day</td></tr>
-          <tr><td>Optional</td><td>Evening reception or private dinner</td></tr>
         </table>
         <p class="reveal" style="margin-top:var(--space-6);">The tone is intentionally restrained. The experience is serious, focused, and credible. Participation is required, but no individual is singled out or put on stage.</p>
         <div style="width:100%;height:400px;margin-top:var(--space-8);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
@@ -469,7 +490,7 @@
     <section id="experience" class="proposal-section bg-light">
       <div class="proposal-container">
         <h2 class="section-heading reveal">Experience Architecture</h2>
-        <p class="reveal" style="margin-bottom:var(--space-4);">Core symposium elements remain intact — keynote speakers, expert presentations, technical deep dives, partner perspectives, and executive networking. On top of this foundation, we introduce a 3-layer experience system that fundamentally changes how attendees engage with AI security concepts.</p>
+        <p class="reveal" style="margin-bottom:var(--space-4);">Core symposium elements remain intact: keynote speakers, expert presentations, technical deep dives, partner perspectives, and executive networking. On top of this foundation, we introduce a 3-layer experience system that fundamentally changes how attendees engage with AI security concepts.</p>
 
         <div class="layer-cards reveal-stagger">
           <a href="#command-center" class="layer-card" style="text-decoration:none;">
@@ -516,7 +537,7 @@
           <li>A real-time visualization layer for aggregate responses shown in the room</li>
         </ul>
 
-        <p class="reveal" style="margin-top:var(--space-6);">Speakers use the platform to activate the audience during their sessions. Prompts are designed to force prioritization and judgment calls — not trivia or opinion polling. Moderators surface patterns, disagreements, and edge cases from responses and feed them back into the discussion.</p>
+        <p class="reveal" style="margin-top:var(--space-6);">Speakers use the platform to activate the audience during their sessions. Prompts are designed to force prioritization and judgment calls, not trivia or opinion polling. Moderators surface patterns, disagreements, and edge cases from responses and feed them back into the discussion.</p>
         <p class="reveal">This creates a continuous feedback loop between content and audience, and demonstrates secure, AI-mediated communication in practice.</p>
       </div>
     </section>
@@ -537,7 +558,7 @@
           <span>Haptic Feedback</span>
         </div>
 
-        <p class="reveal">Progression is driven by engagement. When the room reaches predefined thresholds — a percentage of attendees voting in a poll or completing a discussion prompt — clearance levels unlock for everyone.</p>
+        <p class="reveal">Progression is driven by engagement. When the room reaches predefined thresholds (a percentage of attendees voting in a poll or completing a discussion prompt) clearance levels unlock for everyone.</p>
         <p class="reveal">Badges notify individual attendees when new challenges or Field Training modules become available. This directs flow without relying on stage announcements or manual coordination.</p>
         <p class="reveal">The badge serves as a physical representation of security by design. It turns abstract security principles into a tangible artifact that evolves throughout the event.</p>
 
@@ -551,13 +572,13 @@
     <section id="field-training" class="proposal-section bg-light">
       <div class="proposal-container">
         <div style="width:100%;height:440px;margin-bottom:var(--space-10);border-radius:var(--radius-md);overflow:hidden;" class="reveal">
-          <img src="images/Field Training.png" alt="Field Training — VR" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          <img src="images/Field Training.png" alt="Field Training, VR" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
         </div>
         <span class="layer-badge reveal">Layer 03</span>
         <h2 class="section-heading reveal">Field Training</h2>
         <p class="sub-heading reveal" style="margin-top:0;">Interactive VR Security Game</p>
 
-        <p class="reveal">Field Training is the most immersive component of the symposium. We evolve the VR game Keep Talking and Nobody Explodes into an AI security-themed experience customized for AWS. Teams of four to five rotate through during the day, or participate in a full group breakout.</p>
+        <p class="reveal">Field Training is the most immersive component of the symposium. We have designed a custom VR security simulation inspired by cooperative defusal game formats, built from the ground up with AWS-specific scenarios, service names, and decision logic. No third-party IP is used. Teams of four to five rotate through during the day, or participate in a full group breakout.</p>
 
         <div class="how-it-works reveal-stagger" style="margin-top:var(--space-8);">
           <div>
@@ -570,7 +591,7 @@
           </div>
           <div>
             <h4>The Outcome</h4>
-            <p>When a team completes or fails a scenario, results feed back to the Command Center leaderboard — sparking discussion around which strategies worked, which failed, and why.</p>
+            <p>When a team completes or fails a scenario, results feed back to the Command Center leaderboard, sparking discussion around which strategies worked, which failed, and why.</p>
           </div>
         </div>
 
@@ -595,28 +616,28 @@
 
         <div class="steps reveal">
           <div class="step">
-            <div class="step-label">Step 1 — Keynote Trigger</div>
+            <div class="step-label">Step 1. Keynote Trigger</div>
             <p>A speaker introduces the concept of "AI model poisoning" during a keynote.</p>
           </div>
           <div class="step">
-            <div class="step-label">Step 2 — Command Center Activates</div>
+            <div class="step-label">Step 2. Command Center Activates</div>
             <p>The platform immediately pushes a live poll: "Which AWS service would you deploy first to detect this threat?" Attendees vote and discuss in the secure chat.</p>
           </div>
           <div class="step">
-            <div class="step-label">Step 3 — Security Clearance Unlocks</div>
+            <div class="step-label">Step 3. Security Clearance Unlocks</div>
             <p>Collective participation reaches the threshold. Badge LEDs shift from red to yellow across the room, signaling a clearance level upgrade.</p>
           </div>
           <div class="step">
-            <div class="step-label">Step 4 — Field Training Triggered</div>
+            <div class="step-label">Step 4. Field Training Triggered</div>
             <p>Individual badges vibrate: "You have unlocked VR Module 3: Model Integrity Breach."</p>
           </div>
           <div class="step">
-            <div class="step-label">Step 5 — Debrief Feeds Back</div>
-            <p>Teams complete or fail the scenario. Results push to the Command Center leaderboard. Discussion resumes — grounded in live data from the room.</p>
+            <div class="step-label">Step 5. Debrief Feeds Back</div>
+            <p>Teams complete or fail the scenario. Results push to the Command Center leaderboard. Discussion resumes, grounded in live data from the room.</p>
           </div>
         </div>
 
-        <p class="closing-line reveal" style="margin-top:var(--space-8);">The result is keynote content that is immediately <em>tested, applied, gamified, and socially reinforced</em> — through three complementary channels working in concert.</p>
+        <p class="closing-line reveal" style="margin-top:var(--space-8);">The result is keynote content that is immediately <em>tested, applied, gamified, and socially reinforced</em>, through three complementary channels working in concert.</p>
       </div>
     </section>
 
@@ -624,7 +645,8 @@
     <section id="speaker-sessions" class="proposal-section bg-light">
       <div class="proposal-container">
         <h2 class="section-heading reveal">Speaker Sessions</h2>
-        <p class="reveal" >The venue will be set up for speaker sessions alongside the VR activity. Speaker sessions serve as a critical draw for invited executives and strategic partners — invitees will look for top-tier names and logos on the event invite. All speaker content is designed to integrate directly with the three experience layers.</p>
+        <p class="reveal">Speaker sessions serve as a critical draw for invited executives and strategic partners. Invitees will look for top-tier names and logos on the event invite, and 24 Seven manages speaker sourcing and briefing as part of the content strategy deliverable, identifying voices with credibility across AI security, cloud governance, and enterprise risk.</p>
+        <p class="reveal">The day is structured around three to four keynote or featured sessions, each designed to directly trigger one or more of the three experience layers. Speakers are briefed on the Command Center polling format and their sessions include pre-designed activation prompts that push to the platform in real time. Speaker presentation templates are provided and all content is reviewed for alignment with AWS Security priorities prior to the event.</p>
       </div>
     </section>
 
@@ -632,7 +654,7 @@
     <section id="lead-management" class="proposal-section bg-light">
       <div class="proposal-container">
         <h2 class="section-heading reveal">Lead Management &amp; Executive Journey</h2>
-        <p class="reveal" >We manage the executive journey from invitation through post-event handoff — ensuring disciplined communication, accurate attendance tracking, and structured transfer to AWS sales stakeholders.</p>
+        <p class="reveal" >We manage the executive journey from invitation through post-event handoff, ensuring disciplined communication, accurate attendance tracking, and structured transfer to AWS sales stakeholders.</p>
 
         <div class="lead-cols reveal">
           <div class="lead-col">
@@ -668,7 +690,7 @@
           </div>
 
           <div class="lead-col">
-            <h4>Optional: Upgraded Lead Management</h4>
+            <h4>Upgraded Lead Management</h4>
 
             <h5>Targeted Executive Sourcing</h5>
             <ul>
@@ -752,7 +774,7 @@
             </ul></div>
           </div>
           <div class="production-category open">
-            <div class="prod-header"><span class="prod-num">04</span><h4>Optional: Upgraded Lead Management Services</h4><span class="prod-toggle">+</span></div>
+            <div class="prod-header"><span class="prod-num">04</span><h4>Upgraded Lead Management Services</h4><span class="prod-toggle">+</span></div>
             <div class="prod-body"><ul>
               <li>Two additional reminder emails</li>
               <li>48-hour pre-event logistics confirmation</li>
@@ -806,7 +828,7 @@
 
         <div class="callout-panel reveal">
           <h3><em>Built to Scale</em></h3>
-          <p>This format is intentionally built as a reusable executive enablement system. Core experience components are designed once and redeployed with minimal modification — allowing future events to focus on logistics rather than reinvention.</p>
+          <p>This format is intentionally built as a reusable executive enablement system. Core experience components are designed once and redeployed with minimal modification, allowing future events to focus on logistics rather than reinvention.</p>
           <p>The initial event carries the highest development investment. Subsequent deployments benefit from lower marginal cost, faster setup, and increased operational confidence.</p>
           <p>Over time, this positions the AWS Security Symposium not as a one-off activation, but as a scalable tactic within AWS Security's engagement playbook.</p>
         </div>
@@ -822,113 +844,72 @@
 
         <div class="big-stat reveal">
           <div class="number">40%</div>
-          <div class="label">follow-up meeting conversion within 30 days — &#8776; 12 post-event sales meetings from a 30-person audience</div>
+          <div class="label">follow-up meeting conversion within 30 days, approximately 12 post-event sales meetings from a 30-person audience</div>
         </div>
 
         <p class="muted-note reveal">Assumes AWS participation onsite, pre-aligned target account prioritization, and timely post-event outreach ownership by AWS sales teams.</p>
+        <p class="muted-note reveal">Based on benchmarks from comparable invite-only executive events with pre-aligned sales stakeholder involvement and post-event outreach ownership. Actual results depend on AWS sales team participation and follow-up cadence.</p>
       </div>
     </section>
 
     <!-- ═══ SECTION 16: BUDGET ═══ -->
     <section id="budget" class="proposal-section bg-white">
       <div class="proposal-container">
-        <h2 class="section-heading reveal">Services Budget Summary</h2>
+        <h2 class="section-heading reveal">Budget &amp; ROI</h2>
 
-        <h3 class="sub-heading reveal">First Event</h3>
-        <table class="budget-table reveal">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Cost</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Experience Systems</td>
-              <td>$40,000</td>
-            </tr>
-            <tr class="sub-row">
-              <td>Command Center platform</td>
-              <td>$12,000</td>
-            </tr>
-            <tr class="sub-row">
-              <td>Security Clearance badges (30 units)</td>
-              <td>$20,000</td>
-            </tr>
-            <tr class="sub-row">
-              <td>Field Training VR simulation + custom scenarios</td>
-              <td>$8,000</td>
-            </tr>
-            <tr>
-              <td>Content &amp; Production Services</td>
-              <td>$39,000</td>
-            </tr>
-            <tr>
-              <td>Optional: Executive Sourcing &amp; Upgraded Lead Management</td>
-              <td>$32,000</td>
-            </tr>
-            <tr class="total-row">
-              <td>All-In Total (with upgraded lead mgmt)</td>
-              <td>$111,000</td>
-            </tr>
-            <tr class="total-row">
-              <td>All-In Total (without upgraded lead mgmt)</td>
-              <td>$79,000</td>
-            </tr>
-            <tr class="note-row">
-              <td colspan="2">Excludes venue and F&amp;B costs.</td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- Audience Size Toggle -->
+        <div id="budget-calculator" class="reveal">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-4);">
+            <button class="region-pill active" data-tier="30">30 people</button>
+            <button class="region-pill" data-tier="75">75 people</button>
+            <button class="region-pill" data-tier="150">150 people</button>
+          </div>
+          <p id="tier-note" style="font-style:italic;font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-6);"></p>
 
-        <h3 class="sub-heading reveal" style="margin-top:var(--space-10);">Repeat Events</h3>
-        <table class="budget-table reveal">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Cost</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Experience Systems</td>
-              <td>$10,000</td>
-            </tr>
-            <tr>
-              <td>Content &amp; Production Services</td>
-              <td>$39,000–$71,000</td>
-            </tr>
-            <tr>
-              <td>Optional: Executive Sourcing &amp; Upgraded Lead Management</td>
-              <td>$32,000</td>
-            </tr>
-            <tr class="total-row">
-              <td>Repeat events (range)</td>
-              <td>$49,000–$81,000</td>
-            </tr>
-            <tr class="note-row">
-              <td colspan="2">Excludes venue and F&amp;B costs.</td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="budget-table" id="budget-table">
+            <thead><tr><th>Category</th><th>Line Item</th><th>Cost</th></tr></thead>
+            <tbody id="budget-body"></tbody>
+          </table>
 
-        <p class="muted-note reveal">A conventional symposium without experience systems, with base lead management, is available for ~$40,000 excluding venue and food costs.</p>
-      </div>
-    </section>
+          <!-- Region Selector -->
+          <div style="margin-top:var(--space-6);padding-top:var(--space-6);border-top:1px solid var(--border);">
+            <div style="font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--space-3);">Venue Region</div>
+            <div id="region-selector" style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4);"></div>
+            <div id="region-note" style="font-size:12px;color:var(--muted);font-style:italic;margin-bottom:var(--space-2);"></div>
+            <div id="region-delta" style="margin-bottom:var(--space-4);"></div>
+          </div>
 
-    <!-- ═══ SECTION 17: VENUE & HOSPITALITY COSTS ═══ -->
-    <section id="venue-costs" class="proposal-section bg-white">
-      <div class="proposal-container">
-        <h2 class="section-heading reveal">Estimated Venue &amp; Hospitality Costs</h2>
+          <div id="budget-total" style="text-align:center;padding:var(--space-8) 0;border-top:2px solid var(--24sa-black);margin-top:var(--space-4);"></div>
 
-        <div class="reveal">
-          <p>The following ranges reflect directional planning estimates for venue, food and beverage, and technical requirements for a 30-person executive symposium. Pricing varies meaningfully depending on timing and location — particularly during Black Hat week in Las Vegas, where venue demand, service minimums, and labor costs increase.</p>
-          <p>These estimates are based on current Las Vegas market benchmarks and comparable executive-level events. Final costs will be validated through a formal venue RFP process once date, footprint, and experience requirements are confirmed.</p>
-          <p>The goal of this model is to provide transparent planning guardrails while maintaining flexibility as venue selection is finalized.</p>
+          <p class="muted-note" id="badge-note" style="margin-top:var(--space-4);">The badge line item covers PCB design, firmware development, programming, and the badges themselves. Each unit includes WiFi/Bluetooth, a full screen, buttons, LEDs, and a rechargeable battery pack. Final per-unit cost is being finalized; current estimates place it at no more than $150 per badge at low-volume fabrication.</p>
+
+          <p class="muted-note" style="margin-top:var(--space-4);">Venue and F&amp;B costs are directional estimates. Final figures will be validated through a formal venue RFP once city, date, and experience footprint are confirmed. Black Hat Las Vegas week carries a significant venue premium versus standard metro bookings.</p>
+          <p class="muted-note">Repeat deployments benefit from significantly reduced experience system costs. The Command Center, badge system, and VR content are built once and redeployed. Repeat event agency fees range from $49,000 to $81,000 excluding venue and F&amp;B.</p>
         </div>
 
-        <!-- Interactive Regional Estimator -->
-        <div id="venue-estimator" class="reveal"></div>
+        <!-- ROI Calculator -->
+        <div id="roi-calculator" class="reveal" style="margin-top:var(--space-10);">
+          <h3 class="sub-heading" style="margin-top:0;">ROI Calculator</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-bottom:var(--space-6);">
+            <div>
+              <label style="font-size:var(--text-sm);color:var(--muted);display:block;margin-bottom:var(--space-1);">Average deal size, low end</label>
+              <input type="number" id="roi-deal-low" value="500000" min="25000" max="5000000" step="5000" style="width:100%;padding:var(--space-2) var(--space-3);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--mono);font-size:var(--text-sm);">
+            </div>
+            <div>
+              <label style="font-size:var(--text-sm);color:var(--muted);display:block;margin-bottom:var(--space-1);">Average deal size, high end</label>
+              <input type="number" id="roi-deal-high" value="1500000" min="25000" max="5000000" step="5000" style="width:100%;padding:var(--space-2) var(--space-3);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--mono);font-size:var(--text-sm);">
+            </div>
+          </div>
+          <div style="margin-bottom:var(--space-6);">
+            <label style="font-size:var(--text-sm);color:var(--muted);display:block;margin-bottom:var(--space-1);">Sales close rate from post-event meetings: <span id="roi-rate-label">25%</span></label>
+            <input type="range" id="roi-close-rate" min="5" max="60" step="5" value="25" style="width:100%;accent-color:var(--24sa-black);">
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:var(--space-6);">Post-event meeting conversion rate: 40% of attendees (based on comparable executive event benchmarks). Attendee count pulled from selected audience tier.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);" id="roi-cards"></div>
+
+          <p class="muted-note" style="margin-top:var(--space-6);">These projections are illustrative and based on benchmark conversion assumptions. Results depend on attendee quality, AWS sales team engagement, account pre-qualification, and post-event follow-up cadence. Adjust inputs to reflect your team's actual benchmarks.</p>
+        </div>
       </div>
     </section>
 
@@ -945,19 +926,43 @@
 
         <div class="reveal">
           <p>Futureman, a 24 Seven Agency, partnered with LifeWave, a global health company, to design a flagship Experience Center for high-value customers. The objective was to replace one-way presentations with an immersive, self-directed environment that allowed visitors to control their depth of learning while reinforcing LifeWave's innovation narrative.</p>
-          <p>The experience unfolded as a structured, multi-room journey — combining shared moments such as a founder welcome delivered via a life-size, language-localized hologram and an immersive brand storytelling environment, with hands-on product exploration through interactive kiosks and a forward-looking roadmap space.</p>
-          <p>The program required close integration across physical design, digital platforms, content, and live operations — with an emphasis on reliability and clarity rather than spectacle alone.</p>
+          <p>The experience unfolded as a structured, multi-room journey, combining shared moments such as a founder welcome delivered via a life-size, language-localized hologram and an immersive brand storytelling environment, with hands-on product exploration through interactive kiosks and a forward-looking roadmap space.</p>
+          <p>The program required close integration across physical design, digital platforms, content, and live operations, with an emphasis on reliability and clarity rather than spectacle alone.</p>
         </div>
 
         <div class="case-gallery reveal-stagger">
-          <div style="border-radius:var(--radius-md);overflow:hidden;height:220px;"><img src="images/case study/kioskphoto.jpeg" alt="LifeWave — Interactive Kiosks" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-          <div style="border-radius:var(--radius-md);overflow:hidden;height:220px;"><img src="images/case study/lifewaveeventspace.jpeg" alt="LifeWave — Immersive Environment" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-          <div style="border-radius:var(--radius-md);overflow:hidden;height:220px;"><img src="images/case study/experiencelarge2.jpeg" alt="LifeWave — Product Display" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+          <div style="border-radius:var(--radius-md);overflow:hidden;height:220px;"><img src="images/case study/kioskphoto.jpeg" alt="LifeWave, Interactive Kiosks" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+          <div style="border-radius:var(--radius-md);overflow:hidden;height:220px;"><img src="images/case study/lifewaveeventspace.jpeg" alt="LifeWave, Immersive Environment" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+          <div style="border-radius:var(--radius-md);overflow:hidden;height:220px;"><img src="images/case study/experiencelarge2.jpeg" alt="LifeWave, Product Display" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
         </div>
 
         <div class="relevance-callout reveal">
-          This experience was designed as a reusable system, with modular content and interaction models that scale across audiences, regions, and future deployments — the same architectural principle underlying our proposal for AWS Security.
+          This experience was designed as a reusable system, with modular content and interaction models that scale across audiences, regions, and future deployments, the same architectural principle underlying our proposal for AWS Security.
         </div>
+      </div>
+    </section>
+
+    <!-- ═══ NEXT STEPS ═══ -->
+    <section id="next-steps" class="proposal-section bg-light">
+      <div class="proposal-container">
+        <h2 class="section-heading reveal">Next Steps</h2>
+
+        <div class="steps reveal">
+          <div class="step">
+            <div class="step-label">01. Execute the SOW</div>
+            <p>Upon verbal agreement, we will issue a Statement of Work within 48 hours covering scope, deliverables, milestones, and data governance terms. Estimated turnaround from issue to countersignature: 5 to 7 business days.</p>
+          </div>
+          <div class="step">
+            <div class="step-label">02. Complete AppSec Review</div>
+            <p>24 Seven has previously completed AWS Tier 3 AppSec Review and holds all required documentation on file, enabling a fast re-verification path rather than a first-time submission. We can submit materials immediately upon request.</p>
+          </div>
+          <div class="step">
+            <div class="step-label">03. Project Kickoff</div>
+            <p>Within one week of SOW execution, we will meet with the core AWS and 24 Seven teams to align on event objectives, audience tier, experience system requirements, and Salesforce handoff format. A kickoff brief will be distributed in advance and decisions documented within 24 hours.</p>
+          </div>
+        </div>
+
+        <p class="reveal" style="margin-top:var(--space-6);font-style:italic;color:var(--muted);">Ready to move when you are. Reach out to either contact below to schedule a 30-minute alignment call.</p>
       </div>
     </section>
 
@@ -972,8 +977,8 @@
         </div>
 
         <div class="reveal">
-          <p>24 Seven Agencies is an integrated group of three specialized agencies — Futureman, SketchDeck, and Markacy — designed to support complex work that requires tight coordination across strategy, creative, technology, and execution.</p>
-          <p>We regularly operate as an extension of internal teams, owning programs end to end while reducing vendor sprawl and operational overhead. Our model combines senior-led strategy, on-demand creative and production capacity, and dedicated technical and operational teams — allowing us to scale up or down without sacrificing quality or control.</p>
+          <p>24 Seven Agencies is an integrated group of three specialized agencies: Futureman, SketchDeck, and Markacy, designed to support complex work that requires tight coordination across strategy, creative, technology, and execution.</p>
+          <p>We regularly operate as an extension of internal teams, owning programs end to end while reducing vendor sprawl and operational overhead. Our model combines senior-led strategy, on-demand creative and production capacity, and dedicated technical and operational teams, allowing us to scale up or down without sacrificing quality or control.</p>
           <p>For AWS, this means a single accountable partner that can design the experience, build the systems, produce the assets, and run the event with the rigor and reliability expected in high-stakes environments.</p>
         </div>
 
@@ -1008,24 +1013,29 @@
 
   <!-- ═══ FOOTER ═══ -->
   <footer class="site-footer">
-    <div class="container" style="max-width:var(--proposal-max);padding:0 24px;">
-      <div class="footer-logos" style="display:flex;align-items:center;gap:var(--space-4);">
-        <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:72px;width:auto;opacity:0.85;filter:grayscale(1) brightness(0);margin-top:-6px;">
-        <img src="logos/futureman-logo.png" alt="Futureman" style="height:32px;width:auto;opacity:0.85;filter:grayscale(1) brightness(0);">
-        <img src="logos/sage.webp" alt="The Sage Group" style="height:38px;width:auto;opacity:0.85;filter:grayscale(1) brightness(0);">
+    <div class="container" style="max-width:var(--proposal-max);padding:0 24px;display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <div class="footer-logos" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-6);">
+        <img src="logos/24sa-logo.png" alt="24 Seven Agencies" style="height:48px;width:auto;opacity:0.85;filter:grayscale(1) brightness(0);">
+        <div style="display:flex;align-items:center;gap:var(--space-8);">
+          <img src="logos/futureman-logo.png" alt="Futureman" style="height:18px;width:auto;opacity:0.7;filter:grayscale(1) brightness(0);">
+          <img src="logos/sketchdeck.png" alt="SketchDeck" style="height:40px;width:auto;opacity:0.7;filter:grayscale(1) brightness(0);margin-top:-2px;">
+          <img src="logos/markacy-logo.webp" alt="Markacy" style="height:28px;width:auto;opacity:0.7;filter:grayscale(1) brightness(0);">
+        </div>
       </div>
       <div style="margin-top:var(--space-4);font-family:var(--font-sans);font-size:var(--text-sm);color:var(--muted);line-height:1.8;">
         <div style="font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-2);">Contacts</div>
         <div>Eric Craig, VP Client Management, The Sage Group, <a href="mailto:ecraig@thesagegroup.com" style="color:inherit;text-decoration:underline;">ecraig@thesagegroup.com</a></div>
         <div>Elliot Miller, Sr Director of Amazon Partnerships, 24 Seven Agencies, <a href="mailto:elliot.miller@sketchdeck.com" style="color:inherit;text-decoration:underline;">elliot.miller@sketchdeck.com</a></div>
       </div>
-      <span>&copy; 2026 24 Seven Agencies. All rights reserved.</span>
-      <span>Prepared for Amazon Web Services &middot; February 2026</span>
+      <div style="margin-top:var(--space-6);display:flex;gap:var(--space-6);">
+        <span>&copy; 2026 24 Seven Agencies. All rights reserved.</span>
+        <span>Prepared for Amazon Web Services &middot; April 2026</span>
+      </div>
     </div>
   </footer>
 
   <script>
-    // ═══ HERO 3D GRID CANVAS ═══
+    // ═══ HERO NETWORK TOPOLOGY CANVAS ═══
     (function() {
       var canvas = document.getElementById('hero-grid-canvas');
       if (!canvas) return;
@@ -1033,6 +1043,25 @@
       var w = 0, h = 0;
       var mouseX = 0.5, mouseY = 0.5, targetMX = 0.5, targetMY = 0.5;
       var time = 0;
+
+      // Node definitions — parametric orbits biased toward right half
+      var NUM_NODES = 11;
+      var nodes = [];
+      for (var i = 0; i < NUM_NODES; i++) {
+        var angle = (i / NUM_NODES) * Math.PI * 2;
+        nodes.push({
+          // Base position: clustered in right 60% of screen
+          bx: 0.5 + Math.cos(angle) * (0.15 + Math.random() * 0.18),
+          by: 0.35 + Math.sin(angle) * (0.15 + Math.random() * 0.15),
+          // Orbit parameters
+          ox: (Math.random() - 0.5) * 0.08,
+          oy: (Math.random() - 0.5) * 0.06,
+          speed: 0.15 + Math.random() * 0.25,
+          phase: Math.random() * Math.PI * 2,
+          radius: 3 + Math.random() * 3,
+          pulsePhase: Math.random() * Math.PI * 2
+        });
+      }
 
       function resize() {
         var hero = document.getElementById('hero');
@@ -1053,70 +1082,96 @@
         targetMY = (e.clientY - rect.top) / rect.height;
       });
 
+      function getNodePos(node, t) {
+        var x = node.bx + Math.sin(t * node.speed + node.phase) * node.ox;
+        var y = node.by + Math.cos(t * node.speed * 0.8 + node.phase) * node.oy;
+        // Subtle mouse influence
+        x += (mouseX - 0.5) * 0.03;
+        y += (mouseY - 0.5) * 0.02;
+        return { x: x * w, y: y * h };
+      }
+
       function draw() {
-        time += 0.004;
-        mouseX += (targetMX - mouseX) * 0.04;
-        mouseY += (targetMY - mouseY) * 0.04;
+        time += 0.008;
+        mouseX += (targetMX - mouseX) * 0.03;
+        mouseY += (targetMY - mouseY) * 0.03;
 
         ctx.clearRect(0, 0, w, h);
-        // Dark background
         ctx.fillStyle = '#060612';
         ctx.fillRect(0, 0, w, h);
 
-        var cx = w * 0.5 + (mouseX - 0.5) * 80;
-        var cy = h * 0.42 + (mouseY - 0.5) * 50;
-        var horizon = cy;
-        var spread = w * 1.8;
-        var gridLines = 30;
-        var vertLines = 24;
+        // Compute current positions
+        var positions = [];
+        for (var i = 0; i < NUM_NODES; i++) {
+          positions.push(getNodePos(nodes[i], time));
+        }
 
-        // Horizontal lines receding into distance
-        for (var i = 0; i < gridLines; i++) {
-          var t = i / gridLines;
-          var curve = t * t * t;
-          var y = horizon + curve * (h - horizon + 300);
-          var pulse = Math.sin(time * 2.5 + t * 6) * 0.25 + 0.75;
-          var alpha = (0.15 + t * 0.35) * pulse;
-          ctx.strokeStyle = 'rgba(90,150,210,' + alpha + ')';
-          ctx.lineWidth = 0.6 + t * 1.2;
+        // Draw connections — lines between nearby nodes
+        var connectionDist = Math.min(w, h) * 0.35;
+        for (var i = 0; i < NUM_NODES; i++) {
+          for (var j = i + 1; j < NUM_NODES; j++) {
+            var dx = positions[i].x - positions[j].x;
+            var dy = positions[i].y - positions[j].y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < connectionDist) {
+              var proximity = 1 - dist / connectionDist;
+              var pulse = Math.sin(time * 1.5 + i * 0.7 + j * 0.3) * 0.3 + 0.7;
+              var alpha = proximity * 0.18 * pulse;
+              ctx.strokeStyle = 'rgba(140,170,210,' + alpha + ')';
+              ctx.lineWidth = 0.6 + proximity * 0.8;
+              ctx.beginPath();
+              ctx.moveTo(positions[i].x, positions[i].y);
+              ctx.lineTo(positions[j].x, positions[j].y);
+              ctx.stroke();
+
+              // Traveling data packet along some connections
+              if (proximity > 0.4 && (i + j) % 3 === 0) {
+                var packetT = (Math.sin(time * 2 + i * 1.5) * 0.5 + 0.5);
+                var px = positions[i].x + (positions[j].x - positions[i].x) * packetT;
+                var py = positions[i].y + (positions[j].y - positions[i].y) * packetT;
+                ctx.fillStyle = 'rgba(180,210,240,' + (alpha * 2.5) + ')';
+                ctx.beginPath();
+                ctx.arc(px, py, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+              }
+            }
+          }
+        }
+
+        // Draw nodes
+        for (var i = 0; i < NUM_NODES; i++) {
+          var p = positions[i];
+          var n = nodes[i];
+          var pulse = Math.sin(time * 1.2 + n.pulsePhase) * 0.3 + 0.7;
+
+          // Outer ring (breathing)
+          var ringR = n.radius + pulse * 3;
+          ctx.strokeStyle = 'rgba(140,170,210,' + (0.08 + pulse * 0.06) + ')';
+          ctx.lineWidth = 0.5;
           ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.lineTo(w, y);
+          ctx.arc(p.x, p.y, ringR, 0, Math.PI * 2);
           ctx.stroke();
-        }
 
-        // Vertical lines converging to vanishing point
-        for (var i = -vertLines; i <= vertLines; i++) {
-          var baseX = cx + (i / vertLines) * spread;
-          var pulse = Math.sin(time * 1.8 + Math.abs(i) * 0.4) * 0.2 + 0.8;
-          var dist = Math.abs(i) / vertLines;
-          var alpha = (0.25 - dist * 0.15) * pulse;
-          if (alpha <= 0) continue;
-          ctx.strokeStyle = 'rgba(90,150,210,' + alpha + ')';
-          ctx.lineWidth = 0.6;
+          // Core dot
+          ctx.fillStyle = 'rgba(180,210,240,' + (0.35 + pulse * 0.25) + ')';
           ctx.beginPath();
-          ctx.moveTo(cx, horizon);
-          ctx.lineTo(baseX, h + 80);
-          ctx.stroke();
+          ctx.arc(p.x, p.y, n.radius * 0.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Tiny glow
+          var glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, n.radius * 4);
+          glow.addColorStop(0, 'rgba(120,160,220,' + (0.06 * pulse) + ')');
+          glow.addColorStop(1, 'transparent');
+          ctx.fillStyle = glow;
+          ctx.fillRect(p.x - n.radius * 4, p.y - n.radius * 4, n.radius * 8, n.radius * 8);
         }
 
-        // Data particles streaming toward viewer
-        for (var i = 0; i < 60; i++) {
-          var seed = i * 137.508;
-          var px = ((seed * 0.618 + time * 40 * (0.3 + (i % 5) * 0.15)) % (w + 40)) - 20;
-          var rawY = ((seed * 1.3 + time * 60 * (0.2 + (i % 3) * 0.12)) % (h * 0.7));
-          var py = horizon + rawY * rawY / (h * 0.7);
-          var depth = rawY / (h * 0.7);
-          var size = 1.5 + depth * 3;
-          var a = 0.2 + depth * 0.5;
-          ctx.fillStyle = 'rgba(120,180,240,' + a + ')';
-          ctx.fillRect(px, py, size, size * 0.4);
-        }
-
-        // Glow at vanishing point
-        var grd = ctx.createRadialGradient(cx, horizon, 0, cx, horizon, w * 0.4);
-        grd.addColorStop(0, 'rgba(90,150,210,0.15)');
-        grd.addColorStop(0.4, 'rgba(60,100,180,0.05)');
+        // Subtle center glow in the network cluster
+        var gcx = w * 0.6 + (mouseX - 0.5) * 40;
+        var gcy = h * 0.45 + (mouseY - 0.5) * 30;
+        var grd = ctx.createRadialGradient(gcx, gcy, 0, gcx, gcy, w * 0.35);
+        grd.addColorStop(0, 'rgba(80,120,180,0.06)');
+        grd.addColorStop(0.5, 'rgba(60,90,150,0.02)');
         grd.addColorStop(1, 'transparent');
         ctx.fillStyle = grd;
         ctx.fillRect(0, 0, w, h);
@@ -1124,6 +1179,58 @@
         requestAnimationFrame(draw);
       }
       requestAnimationFrame(draw);
+    })();
+
+    // ═══ HERO DATA STREAMS (ambient diagonal lines) ═══
+    (function() {
+      var container = document.getElementById('hero-streams');
+      if (!container) return;
+      for (var i = 0; i < 12; i++) {
+        var line = document.createElement('div');
+        line.className = 'stream-line';
+        line.style.left = (5 + Math.random() * 90) + '%';
+        line.style.animationDuration = (6 + Math.random() * 8) + 's';
+        line.style.animationDelay = (Math.random() * 10) + 's';
+        line.style.background = 'linear-gradient(180deg, transparent, rgba(140,170,210,' + (0.02 + Math.random() * 0.03) + '), transparent)';
+        line.style.transform = 'rotate(15deg)';
+        container.appendChild(line);
+      }
+    })();
+
+    // ═══ HERO TEXT SCRAMBLE (eyebrow + subtitle) ═══
+    (function() {
+      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&';
+
+      function initScramble(elId, delay, speed, repeatDelay) {
+        var el = document.getElementById(elId);
+        if (!el) return;
+        var original = el.getAttribute('data-text');
+        var revealed = 0;
+        var interval;
+
+        function scramble() {
+          var out = '';
+          for (var i = 0; i < original.length; i++) {
+            if (i < revealed) {
+              out += original[i];
+            } else if (original[i] === ' ' || original[i] === '.' || original[i] === '/') {
+              out += original[i];
+            } else {
+              out += chars[Math.floor(Math.random() * chars.length)];
+            }
+          }
+          el.textContent = out;
+          revealed += speed;
+          if (revealed >= original.length) {
+            el.textContent = original;
+            clearInterval(interval);
+            setTimeout(function() { revealed = 0; interval = setInterval(scramble, 40); }, repeatDelay);
+          }
+        }
+        setTimeout(function() { interval = setInterval(scramble, 40); }, delay);
+      }
+
+      initScramble('hero-eyebrow', 600, 1.2, 8000);
     })();
 
     // ═══ NAVIGATION ═══
@@ -1181,7 +1288,7 @@
     // ═══ HERO PARALLAX ═══
     (function() {
       var heroContent = document.querySelector('.hero-content');
-      var heroCanvas = document.getElementById('hero-grid-canvas');
+      var heroCanvasWrap = document.querySelector('.hero-canvas-wrap');
       var heroSection = document.getElementById('hero');
       var ticking = false;
       window.addEventListener('scroll', function() {
@@ -1190,9 +1297,9 @@
             var rect = heroSection.getBoundingClientRect();
             if (rect.bottom > 0) {
               var scrolled = -rect.top;
-              heroContent.style.transform = 'translateY(' + (scrolled * 0.35) + 'px)';
+              heroContent.style.transform = 'translateY(' + (scrolled * 0.25) + 'px)';
               heroContent.style.opacity = Math.max(0, 1 - scrolled / (rect.height * 0.6));
-              heroCanvas.style.transform = 'translateY(' + (scrolled * -0.3) + 'px) scale(' + (1 + scrolled * 0.0003) + ')';
+              heroCanvasWrap.style.transform = 'translateY(' + (scrolled * -0.15) + 'px)';
             }
             ticking = false;
           });
@@ -1208,129 +1315,394 @@
       });
     });
 
-    // ═══ VENUE ESTIMATOR ═══
+    // ═══ BUDGET CALCULATOR ═══
     (function() {
-      const BASE = { venue: { low: 3000, high: 20000 }, fb: { low: 11180, high: 19500 }, extra: { low: 6300, high: 13600 } };
+      // Base venue costs per tier (used as reference for LV General baseline)
+      const VENUE_BASE = {
+        30:  { venue:[8000,20000], fb:9000, av:[6000,10000], decor:[3000,5000], fbLabel:'F&B at $300 per person' },
+        75:  { venue:[20000,45000], fb:21000, av:[12000,20000], decor:[6000,10000], fbLabel:'F&B at $275 per person' },
+        150: { venue:[40000,90000], fb:38000, av:[20000,35000], decor:[10000,18000], fbLabel:'F&B at $250 per person' }
+      };
+
       const REGIONS = [
-        { id:"lv-blackhat", label:"Las Vegas", sublabel:"Black Hat Week", group:"us", multipliers:{venue:[3.33,1.25],fb:[1.14,1.23],extra:[1.33,1.45]}, note:"Premium demand / conference week pricing", color:"#FF5E2E" },
-        { id:"lv-general", label:"Las Vegas", sublabel:"General Event (Baseline)", group:"us", multipliers:{venue:[1.0,1.0],fb:[1.0,1.0],extra:[1.0,1.0]}, note:"Baseline reference", color:"#8A857D", isBaseline:true },
-        { id:"tier1-us", label:"Tier-1 US City", sublabel:"NYC / SF / DC / Chicago / Boston", group:"us", multipliers:{venue:[2.0,2.5],fb:[1.25,1.45],extra:[1.3,1.5]}, note:"Premium urban market", color:"#000000" },
-        { id:"tier2-us", label:"Tier-2 US City", sublabel:"Austin / Denver / Nashville / Atlanta", group:"us", multipliers:{venue:[0.9,1.3],fb:[0.95,1.15],extra:[0.9,1.1]}, note:"Growing event markets", color:"#6B665E" },
-        { id:"london", label:"London", sublabel:"United Kingdom", group:"intl", multipliers:{venue:[2.0,2.8],fb:[1.3,1.6],extra:[1.4,1.7]}, note:"High labor costs and premium venue demand", color:"#000000" },
-        { id:"western-europe", label:"Western Europe", sublabel:"Paris / Amsterdam / Frankfurt / Zurich", group:"intl", multipliers:{venue:[1.4,2.0],fb:[1.2,1.5],extra:[1.2,1.5]}, note:"Strong service standards", color:"#8A857D" },
-        { id:"southern-europe", label:"Southern Europe", sublabel:"Barcelona / Madrid / Lisbon / Milan", group:"intl", multipliers:{venue:[0.8,1.4],fb:[0.9,1.2],extra:[0.85,1.15]}, note:"High-quality venues at competitive rates", color:"#FF5E2E" },
-        { id:"latam", label:"Latin America", sublabel:"Mexico City / Sao Paulo / Bogota", group:"intl", multipliers:{venue:[0.5,0.85],fb:[0.65,0.9],extra:[0.6,0.85]}, note:"Significant cost reduction vs US", color:"#FFD400" },
-        { id:"apac1", label:"APAC Tier-1", sublabel:"Singapore / Tokyo / Sydney / Hong Kong", group:"intl", multipliers:{venue:[1.3,2.0],fb:[1.1,1.5],extra:[1.15,1.4]}, note:"World-class executive venues", color:"#6B665E" },
-        { id:"apac2", label:"APAC Tier-2", sublabel:"Bangkok / Kuala Lumpur / Manila", group:"intl", multipliers:{venue:[0.4,0.75],fb:[0.55,0.8],extra:[0.55,0.75]}, note:"Substantial savings", color:"#C0D8FF" },
-        { id:"middle-east", label:"Middle East", sublabel:"Dubai / Riyadh / Abu Dhabi", group:"intl", multipliers:{venue:[1.1,1.8],fb:[1.05,1.4],extra:[1.1,1.5]}, note:"World-class facilities", color:"#FF5E2E" }
+        // US Cities
+        { id:'lv-blackhat', label:'Las Vegas (Black Hat)', group:'us', m:{venue:[3.33,1.25],fb:[1.14,1.23],av:[1.33,1.45],decor:[1.33,1.45]}, note:'Peak conference week pricing' },
+        { id:'lv-general', label:'Las Vegas (General)', group:'us', m:{venue:[1,1],fb:[1,1],av:[1,1],decor:[1,1]}, note:'Baseline reference', isBaseline:true },
+        { id:'new-york-city', label:'New York City', group:'us', m:{venue:[2.50,2.80],fb:[1.65,1.85],av:[1.48,1.70],decor:[1.58,1.80]}, note:'Highest US venue costs, union labor mandatory' },
+        { id:'san-francisco', label:'San Francisco', group:'us', m:{venue:[2.20,2.50],fb:[1.55,1.75],av:[1.38,1.58],decor:[1.43,1.65]}, note:'Tech hub premium, limited private venue supply' },
+        { id:'los-angeles', label:'Los Angeles', group:'us', m:{venue:[2.00,2.40],fb:[1.48,1.68],av:[1.33,1.53],decor:[1.43,1.65]}, note:'Union labor, entertainment-grade AV expectations' },
+        { id:'washington-dc', label:'Washington DC', group:'us', m:{venue:[1.80,2.10],fb:[1.38,1.53],av:[1.25,1.43],decor:[1.30,1.48]}, note:'Federal corridor pricing, strong venue demand' },
+        { id:'boston', label:'Boston', group:'us', m:{venue:[1.88,2.18],fb:[1.45,1.60],av:[1.33,1.53],decor:[1.38,1.55]}, note:'Tight venue market, high catering minimums' },
+        { id:'miami', label:'Miami', group:'us', m:{venue:[1.75,2.15],fb:[1.35,1.55],av:[1.20,1.40],decor:[1.33,1.55]}, note:'Luxury venue premium, seasonal rate swings' },
+        { id:'chicago', label:'Chicago', group:'us', m:{venue:[1.55,1.85],fb:[1.25,1.40],av:[1.25,1.45],decor:[1.25,1.43]}, note:'Union labor surcharges on AV and setup' },
+        { id:'seattle', label:'Seattle', group:'us', m:{venue:[1.60,1.88],fb:[1.33,1.48],av:[1.20,1.38],decor:[1.23,1.40]}, note:'Growing tech hub, moderate venue supply' },
+        { id:'austin', label:'Austin', group:'us', m:{venue:[1.15,1.38],fb:[1.08,1.20],av:[1.05,1.18],decor:[1.05,1.18]}, note:'Affordable outside SXSW, good venue variety' },
+        { id:'denver', label:'Denver', group:'us', m:{venue:[1.10,1.33],fb:[1.08,1.18],av:[1.00,1.13],decor:[1.00,1.13]}, note:'Competitive pricing, fewer premium options' },
+        { id:'nashville', label:'Nashville', group:'us', m:{venue:[1.05,1.28],fb:[1.03,1.13],av:[0.95,1.08],decor:[0.95,1.08]}, note:'Value market, strong hospitality infrastructure' },
+        { id:'atlanta', label:'Atlanta', group:'us', m:{venue:[1.00,1.23],fb:[0.98,1.10],av:[0.95,1.08],decor:[0.93,1.05]}, note:'Budget-friendly, large venue inventory' },
+        { id:'dallas', label:'Dallas', group:'us', m:{venue:[0.95,1.18],fb:[0.93,1.05],av:[0.90,1.03],decor:[0.88,1.00]}, note:'Low-cost market, abundant hotel ballrooms' },
+        { id:'minneapolis', label:'Minneapolis', group:'us', m:{venue:[0.93,1.15],fb:[0.93,1.05],av:[0.90,1.03],decor:[0.88,1.00]}, note:'Affordable Midwest market, limited luxury tier' },
+        // International Cities
+        { id:'london', label:'London', group:'intl', m:{venue:[2.40,2.80],fb:[1.60,1.83],av:[1.53,1.75],decor:[1.53,1.75]}, note:'20% VAT, premium Mayfair and City venue rates' },
+        { id:'paris', label:'Paris', group:'intl', m:{venue:[2.20,2.60],fb:[1.55,1.78],av:[1.48,1.70],decor:[1.48,1.70]}, note:'20% VAT, luxury hospitality premium' },
+        { id:'tokyo', label:'Tokyo', group:'intl', m:{venue:[2.00,2.40],fb:[1.48,1.68],av:[1.48,1.70],decor:[1.43,1.63]}, note:'Premium service standards, space scarcity' },
+        { id:'singapore', label:'Singapore', group:'intl', m:{venue:[1.90,2.30],fb:[1.40,1.60],av:[1.38,1.60],decor:[1.38,1.58]}, note:'9% GST, top-tier APAC event hub' },
+        { id:'sydney', label:'Sydney', group:'intl', m:{venue:[1.80,2.18],fb:[1.43,1.60],av:[1.38,1.55],decor:[1.33,1.53]}, note:'10% GST, high labor costs' },
+        { id:'stockholm', label:'Stockholm', group:'intl', m:{venue:[1.80,2.10],fb:[1.48,1.65],av:[1.38,1.55],decor:[1.35,1.53]}, note:'25% VAT, high labor costs, limited venues' },
+        { id:'amsterdam', label:'Amsterdam', group:'intl', m:{venue:[1.70,2.00],fb:[1.35,1.50],av:[1.28,1.45],decor:[1.28,1.45]}, note:'21% VAT, compact city limits venue supply' },
+        { id:'dubai', label:'Dubai', group:'intl', m:{venue:[1.70,2.15],fb:[1.30,1.53],av:[1.30,1.53],decor:[1.40,1.65]}, note:'5% VAT, luxury venue emphasis' },
+        { id:'tel-aviv', label:'Tel Aviv', group:'intl', m:{venue:[1.60,1.98],fb:[1.38,1.58],av:[1.33,1.55],decor:[1.30,1.53]}, note:'17% VAT, high security and labor costs' },
+        { id:'dublin', label:'Dublin', group:'intl', m:{venue:[1.55,1.85],fb:[1.30,1.45],av:[1.25,1.43],decor:[1.23,1.40]}, note:'23% VAT, tech sector drives hospitality demand' },
+        { id:'frankfurt', label:'Frankfurt', group:'intl', m:{venue:[1.55,1.85],fb:[1.25,1.40],av:[1.28,1.45],decor:[1.23,1.40]}, note:'19% VAT, financial district premium' },
+        { id:'toronto', label:'Toronto', group:'intl', m:{venue:[1.48,1.78],fb:[1.23,1.38],av:[1.18,1.35],decor:[1.15,1.33]}, note:'13% HST, favorable CAD/USD rate' },
+        { id:'barcelona', label:'Barcelona', group:'intl', m:{venue:[1.23,1.50],fb:[1.10,1.25],av:[1.10,1.28],decor:[1.10,1.25]}, note:'21% VAT, tourism premium on boutique venues' },
+        { id:'berlin', label:'Berlin', group:'intl', m:{venue:[1.25,1.53],fb:[1.13,1.28],av:[1.15,1.33],decor:[1.10,1.28]}, note:'19% VAT, affordable by European standards' },
+        { id:'madrid', label:'Madrid', group:'intl', m:{venue:[1.18,1.45],fb:[1.08,1.23],av:[1.10,1.28],decor:[1.05,1.23]}, note:'21% VAT, strong value for Western Europe' },
+        { id:'lisbon', label:'Lisbon', group:'intl', m:{venue:[0.98,1.25],fb:[0.90,1.08],av:[1.00,1.18],decor:[0.93,1.10]}, note:'23% VAT, lowest Western European costs' },
+        { id:'sao-paulo', label:'S\u00e3o Paulo', group:'intl', m:{venue:[0.78,1.03],fb:[0.60,0.78],av:[0.83,1.05],decor:[0.70,0.88]}, note:'Favorable FX for USD, high import duties on AV' },
+        { id:'mexico-city', label:'Mexico City', group:'intl', m:{venue:[0.68,0.88],fb:[0.55,0.70],av:[0.73,0.90],decor:[0.60,0.78]}, note:'16% VAT, strong USD purchasing power' }
       ];
 
-      function calc(r) {
-        const m = r.multipliers;
+      const SERVICES = {
+        30: {
+          note: 'Recommended format: standalone invite-only event in any major metro.',
+          items: [
+            { cat:'Experience Systems', item:'Command Center platform', cost:'$12,000' },
+            { cat:'Experience Systems', item:'Security Clearance badges (30 units)', cost:'$20,000' },
+            { cat:'Experience Systems', item:'Field Training VR simulation', cost:'$8,000' },
+            { cat:'Experience Systems', item:'Subtotal', cost:'$40,000', isSubtotal:true },
+            { cat:'Content & Production', item:'Content strategy, agenda, run-of-show', cost:'$20,000' },
+            { cat:'Content & Production', item:'Staffing: EP + 3 staff + 1 facilitator', cost:'$12,000' },
+            { cat:'Content & Production', item:'AV coordination and management', cost:'$7,000' },
+            { cat:'Content & Production', item:'Subtotal', cost:'$39,000', isSubtotal:true },
+            { cat:'Lead Management', item:'Executive sourcing and outreach', cost:'$32,000' }
+          ],
+          servicesTotal: 111000
+        },
+        75: {
+          note: 'Recommended format: conference-anchored at Black Hat (Las Vegas), Gartner Security Summit (National Harbor), or RSA (San Francisco), or standalone in NYC, DC, Chicago, Boston, or Seattle.',
+          items: [
+            { cat:'Experience Systems', item:'Command Center platform', cost:'$12,000' },
+            { cat:'Experience Systems', item:'Security Clearance badges (75 units)', cost:'$42,000' },
+            { cat:'Experience Systems', item:'Field Training VR (2 to 3 stations)', cost:'$14,000' },
+            { cat:'Experience Systems', item:'Subtotal', cost:'$68,000', isSubtotal:true },
+            { cat:'Content & Production', item:'Content strategy, agenda, run-of-show', cost:'$20,000' },
+            { cat:'Content & Production', item:'Staffing: EP + 5 staff + 2 facilitators', cost:'$18,000' },
+            { cat:'Content & Production', item:'AV coordination and management', cost:'$12,000' },
+            { cat:'Content & Production', item:'Subtotal', cost:'$50,000', isSubtotal:true },
+            { cat:'Lead Management', item:'Executive sourcing and outreach', cost:'$47,500' }
+          ],
+          servicesTotal: 165500
+        },
+        150: {
+          note: 'Recommended format: RSA Conference (San Francisco) or AWS re:Invent (Las Vegas). These are the only US events with sufficient exec-level attendance to support this tier reliably.',
+          items: [
+            { cat:'Experience Systems', item:'Command Center platform', cost:'$14,000' },
+            { cat:'Experience Systems', item:'Security Clearance badges (150 units)', cost:'$75,000' },
+            { cat:'Experience Systems', item:'Field Training VR (5 to 6 stations)', cost:'$22,000' },
+            { cat:'Experience Systems', item:'Subtotal', cost:'$111,000', isSubtotal:true },
+            { cat:'Content & Production', item:'Content strategy, agenda, run-of-show', cost:'$22,000' },
+            { cat:'Content & Production', item:'Staffing: EP + 8 staff + 3 facilitators', cost:'$28,000' },
+            { cat:'Content & Production', item:'AV coordination and management', cost:'$18,000' },
+            { cat:'Content & Production', item:'Subtotal', cost:'$68,000', isSubtotal:true },
+            { cat:'Lead Management', item:'Executive sourcing and outreach', cost:'$65,000' }
+          ],
+          servicesTotal: 244000
+        }
+      };
+
+      let currentTier = 30;
+      let currentRegion = 'lv-general';
+
+      function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+      function rng(lo, hi) { return lo === hi ? fmt(lo) : fmt(lo) + '\u2013' + fmt(hi); }
+
+      function getVenueCosts(tier, regionId) {
+        const b = VENUE_BASE[tier];
+        const r = REGIONS.find(x => x.id === regionId);
+        const m = r.m;
+        const vLo = Math.round(b.venue[0] * m.venue[0]);
+        const vHi = Math.round(b.venue[1] * m.venue[1]);
+        const fbLo = Math.round(b.fb * (m.fb[0] < 1 ? m.fb[0] : 1));
+        const fbHi = Math.round(b.fb * Math.max(m.fb[0], m.fb[1]));
+        const fb = Math.round(b.fb * ((m.fb[0] + m.fb[1]) / 2));
+        const avLo = Math.round(b.av[0] * m.av[0]);
+        const avHi = Math.round(b.av[1] * m.av[1]);
+        const dLo = Math.round(b.decor[0] * m.decor[0]);
+        const dHi = Math.round(b.decor[1] * m.decor[1]);
+        const subLo = vLo + fbLo + avLo + dLo;
+        const subHi = vHi + fbHi + avHi + dHi;
+        const median = Math.round((subLo + subHi) / 2);
         return {
-          venue: { low: Math.round(BASE.venue.low * m.venue[0]), high: Math.round(BASE.venue.high * m.venue[1]) },
-          fb: { low: Math.round(BASE.fb.low * m.fb[0]), high: Math.round(BASE.fb.high * m.fb[1]) },
-          extra: { low: Math.round(BASE.extra.low * m.extra[0]), high: Math.round(BASE.extra.high * m.extra[1]) }
+          items: [
+            { cat:'Venue & Hospitality', item:'Venue rental', cost: rng(vLo, vHi) },
+            { cat:'Venue & Hospitality', item: b.fbLabel, cost: rng(fbLo, fbHi) },
+            { cat:'Venue & Hospitality', item:'AV rental', cost: rng(avLo, avHi) },
+            { cat:'Venue & Hospitality', item:'Furniture and decor', cost: rng(dLo, dHi) },
+            { cat:'Venue & Hospitality', item:'Subtotal', cost: rng(subLo, subHi), isSubtotal:true }
+          ],
+          low: subLo, high: subHi, median: median
         };
       }
-      function total(c) { return { low: c.venue.low + c.fb.low + c.extra.low, high: c.venue.high + c.fb.high + c.extra.high }; }
-      function fmt(n) { return '$' + n.toLocaleString('en-US'); }
 
-      const baseCosts = calc(REGIONS[1]);
-      const baseTotal = total(baseCosts);
-
-      // Pre-calc all totals for chart
-      const allData = REGIONS.map(r => { const c = calc(r); const t = total(c); return { ...r, costs: c, total: t }; });
-      allData.sort((a,b) => a.total.low - b.total.low);
-      const maxHigh = Math.max(...allData.map(d => d.total.high));
-      const maxLow = Math.max(...allData.map(d => d.total.low));
-
-      let selectedId = 'lv-general';
-
-      const container = document.getElementById('venue-estimator');
-
-      function render() {
-        const sel = allData.find(d => d.id === selectedId);
-        const c = sel.costs;
-        const t = sel.total;
-        const deltaLow = ((t.low - baseTotal.low) / baseTotal.low * 100).toFixed(0);
-        const deltaHigh = ((t.high - baseTotal.high) / baseTotal.high * 100).toFixed(0);
-        const avgDelta = (parseFloat(deltaLow) + parseFloat(deltaHigh)) / 2;
-        let deltaClass = 'similar', deltaText = 'Similar to LV General';
-        if (avgDelta < -10) { deltaClass = 'cheaper'; deltaText = Math.round(avgDelta) + '% vs LV General'; }
-        else if (avgDelta > 10) { deltaClass = 'pricier'; deltaText = '+' + Math.round(avgDelta) + '% vs LV General'; }
-
-        const barMax = maxHigh;
-
-        container.innerHTML = `
-          <p class="estimator-sub">Select a region to see directional venue and hospitality estimates relative to the Las Vegas baseline.</p>
-          <div class="region-pills">
-            <div class="region-group-label">United States</div>
-            <div class="region-group">
-              ${allData.filter(r=>r.group==='us').sort((a,b)=>b.total.low-a.total.low).map(r => `<button class="region-pill${r.id===selectedId?' active':''}" data-id="${r.id}">${r.label}${r.sublabel?' — '+r.sublabel.split('/')[0].trim():''}</button>`).join('')}
-            </div>
-            <div class="region-group-label">International</div>
-            <div class="region-group">
-              ${allData.filter(r=>r.group==='intl').sort((a,b)=>b.total.low-a.total.low).map(r => `<button class="region-pill${r.id===selectedId?' active':''}" data-id="${r.id}">${r.label}${r.sublabel?' — '+r.sublabel.split('/')[0].trim():''}</button>`).join('')}
-            </div>
-          </div>
-          <div class="region-detail">
-            <div class="region-detail-header">
-              <h4>${sel.label}</h4>
-              <span class="sublabel">${sel.sublabel}</span>
-            </div>
-            <div class="region-total" style="color:var(--24sa-black)">${fmt(t.low)} – ${fmt(t.high)}</div>
-            <table class="region-breakdown">
-              <tr>
-                <td>Venue</td>
-                <td><div class="bar-cell"><div class="bar-fill" style="width:${(c.venue.high/barMax*100).toFixed(1)}%;background:${sel.color};"></div></div></td>
-                <td>${fmt(c.venue.low)} – ${fmt(c.venue.high)}</td>
-              </tr>
-              <tr>
-                <td>F&amp;B</td>
-                <td><div class="bar-cell"><div class="bar-fill" style="width:${(c.fb.high/barMax*100).toFixed(1)}%;background:${sel.color};opacity:0.7;"></div></div></td>
-                <td>${fmt(c.fb.low)} – ${fmt(c.fb.high)}</td>
-              </tr>
-              <tr>
-                <td>Extra Fees</td>
-                <td><div class="bar-cell"><div class="bar-fill" style="width:${(c.extra.high/barMax*100).toFixed(1)}%;background:${sel.color};opacity:0.5;"></div></div></td>
-                <td>${fmt(c.extra.low)} – ${fmt(c.extra.high)}</td>
-              </tr>
-              <tr class="total-row">
-                <td>Total</td>
-                <td></td>
-                <td>${fmt(t.low)} – ${fmt(t.high)}</td>
-              </tr>
-            </table>
-            ${!sel.isBaseline ? `<span class="delta-badge ${deltaClass}">${deltaText}</span>` : '<span class="delta-badge similar">Baseline</span>'}
-          </div>
-          <div class="all-regions-chart">
-            <h4>All Regions — Ranked by Low Estimate</h4>
-            ${allData.map(r => `
-              <div class="chart-row" data-id="${r.id}">
-                <span class="chart-label">${r.label}</span>
-                <div class="chart-bar-wrap">
-                  <div class="chart-bar" style="width:${(r.total.low/maxLow*100).toFixed(1)}%;background:${r.color};"></div>
-                </div>
-                <span class="chart-value">${fmt(r.total.low)}</span>
-              </div>
-            `).join('')}
-          </div>
-        `;
-
-        // Bind pills
-        container.querySelectorAll('.region-pill').forEach(btn => {
-          btn.addEventListener('click', () => { selectedId = btn.dataset.id; render(); });
-        });
-        // Bind chart rows
-        container.querySelectorAll('.chart-row').forEach(row => {
-          row.addEventListener('click', () => { selectedId = row.dataset.id; render(); });
+      function renderRegionPills() {
+        const us = REGIONS.filter(r => r.group === 'us');
+        const intl = REGIONS.filter(r => r.group === 'intl');
+        let html = '<div style="font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">US</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">';
+        us.forEach(r => { html += '<button class="region-pill'+(r.id===currentRegion?' active':'')+'" data-region="'+r.id+'">'+r.label+'</button>'; });
+        html += '</div><div style="font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">International</div><div style="display:flex;flex-wrap:wrap;gap:6px;">';
+        intl.forEach(r => { html += '<button class="region-pill'+(r.id===currentRegion?' active':'')+'" data-region="'+r.id+'">'+r.label+'</button>'; });
+        html += '</div>';
+        document.getElementById('region-selector').innerHTML = html;
+        // Bind
+        document.querySelectorAll('#region-selector .region-pill').forEach(btn => {
+          btn.addEventListener('click', function() {
+            currentRegion = this.dataset.region;
+            renderBudget();
+          });
         });
       }
 
-      render();
+      function renderBudget() {
+        const s = SERVICES[currentTier];
+        const v = getVenueCosts(currentTier, currentRegion);
+        const region = REGIONS.find(r => r.id === currentRegion);
+        const baseV = getVenueCosts(currentTier, 'lv-general');
+
+        document.getElementById('tier-note').textContent = s.note;
+
+        // Build table rows
+        const allItems = [...s.items, ...v.items];
+        let lastCat = '';
+        const rows = allItems.map(r => {
+          const showCat = r.cat !== lastCat;
+          lastCat = r.cat;
+          const bold = r.isSubtotal ? 'font-weight:600;' : '';
+          const bg = r.isSubtotal ? 'background:rgba(0,0,0,0.02);' : '';
+          return '<tr style="'+bg+'"><td style="'+bold+'">'+(showCat ? r.cat : '')+'</td><td style="'+bold+'">'+r.item+'</td><td style="'+bold+'">'+r.cost+'</td></tr>';
+        }).join('');
+        document.getElementById('budget-body').innerHTML = rows;
+
+        // Region pills
+        renderRegionPills();
+
+        // Region note and delta
+        document.getElementById('region-note').textContent = region.note;
+        document.getElementById('region-delta').innerHTML = '';
+
+        // Totals
+        const allIn = Math.round(s.servicesTotal + v.median);
+        const rangeLow = s.servicesTotal + v.low;
+        const rangeHigh = s.servicesTotal + v.high;
+        document.getElementById('budget-total').innerHTML = '<div style="font-family:var(--mono);font-size:var(--text-3xl);color:var(--24sa-black);margin-bottom:var(--space-2);">'+fmt(allIn)+'</div><div style="font-size:var(--text-sm);color:var(--muted);">Services total (fixed): '+fmt(s.servicesTotal)+' + Venue and hospitality ('+region.label+'): '+fmt(v.median)+'</div><div style="font-size:12px;color:var(--muted);margin-top:var(--space-1);">Range: '+fmt(rangeLow)+' to '+fmt(rangeHigh)+'</div>';
+
+        renderROI(allIn);
+      }
+
+      // Bind tier buttons
+      document.querySelectorAll('#budget-calculator .region-pill[data-tier]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('#budget-calculator .region-pill[data-tier]').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          currentTier = parseInt(this.dataset.tier);
+          renderBudget();
+        });
+      });
+
+      // ═══ ROI CALCULATOR ═══
+      const REPEAT_COSTS = { 30: 100000, 75: 107500, 150: 115000 };
+
+      function renderROI(firstCostOverride) {
+        const s = SERVICES[currentTier];
+        const v = getVenueCosts(currentTier, currentRegion);
+        const dealLow = parseInt(document.getElementById('roi-deal-low').value) || 500000;
+        const dealHigh = parseInt(document.getElementById('roi-deal-high').value) || 1500000;
+        const closeRate = parseInt(document.getElementById('roi-close-rate').value) / 100;
+        document.getElementById('roi-rate-label').textContent = Math.round(closeRate * 100) + '%';
+
+        const attendees = currentTier;
+        const meetings = Math.round(attendees * 0.4);
+        const deals = meetings * closeRate;
+        const revLow = deals * dealLow;
+        const revHigh = deals * dealHigh;
+        const revAvg = (revLow + revHigh) / 2;
+
+        const firstCost = firstCostOverride || Math.round(s.servicesTotal + v.median);
+        const repeatCost = REPEAT_COSTS[currentTier];
+
+        function card(label, cost) {
+          const roiMedian = cost > 0 ? (revAvg / cost) : 0;
+          const roiLow = cost > 0 ? (revLow / cost) : 0;
+          const roiHigh = cost > 0 ? (revHigh / cost) : 0;
+          return '<div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-6);"><div style="font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--space-4);">'+label+'</div><div style="font-size:var(--text-sm);color:var(--muted);line-height:1.8;">Projected meetings: '+meetings+'<br>Projected closed deals: '+deals.toFixed(1)+'<br>Projected revenue: '+fmt(Math.round(revLow))+' to '+fmt(Math.round(revHigh))+'<br>Event cost: '+fmt(cost)+'</div><div style="font-family:var(--mono);font-size:var(--text-3xl);color:var(--24sa-black);margin-top:var(--space-4);">'+roiMedian.toFixed(1)+'x</div><div style="font-size:12px;color:var(--muted);">Range: '+roiLow.toFixed(1)+'x to '+roiHigh.toFixed(1)+'x</div></div>';
+        }
+
+        document.getElementById('roi-cards').innerHTML = card('First Event', firstCost) + card('Repeat Events', repeatCost);
+      }
+
+      document.getElementById('roi-deal-low').addEventListener('input', function() { renderROI(); });
+      document.getElementById('roi-deal-high').addEventListener('input', function() { renderROI(); });
+      document.getElementById('roi-close-rate').addEventListener('input', function() { renderROI(); });
+
+      renderBudget();
+    })();
+
+  </script>
+
+  <!-- jsPDF CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // ═══ SCROLL PROGRESS BAR ═══
+    (function(){var bar=document.getElementById('scroll-progress');window.addEventListener('scroll',function(){var s=window.pageYOffset||document.documentElement.scrollTop;var p=s/(document.documentElement.scrollHeight-window.innerHeight)*100;bar.style.width=Math.min(100,Math.max(0,p))+'%';});})();
+
+    // ═══ BUDGET PDF EXPORT ═══
+    (function(){
+      var roiCards=document.getElementById('roi-cards');
+      var pdfBtn=document.createElement('button');
+      pdfBtn.textContent='Export budget PDF';
+      pdfBtn.className='hero-cta';
+      pdfBtn.style.cssText='margin-top:var(--space-6);display:inline-flex;background:var(--24sa-black);color:var(--24sa-off-white);border-color:var(--24sa-black);';
+      roiCards.parentNode.insertBefore(pdfBtn,roiCards.nextSibling);
+
+      pdfBtn.addEventListener('click',function(){
+        var jsPDF=window.jspdf.jsPDF;
+        var doc=new jsPDF({unit:'mm',format:'letter'});
+        var pw=216,lm=18,rm=18,cw=pw-lm-rm;
+        function fmt(n){return '$'+n.toLocaleString('en-US');}
+        function today(){var d=new Date();var m=['January','February','March','April','May','June','July','August','September','October','November','December'];return m[d.getMonth()]+' '+String(d.getDate()).padStart(2,'0')+', '+d.getFullYear();}
+        function dateISO(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+        var tierBtn=document.querySelector('#budget-calculator .region-pill[data-tier].active');
+        var tier=parseInt(tierBtn.dataset.tier);
+        var tierLabel=tier+' people';
+        var tierFile=tier+'ppl';
+        var tierNote=document.getElementById('tier-note').textContent;
+        var dealLow=parseInt(document.getElementById('roi-deal-low').value)||500000;
+        var dealHigh=parseInt(document.getElementById('roi-deal-high').value)||1500000;
+        var closeRate=parseInt(document.getElementById('roi-close-rate').value);
+        var EXP={30:40000,75:68000,150:111000};
+        var CON={30:39000,75:50000,150:68000};
+        var LEAD={30:32000,75:47500,150:65000};
+        var SVC={30:111000,75:165500,150:244000};
+        var REP={30:100000,75:107500,150:115000};
+        var bte=document.getElementById('budget-total');
+        var allIn=parseInt(bte.querySelector('div:first-child').textContent.replace(/[^0-9]/g,''));
+        var rt=bte.querySelector('div:last-child').textContent;
+        var rm2=rt.match(/\$([\d,]+)\s*to\s*\$([\d,]+)/);
+        var rangeLow=rm2?parseInt(rm2[1].replace(/,/g,'')):allIn;
+        var rangeHigh=rm2?parseInt(rm2[2].replace(/,/g,'')):allIn;
+        var vLo=rangeLow-SVC[tier],vHi=rangeHigh-SVC[tier];
+        var att=tier,mtg=Math.round(att*0.4),dls=mtg*(closeRate/100);
+        var rLo=dls*dealLow,rHi=dls*dealHigh,rAv=(rLo+rHi)/2;
+        var fROI=allIn>0?rAv/allIn:0,fRL=allIn>0?rLo/allIn:0,fRH=allIn>0?rHi/allIn:0;
+        var rc=REP[tier],rpROI=rc>0?rAv/rc:0,rpRL=rc>0?rLo/rc:0,rpRH=rc>0?rHi/rc:0;
+
+        doc.setFont('Helvetica','normal');doc.setFontSize(8);doc.setTextColor(136,136,136);
+        doc.text('AWS Security Symposium \u2014 Budget & ROI Summary',lm,18);
+        doc.text(today(),pw-18,18,{align:'right'});
+        doc.setDrawColor(136,136,136);doc.setLineWidth(0.1);
+        doc.line(lm,22,pw-18,22);
+
+        doc.setFontSize(7);doc.setTextColor(170,170,170);doc.text('EVENT CONFIGURATION',lm,28);
+        doc.setFontSize(8);doc.setTextColor(60,60,60);doc.text('Audience tier',lm,34);
+        doc.setFontSize(10);doc.setFont('Helvetica','bold');doc.setTextColor(30,30,30);doc.text(tierLabel,lm,39);
+        doc.setFontSize(8);doc.setFont('Helvetica','normal');doc.setTextColor(60,60,60);doc.text('Event format',lm+cw/2,34);
+        doc.setFontSize(9);doc.setTextColor(30,30,30);
+        var tn=tierNote.length>80?tierNote.substring(0,77)+'...':tierNote;
+        doc.text(tn,lm+cw/2,39,{maxWidth:cw/2});
+
+        var y=46;
+        doc.setFontSize(7);doc.setTextColor(170,170,170);doc.text('BUDGET SUMMARY',lm,y);y+=6;
+        doc.setFontSize(8);doc.setTextColor(60,60,60);
+        [['Experience Systems',fmt(EXP[tier])],['Content and Production',fmt(CON[tier])],['Lead Management',fmt(LEAD[tier])],['Venue and Hospitality',fmt(vLo)+' \u2013 '+fmt(vHi)]].forEach(function(li){
+          doc.setFont('Helvetica','normal');doc.text(li[0],lm,y);doc.text(li[1],pw-18,y,{align:'right'});y+=6;
+        });
+        doc.setLineWidth(0.1);doc.line(lm,y-2,pw-18,y-2);y+=2;
+        doc.setFontSize(10);doc.setFont('Helvetica','bold');doc.setTextColor(30,30,30);
+        doc.text('All-in estimate',lm,y);doc.setFontSize(12);doc.text(fmt(allIn),pw-18,y,{align:'right'});y+=5;
+        doc.setFontSize(7);doc.setFont('Helvetica','normal');doc.setTextColor(170,170,170);
+        doc.text('Range: '+fmt(rangeLow)+' \u2013 '+fmt(rangeHigh)+' depending on venue and city',lm,y);
+
+        y=110;doc.setFontSize(7);doc.setTextColor(170,170,170);doc.text('ROI ASSUMPTIONS',lm,y);y+=6;
+        doc.setFontSize(8);doc.setTextColor(60,60,60);
+        [['Average deal size',fmt(dealLow)+' \u2013 '+fmt(dealHigh)],['Sales close rate',closeRate+'%'],['Post-event meeting conversion','40% of attendees (benchmark)']].forEach(function(a){
+          doc.text(a[0],lm,y);doc.text(a[1],pw-18,y,{align:'right'});y+=6;
+        });
+
+        y=136;doc.setFontSize(7);doc.setTextColor(170,170,170);doc.text('PROJECTED RETURN',lm,y);y+=6;
+        var bW=82,bG=6,bH=58;
+        [{l:'FIRST EVENT',r:fROI,rl:fRL,rh:fRH},{l:'REPEAT EVENTS',r:rpROI,rl:rpRL,rh:rpRH}].forEach(function(b,i){
+          var bx=lm+i*(bW+bG);
+          doc.setDrawColor(170,170,170);doc.setLineWidth(0.1);doc.roundedRect(bx,y,bW,bH,2,2);
+          var by=y+6;doc.setFontSize(7);doc.setTextColor(170,170,170);doc.text(b.l,bx+5,by);by+=5;
+          doc.setFontSize(8);doc.text('ROI',bx+5,by);by+=7;
+          doc.setFontSize(20);doc.setFont('Helvetica','bold');doc.setTextColor(30,30,30);doc.text(b.r.toFixed(1)+'x',bx+5,by);by+=5;
+          doc.setFontSize(7);doc.setFont('Helvetica','normal');doc.setTextColor(170,170,170);
+          doc.text('Range: '+b.rl.toFixed(1)+'x \u2013 '+b.rh.toFixed(1)+'x',bx+5,by);by+=3;
+          doc.line(bx+5,by,bx+bW-5,by);by+=4;
+          doc.text('Projected meetings: '+mtg,bx+5,by);by+=4;
+          doc.text('Projected deals: '+dls.toFixed(1),bx+5,by);by+=4;
+          doc.text('Projected revenue (median): '+fmt(Math.round(rAv)),bx+5,by);
+        });
+
+        y=200;doc.setFontSize(7);doc.setTextColor(170,170,170);doc.text('NEXT STEPS',lm,y);y+=6;
+        doc.setFontSize(8);doc.setTextColor(60,60,60);
+        [['01.','Execute SOW \u2014 issued within 48 hours of verbal agreement'],['02.','AppSec Review \u2014 Tier 3 documentation on file, ready to submit'],['03.','Project Kickoff \u2014 within one week of SOW execution']].forEach(function(s){
+          doc.setFont('Helvetica','bold');doc.text(s[0],lm,y);doc.setFont('Helvetica','normal');doc.text(' '+s[1],lm+7,y);y+=6;
+        });
+
+        doc.setDrawColor(170,170,170);doc.setLineWidth(0.1);doc.line(lm,261,pw-18,261);
+        doc.setFontSize(7);doc.setTextColor(170,170,170);
+        doc.text('Prepared by 24 Seven Agencies for Amazon Web Services',lm,265);
+        doc.text('Eric Craig: ecraig@thesagegroup.com   Elliot Miller: elliot.miller@sketchdeck.com',pw-18,265,{align:'right'});
+
+        doc.save('AWS-Security-Symposium-Budget-'+tierFile+'-'+dateISO()+'.pdf');
+      });
+    })();
+
+    // ═══ MARKDOWN EXPORT ═══
+    (function(){
+      document.getElementById('nav-export-md').addEventListener('click',function(e){
+        e.preventDefault();
+        var tierBtn=document.querySelector('#budget-calculator .region-pill[data-tier].active');
+        var tier=parseInt(tierBtn.dataset.tier);
+        var dealLow=parseInt(document.getElementById('roi-deal-low').value)||500000;
+        var dealHigh=parseInt(document.getElementById('roi-deal-high').value)||1500000;
+        var closeRate=parseInt(document.getElementById('roi-close-rate').value);
+        function fmt(n){return '$'+n.toLocaleString('en-US');}
+        var EXP={30:40000,75:68000,150:111000},CON={30:39000,75:50000,150:68000},LEAD={30:32000,75:47500,150:65000},SVC={30:111000,75:165500,150:244000},REP={30:100000,75:107500,150:115000};
+        var bte=document.getElementById('budget-total');
+        var allIn=parseInt(bte.querySelector('div:first-child').textContent.replace(/[^0-9]/g,''));
+        var venueMed=allIn-SVC[tier];
+        var rt=bte.querySelector('div:last-child').textContent;
+        var rm2=rt.match(/\$([\d,]+)\s*to\s*\$([\d,]+)/);
+        var rangeLow=rm2?parseInt(rm2[1].replace(/,/g,'')):allIn;
+        var rangeHigh=rm2?parseInt(rm2[2].replace(/,/g,'')):allIn;
+        var att=tier,mtg=Math.round(att*0.4),dls=mtg*(closeRate/100);
+        var rLo=dls*dealLow,rHi=dls*dealHigh,rAv=(rLo+rHi)/2;
+        var firstROI=allIn>0?(rAv/allIn).toFixed(1):'0.0';
+        var repeatROI=REP[tier]>0?(rAv/REP[tier]).toFixed(1):'0.0';
+        var d=new Date();
+        var dateISO=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+        var ms=['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var datePretty=ms[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
+
+        var md='---\ndocument: AWS Security Event Production Proposal\nprepared_by: 24 Seven Agencies\nprepared_for: Amazon Web Services\ndate: '+datePretty+'\nversion: 1.1\nnote: This document is exported for AI-assisted review. All budget figures reflect the audience tier and ROI inputs selected at time of export.\n---\n\n# Welcome to an Invite-Only AWS Security Experience\n\n**Security Ops Simulation. World-class keynotes. Executive networking. Produced by 24 Seven Agencies.**\n\n## Document Overview\n\nThe AWS Security team is evaluating agency partners to help with turnkey event production. As part of this process, you\'ve asked us how we might have produced the recent Gen-AI Security Symposium that took place in New York.\n\n### Event Objectives\n\n1. Deliver a differentiated boutique-style event for Data, IT, and Cybersecurity executives that positions AWS, alongside curated Partners, as the thought leader in Generative AI Security and Governance.\n2. Ability to reproduce the event in other locations.\n3. Produce a remarkable experience that leads to executives talking about AWS with their teams, and elevates their affinity to AWS Security Solutions.\n\n## Executive Summary\n\nThis proposal reimagines the AWS Security Symposium as an immersive, invite-only security ops experience that combines a VR activity, audience participation moments leveraging our "command center" concept, conventional keynote sessions, and networking.\n\n> "People forget up to 70% of new information within 48 hours when learning is passive." -- Ebbinghaus Forgetting Curve, reinforced by modern learning science\n\nThe experience we propose replaces passive consumption with applied participation. Executives practice judgment under pressure using realistic scenarios, shared constraints, and AWS-native services. The result is stronger recall, shared mental models, and greater remarkability for AWS Security events.\n\n## Strategic Rationale\n\nSenior security leaders lack safe environments to test their judgment with their peers across other organizations.\n\nMost executive events optimize for awareness, thought leadership, and brand exposure. Our experience optimizes for decision-making under uncertainty, prioritization when tradeoffs are unavoidable, and coordination across incomplete information.\n\nThe format mirrors real-world security incidents: no one has full visibility, time pressure forces imperfect choices, and outcomes depend on collaboration.\n\nExecutives leave with muscle memory. And with a good story to tell.\n\n## Why This Approach Works\n\nTraditional symposium formats rely on listening, note-taking, and post-event recall. These methods are poorly suited to complex, high-stakes domains like AI security. This experience applies three evidence-backed principles:\n\n### 01. Active Recall Beats Passive Exposure\n\nMaking decisions, even imperfect ones, dramatically improves retention versus listening alone.\n\n### 02. Emotional Stakes Anchor Memory\n\nTime pressure, team dependency, and visible outcomes create recall anchors that slides do not.\n\n### 03. Social Accountability Reinforces Learning\n\nGroup progression and shared success or failure increase focus and commitment.\n\nThe sum of these principles makes for a more remarkable experience.\n\n## Audience and Format\n\n| Parameter | Detail |\n|---|---|\n| Audience Size | 20-30 senior executives |\n| Target Roles | CIO, CISO, Chief Data Officer, Chief AI Officer, senior IT and security leaders |\n| Format | Invite-only, closed-door, no press, no recording |\n| Duration | One full day |\n| Evening | Reception or private dinner |\n\nThe tone is intentionally restrained. The experience is serious, focused, and credible. Participation is required, but no individual is singled out or put on stage.\n\n## Experience Architecture\n\nCore symposium elements remain intact: keynote speakers, expert presentations, technical deep dives, partner perspectives, and executive networking. On top of this foundation, we introduce a 3-layer experience system that fundamentally changes how attendees engage with AI security concepts.\n\n- **Layer 01: Command Center** -- A private, invite-only web platform. The operational backbone of the event.\n- **Layer 02: Security Clearance** -- DEFCON-style NFC badges. Clearance levels unlock as the room participates.\n- **Layer 03: Field Training** -- Immersive VR security games tied directly to keynote content.\n\nEach layer is triggered directly by agenda content and speaker sessions. No layer exists in isolation.\n\n### Layer 01: Command Center\n\nThe Command Center is a private, invite-only web platform that acts as the operational backbone of the event. All attendees are onboarded before the symposium. Access is restricted to registered participants and approved AWS stakeholders.\n\nThe platform functions as:\n- A secure group chat for moderated discussion\n- A live polling and voting system during sessions\n- A mechanism for pushing prompts tied to speaker content\n- A real-time visualization layer for aggregate responses shown in the room\n\nSpeakers use the platform to activate the audience during their sessions. Prompts are designed to force prioritization and judgment calls, not trivia or opinion polling. Moderators surface patterns, disagreements, and edge cases from responses and feed them back into the discussion.\n\nThis creates a continuous feedback loop between content and audience, and demonstrates secure, AI-mediated communication in practice.\n\n### Layer 02: Security Clearance\n\nEach attendee receives a DEFCON-style badge at check-in. The badge is locked by default. It represents the attendee\'s security clearance level throughout the symposium.\n\nFeatures: Physical Buttons, NFC, LEDs, Sensors, Haptic Feedback\n\nProgression is driven by engagement. When the room reaches predefined thresholds (a percentage of attendees voting in a poll or completing a discussion prompt) clearance levels unlock for everyone.\n\nBadges notify individual attendees when new challenges or Field Training modules become available. This directs flow without relying on stage announcements or manual coordination.\n\nThe badge serves as a physical representation of security by design. It turns abstract security principles into a tangible artifact that evolves throughout the event.\n\n### Layer 03: Field Training\n\nField Training is the most immersive component of the symposium. We have designed a custom VR security simulation inspired by cooperative defusal game formats, built from the ground up with AWS-specific scenarios, service names, and decision logic. No third-party IP is used. Teams of four to five rotate through during the day, or participate in a full group breakout.\n\n- **The Challenge:** One team member wears a VR headset and faces a virtual device composed of AI security modules that must be defused under time pressure. That participant cannot solve the challenge alone.\n- **The Collaboration:** Other team members hold physical instruction manuals customized with AWS services, security concepts, and decision logic. They cannot see what the VR participant sees. Success depends entirely on communication, prioritization, and trust under pressure.\n- **The Outcome:** When a team completes or fails a scenario, results feed back to the Command Center leaderboard, sparking discussion around which strategies worked, which failed, and why.\n\nScenario topics:\n- AI model vulnerabilities and failure modes\n- Cloud infrastructure breach containment\n- Identity and access management threats\n- Data exfiltration prevention\n- Adversarial attack mitigation\n\n## The Layers in Action\n\n1. **Keynote Trigger:** A speaker introduces the concept of "AI model poisoning" during a keynote.\n2. **Command Center Activates:** The platform immediately pushes a live poll: "Which AWS service would you deploy first to detect this threat?" Attendees vote and discuss in the secure chat.\n3. **Security Clearance Unlocks:** Collective participation reaches the threshold. Badge LEDs shift from red to yellow across the room, signaling a clearance level upgrade.\n4. **Field Training Triggered:** Individual badges vibrate: "You have unlocked VR Module 3: Model Integrity Breach."\n5. **Debrief Feeds Back:** Teams complete or fail the scenario. Results push to the Command Center leaderboard. Discussion resumes, grounded in live data from the room.\n\nThe result is keynote content that is immediately tested, applied, gamified, and socially reinforced, through three complementary channels working in concert.\n\n## Speaker Sessions\n\nSpeaker sessions serve as a critical draw for invited executives and strategic partners. Invitees will look for top-tier names and logos on the event invite, and 24 Seven manages speaker sourcing and briefing as part of the content strategy deliverable, identifying voices with credibility across AI security, cloud governance, and enterprise risk.\n\nThe day is structured around three to four keynote or featured sessions, each designed to directly trigger one or more of the three experience layers. Speakers are briefed on the Command Center polling format and their sessions include pre-designed activation prompts that push to the platform in real time. Speaker presentation templates are provided and all content is reviewed for alignment with AWS Security priorities prior to the event.\n\n## Lead Management and Executive Journey\n\nWe manage the executive journey from invitation through post-event handoff, ensuring disciplined communication, accurate attendance tracking, and structured transfer to AWS sales stakeholders.\n\n### Base Services\n\n**Invitation and Registration**\n- Secure, agency-managed registration landing page\n- Automated RSVP confirmation with calendar invite (.ics)\n- Automated reminder cadence (7-day and 24-hour)\n- Real-time RSVP tracking dashboard\n- Data capture aligned to AWS-required fields\n- Secure data storage and deletion policy\n\n**AWS Stakeholder Coordination**\n- Kickoff alignment email to AWS sales stakeholders\n- Final confirmed attendee list shared 72 hours prior\n\n**Onsite Attendance Capture**\n- Digital check-in with attendance tracking\n- Reconciliation of RSVP vs actual attendance\n\n**Post-Event Communication**\n- Thank-you email within 24 hours\n- Secure CSV handoff for Salesforce upload\n\n### Upgraded Lead Management\n\n**Targeted Executive Sourcing**\n- Curated target account list (1,000-1,200 executive contacts)\n- Contact enrichment and quality control\n- Coordination with AWS sales for priority account alignment\n- Speaker and partner co-invite amplification\n\n**Multi-Touch Outreach Cadence**\n- Initial invite + two additional reminder emails\n- 48-hour logistics confirmation\n- Segmented messaging for priority accounts\n- LinkedIn InMail for high-value contacts (up to 100)\n\n**Post-Event Meeting Conversion Enablement**\n- Attendee preview list to AWS sellers (48 hours prior)\n- "Sorry we missed you" no-show outreach\n- Two-touch follow-up for unbooked attendees\n- 7-day post-event conversion summary\n\n**Data Governance**\n- Role-based access controls\n- Secure CSV delivery in AWS-approved format\n- Data deletion policy on request\n\n## Turnkey Event Production Deliverables\n\n**01. Experience and Content Strategy**\n- Event narrative and thematic framing aligned to AWS Security priorities\n- Agenda architecture and session sequencing\n- Integration of speaker content with experiential systems\n- Scenario design tied to real AWS security use cases\n- Run-of-show development mapped to system triggers\n- Speaker briefing documents\n- Moderator runbooks and facilitation guides\n- Presentation template for AWS speakers\n- Event landing page designed and copywritten\n\n**02. Experience Systems**\n- Command Center live chat and polling platform\n- Security Clearance badge system (30 units)\n- Field Training VR simulation modules\n- System configuration and pre-event testing\n- On-site technical setup and support\n- Post-event system debrief and insights capture\n\n**03. Base Lead Management Services**\n- Secure RSVP registration environment setup\n- Invitation drafting and email copy\n- Initial invite deployment + one reminder\n- RSVP tracking and approval workflow\n- Automated calendar invite upon confirmation\n- Kickoff alignment email to AWS sales stakeholders\n- Final attendee list 72 hours prior\n- Digital onsite check-in and reconciliation\n- Thank-you email within 24 hours\n- Secure attendee data export for Salesforce\n\n**04. Upgraded Lead Management Services**\n- Two additional reminder emails\n- 48-hour pre-event logistics confirmation\n- Attendee preview list 48 hours prior\n- Seller outreach prompt email\n- Pre-event stakeholder briefing summary\n- "Sorry we missed you" to no-shows\n- Meeting conversion tracking (7-day readout)\n- High-touch meeting scheduling assistance\n\n**05. Production and Operations**\n- Venue sourcing and negotiation\n- Space planning and layout design\n- AV coordination and technical production management\n- Dedicated Wi-Fi coordination\n- Catering and hospitality planning\n- Vendor management (AV, fabrication, print)\n- Budget tracking and cost reconciliation\n- Night-before load-in planning\n- On-site staffing: Executive producer, 3 event staff, 1 additional facilitator\n\n**06. Data Governance and Reporting**\n- Role-based access controls\n- Secure attendee list transfer\n- Data deletion policy execution if needed\n- No AWS internal systems access if required\n- Internal AWS post-event readout: Attendance metrics, Participation patterns, Qualitative executive insights\n\n## Outcomes and Repeatability\n\nSuccess indicators:\n- Executive recall and post-event feedback\n- Depth and consistency of participation throughout the day\n- Post-event engagement with AWS Security resources\n- Internal AWS assessment of format effectiveness\n\n### Built to Scale\n\nThis format is intentionally built as a reusable executive enablement system. Core experience components are designed once and redeployed with minimal modification, allowing future events to focus on logistics rather than reinvention.\n\nThe initial event carries the highest development investment. Subsequent deployments benefit from lower marginal cost, faster setup, and increased operational confidence.\n\nOver time, this positions the AWS Security Symposium not as a one-off activation, but as a scalable tactic within AWS Security\'s engagement playbook.\n\n### Attendee Sourcing Assumptions\n\n| Metric | Value |\n|---|---|\n| Registration target | 90 event registrants |\n| In-room target | 30 attendees |\n| Executive contact list size | 1,000-1,200 targeted contacts |\n| Expected registration rate | 8-10% from curated outreach |\n| Invite amplification | AWS partners co-leveraged |\n\n40% follow-up meeting conversion within 30 days, approximately 12 post-event sales meetings from a 30-person audience.\n\n## Budget Summary\n\nSelected audience tier: **'+tier+' people**\n\n| Category | Amount |\n|---|---|\n| Experience Systems | '+fmt(EXP[tier])+' |\n| Content and Production | '+fmt(CON[tier])+' |\n| Lead Management | '+fmt(LEAD[tier])+' |\n| Venue and Hospitality | '+fmt(venueMed)+' (est.) |\n| **All-in estimate** | **'+fmt(allIn)+'** |\n| Range | '+fmt(rangeLow)+' - '+fmt(rangeHigh)+' |\n\n### ROI Output\n\n| Metric | First Event | Repeat Events |\n|---|---|---|\n| Median ROI | '+firstROI+'x | '+repeatROI+'x |\n| Projected meetings | '+mtg+' | '+mtg+' |\n| Projected deals | '+dls.toFixed(1)+' | '+dls.toFixed(1)+' |\n| Projected revenue (median) | '+fmt(Math.round(rAv))+' | '+fmt(Math.round(rAv))+' |\n\n> ROI inputs at time of export: Deal size '+fmt(dealLow)+' to '+fmt(dealHigh)+', close rate '+closeRate+'%, audience tier '+tier+' people.\n\n## Case Study: Transforming a Welcome Center into an Immersive Spaceship for LifeWave\n\nFutureman, a 24 Seven Agency, partnered with LifeWave, a global health company, to design a flagship Experience Center for high-value customers. The objective was to replace one-way presentations with an immersive, self-directed environment that allowed visitors to control their depth of learning while reinforcing LifeWave\'s innovation narrative.\n\nThe experience unfolded as a structured, multi-room journey, combining shared moments such as a founder welcome delivered via a life-size, language-localized hologram and an immersive brand storytelling environment, with hands-on product exploration through interactive kiosks and a forward-looking roadmap space.\n\nThe program required close integration across physical design, digital platforms, content, and live operations, with an emphasis on reliability and clarity rather than spectacle alone.\n\nThis experience was designed as a reusable system, with modular content and interaction models that scale across audiences, regions, and future deployments, the same architectural principle underlying our proposal for AWS Security.\n\n## Next Steps\n\n1. **Execute the SOW** -- Upon verbal agreement, we will issue a Statement of Work within 48 hours covering scope, deliverables, milestones, and data governance terms. Estimated turnaround from issue to countersignature: 5 to 7 business days.\n2. **Complete AppSec Review** -- 24 Seven has previously completed AWS Tier 3 AppSec Review and holds all required documentation on file, enabling a fast re-verification path rather than a first-time submission. We can submit materials immediately upon request.\n3. **Project Kickoff** -- Within one week of SOW execution, we will meet with the core AWS and 24 Seven teams to align on event objectives, audience tier, experience system requirements, and Salesforce handoff format. A kickoff brief will be distributed in advance and decisions documented within 24 hours.\n\nReady to move when you are. Reach out to either contact below to schedule a 30-minute alignment call.\n\n## About 24 Seven Agencies\n\nOne Partner. Every Discipline.\n\n24 Seven Agencies is an integrated group of three specialized agencies: Futureman, SketchDeck, and Markacy, designed to support complex work that requires tight coordination across strategy, creative, technology, and execution.\n\nWe regularly operate as an extension of internal teams, owning programs end to end while reducing vendor sprawl and operational overhead. Our model combines senior-led strategy, on-demand creative and production capacity, and dedicated technical and operational teams, allowing us to scale up or down without sacrificing quality or control.\n\nFor AWS, this means a single accountable partner that can design the experience, build the systems, produce the assets, and run the event with the rigor and reliability expected in high-stakes environments.\n\n## Contact\n\n- **Eric Craig**, VP Client Management, The Sage Group, ecraig@thesagegroup.com\n- **Elliot Miller**, Sr Director of Amazon Partnerships, 24 Seven Agencies, elliot.miller@sketchdeck.com\n';
+
+        var blob=new Blob([md],{type:'text/markdown'});
+        var a=document.createElement('a');
+        a.href=URL.createObjectURL(blob);
+        a.download='AWS-Security-Symposium-Proposal-'+dateISO+'.md';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+        document.querySelector('.nav-links').classList.remove('open');
+      });
     })();
   </script>
+
 
 </body>
 </html>
